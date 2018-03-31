@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="card_height">220dp</dimen>
+    <dimen name="card_title_padding">8dp</dimen>
+    <dimen name="card_title_textSize">14sp</dimen>
+
+    <!-- card trailer dimens -->
+    <dimen name="card_trailer_width">95dp</dimen>
+    <dimen name="card_trailer_height">150dp</dimen>
+    <dimen name="card_trailer_margin">6dp</dimen>
+
+    <dimen name="card_similar_width">95dp</dimen>
+    <dimen name="card_similar_height">160dp</dimen>
+    <dimen name="card_similar_margin">6dp</dimen>
+
+</resources>

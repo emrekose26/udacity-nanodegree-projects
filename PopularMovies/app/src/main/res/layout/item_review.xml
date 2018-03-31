@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/review_user_img"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/user" />
+
+    <TextView
+        android:id="@+id/review_author"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/review_user_img"
+        android:layout_toRightOf="@id/review_user_img"
+        android:paddingLeft="8dp"
+        android:paddingStart="8dp"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
+        tools:text="author" />
+
+    <TextView
+        android:id="@+id/review_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/review_author"
+        android:layout_toEndOf="@+id/review_user_img"
+        android:layout_toRightOf="@+id/review_user_img"
+        android:padding="8dp"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+        tools:text="Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet." />
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_below="@id/review_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="58dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="58dp"
+        android:background="#ddd" />
+
+</RelativeLayout>

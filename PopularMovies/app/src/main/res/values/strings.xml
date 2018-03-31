@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Popular Movies</string>
+    <string name="menu_sort">Sort</string>
+    <string name="popular_sort">Popular Movies</string>
+    <string name="toprated_sort">Top Rated</string>
+    <string name="favorite_sort">Favorites</string>
+
+    <string name="detail_movie_overview">Overview</string>
+    <string name="detail_movie_reviews">Reviews</string>
+    <string name="transition_poster">transition_poster</string>
+</resources>
