@@ -4,9 +4,9 @@ This is Project 1 & Project 2 of Udacity's Android Developer Nanodegree.
 
 ## Screenshots
 
-<img src="https://github.com/emrekose26/udacity-nanodegree-projects/tree/master/PopularMovies/art/pmss1.png" width="350"> <img src="https://github.com/emrekose26/udacity-nanodegree-projects/tree/master/PopularMovies/art/pmss2.png" width="350">
+<img src="https://raw.githubusercontent.com/emrekose26/udacity-nanodegree-projects/master/PopularMovies/art/pmss1.png" width="350"> <img src="https://raw.githubusercontent.com/emrekose26/udacity-nanodegree-projects/master/PopularMovies/art/pmss2.png" width="350">
 
-<img src="https://github.com/emrekose26/udacity-nanodegree-projects/tree/master/PopularMovies/art/pmss3.png" width="350"> <img src="https://github.com/emrekose26/udacity-nanodegree-projects/tree/master/PopularMovies/art/pmss4.png" width="350">
+<img src="https://raw.githubusercontent.com/emrekose26/udacity-nanodegree-projects/master/PopularMovies/art/pmss3.png" width="350"> <img src="https://github.com/emrekose26/udacity-nanodegree-projects/tree/master/PopularMovies/art/pmss4.png" width="350">
 
 
 ## Rubric
