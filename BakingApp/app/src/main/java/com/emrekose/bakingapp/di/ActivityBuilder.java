@@ -1,8 +1,13 @@
 package com.emrekose.bakingapp.di;
 
+import com.emrekose.bakingapp.ui.recipes.MainActivity;
+
 import dagger.Module;
+import dagger.android.ContributesAndroidInjector;
 
 @Module
 public abstract class ActivityBuilder {
-    // TODO: 4.04.2018 activity contribution
+
+    @ContributesAndroidInjector(modules = FragmentBuilder.class)
+    abstract MainActivity mainActivity();
 }

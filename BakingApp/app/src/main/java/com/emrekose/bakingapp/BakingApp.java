@@ -3,6 +3,7 @@ package com.emrekose.bakingapp;
 import android.app.Activity;
 import android.app.Application;
 
+import com.emrekose.bakingapp.di.DaggerAppComponent;
 import com.facebook.stetho.Stetho;
 
 import javax.inject.Inject;
@@ -30,7 +31,10 @@ public class BakingApp extends Application implements HasActivityInjector {
     }
 
     private void initInjector() {
-        // TODO: 3.04.2018 init app injection
+        DaggerAppComponent.builder()
+                .application(this)
+                .build()
+                .inject(this);
     }
 
     @Override

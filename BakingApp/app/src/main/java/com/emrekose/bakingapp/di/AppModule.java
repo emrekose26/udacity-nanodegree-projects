@@ -2,6 +2,10 @@ package com.emrekose.bakingapp.di;
 
 import com.emrekose.bakingapp.BuildConfig;
 import com.emrekose.bakingapp.data.remote.ApiSource;
+import com.emrekose.bakingapp.ui.recipes.RecipeListFragment;
+import com.emrekose.bakingapp.ui.recipes.RecipesInteractor;
+import com.emrekose.bakingapp.ui.recipes.RecipesMvpView;
+import com.emrekose.bakingapp.ui.recipes.RecipesPresenter;
 import com.emrekose.bakingapp.utils.Constants;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 
@@ -20,7 +24,7 @@ public class AppModule {
 
     @Provides
     @Singleton
-    HttpLoggingInterceptor provideHttpLoggingInterceptor(){
+    HttpLoggingInterceptor provideHttpLoggingInterceptor() {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         return interceptor;
@@ -48,6 +52,21 @@ public class AppModule {
                 .build();
 
         return retrofit.create(ApiSource.class);
+    }
+
+    @Provides
+    RecipesMvpView provideRecipesMvpView() {
+        return new RecipeListFragment();
+    }
+
+    @Provides
+    RecipesInteractor provideRecipesInteractor(ApiSource apiSource) {
+        return new RecipesInteractor(apiSource);
+    }
+
+    @Provides
+    RecipesPresenter provideRecipesPresenter(RecipesMvpView view, RecipesInteractor interactor) {
+        return new RecipesPresenter(view, interactor);
     }
 
 }

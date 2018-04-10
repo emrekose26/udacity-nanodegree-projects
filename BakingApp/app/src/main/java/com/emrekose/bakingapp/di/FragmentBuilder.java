@@ -1,8 +1,13 @@
 package com.emrekose.bakingapp.di;
 
+import com.emrekose.bakingapp.ui.recipes.RecipeListFragment;
+
 import dagger.Module;
+import dagger.android.ContributesAndroidInjector;
 
 @Module
 public abstract class FragmentBuilder {
-    // TODO: 4.04.2018 fragment contribution
+
+    @ContributesAndroidInjector
+    abstract RecipeListFragment contributeRecipeListFragment();
 }
