@@ -2,6 +2,7 @@ package com.emrekose.bakingapp.ui.recipes;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import timber.log.Timber;
 
 public class RecipesRecyclerAdapter extends RecyclerView.Adapter<RecipesRecyclerAdapter.ViewHolder> {
 
@@ -45,6 +47,11 @@ public class RecipesRecyclerAdapter extends RecyclerView.Adapter<RecipesRecycler
         holder.recipeName.setText(recipeResponse.getName());
         holder.recipeServing.setText(recipeResponse.getServings() + " serving");
         holder.recipeImg.setImageResource(RecipeImgUtils.getRecipeImg(recipeResponse.getId()));
+
+        holder.recipeCard.setOnClickListener(v -> {
+            // TODO: 21.04.2018 listener ekle
+            Timber.e(recipeResponse.getName());
+        });
     }
 
     @Override
@@ -62,6 +69,9 @@ public class RecipesRecyclerAdapter extends RecyclerView.Adapter<RecipesRecycler
 
         @BindView(R.id.recipeServing)
         TextView recipeServing;
+
+        @BindView(R.id.recipeCard)
+        CardView recipeCard;
 
         public ViewHolder(View itemView) {
             super(itemView);
