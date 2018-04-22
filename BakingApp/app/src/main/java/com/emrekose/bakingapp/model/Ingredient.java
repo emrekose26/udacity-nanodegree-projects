@@ -2,7 +2,9 @@ package com.emrekose.bakingapp.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Ingredient {
+import java.io.Serializable;
+
+public class Ingredient implements Serializable {
     @SerializedName("quantity")
     private double quantity;
 

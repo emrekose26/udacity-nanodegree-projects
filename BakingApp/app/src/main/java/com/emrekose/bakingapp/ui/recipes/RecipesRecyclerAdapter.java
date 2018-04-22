@@ -14,6 +14,7 @@ import com.emrekose.bakingapp.R;
 import com.emrekose.bakingapp.model.RecipeResponse;
 import com.emrekose.bakingapp.utils.RecipeImgUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -21,7 +22,7 @@ import butterknife.ButterKnife;
 
 public class RecipesRecyclerAdapter extends RecyclerView.Adapter<RecipesRecyclerAdapter.ViewHolder> {
 
-    private List<RecipeResponse> responseList;
+    private List<RecipeResponse> responseList = new ArrayList<>();
     private Context context;
     private RecipeClickListener recipeClickListener;
 

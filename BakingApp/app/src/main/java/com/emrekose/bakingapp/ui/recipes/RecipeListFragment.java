@@ -17,6 +17,7 @@ import com.emrekose.bakingapp.base.BaseFragment;
 import com.emrekose.bakingapp.model.RecipeResponse;
 import com.emrekose.bakingapp.ui.detail.RecipeDetailActivity;
 import com.emrekose.bakingapp.utils.ColumnUtils;
+import com.emrekose.bakingapp.utils.Constants;
 
 import java.util.List;
 
@@ -40,8 +41,6 @@ public class RecipeListFragment extends BaseFragment implements RecipesMvpView, 
     RecipesPresenter presenter;
 
     RecipesRecyclerAdapter adapter;
-
-    private static final String RECIPES_EXTRA = "recipes";
 
     public RecipeListFragment() {
         // Required empty public constructor
@@ -123,7 +122,7 @@ public class RecipeListFragment extends BaseFragment implements RecipesMvpView, 
     @Override
     public void onRecipeClick(RecipeResponse recipeResponse) {
         Intent i = new Intent(getActivity(), RecipeDetailActivity.class);
-        i.putExtra(RECIPES_EXTRA, recipeResponse);
+        i.putExtra(Constants.RECIPES_EXTRA, recipeResponse);
         startActivity(i);
     }
 }
