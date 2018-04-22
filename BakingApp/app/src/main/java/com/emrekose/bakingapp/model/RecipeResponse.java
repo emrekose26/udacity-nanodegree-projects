@@ -1,10 +1,13 @@
 package com.emrekose.bakingapp.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class RecipeResponse {
+public class RecipeResponse implements Parcelable {
     @SerializedName("id")
     private int id;
 
@@ -22,6 +25,25 @@ public class RecipeResponse {
 
     @SerializedName("image")
     private String image;
+
+    protected RecipeResponse(Parcel in) {
+        id = in.readInt();
+        name = in.readString();
+        servings = in.readInt();
+        image = in.readString();
+    }
+
+    public static final Creator<RecipeResponse> CREATOR = new Creator<RecipeResponse>() {
+        @Override
+        public RecipeResponse createFromParcel(Parcel in) {
+            return new RecipeResponse(in);
+        }
+
+        @Override
+        public RecipeResponse[] newArray(int size) {
+            return new RecipeResponse[size];
+        }
+    };
 
     public int getId() {
         return id;
@@ -69,5 +91,18 @@ public class RecipeResponse {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(id);
+        parcel.writeString(name);
+        parcel.writeInt(servings);
+        parcel.writeString(image);
     }
 }

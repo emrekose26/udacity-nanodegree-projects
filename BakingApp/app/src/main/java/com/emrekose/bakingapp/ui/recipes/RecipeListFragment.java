@@ -1,6 +1,7 @@
 package com.emrekose.bakingapp.ui.recipes;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -14,6 +15,7 @@ import android.widget.ProgressBar;
 import com.emrekose.bakingapp.R;
 import com.emrekose.bakingapp.base.BaseFragment;
 import com.emrekose.bakingapp.model.RecipeResponse;
+import com.emrekose.bakingapp.ui.detail.RecipeDetailActivity;
 import com.emrekose.bakingapp.utils.ColumnUtils;
 
 import java.util.List;
@@ -26,7 +28,7 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RecipeListFragment extends BaseFragment implements RecipesMvpView {
+public class RecipeListFragment extends BaseFragment implements RecipesMvpView, RecipesRecyclerAdapter.RecipeClickListener {
 
     @BindView(R.id.recipeListProgressbar)
     ProgressBar progressBar;
@@ -38,6 +40,8 @@ public class RecipeListFragment extends BaseFragment implements RecipesMvpView {
     RecipesPresenter presenter;
 
     RecipesRecyclerAdapter adapter;
+
+    private static final String RECIPES_EXTRA = "recipes";
 
     public RecipeListFragment() {
         // Required empty public constructor
@@ -83,7 +87,7 @@ public class RecipeListFragment extends BaseFragment implements RecipesMvpView {
 
     @Override
     public void renderRecipes(List<RecipeResponse> recipesList) {
-        adapter = new RecipesRecyclerAdapter(recipesList, getActivity());
+        adapter = new RecipesRecyclerAdapter(recipesList, getActivity(), this);
 
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), ColumnUtils.numberOfColumns(getActivity())));
         recyclerView.setAdapter(adapter);
@@ -114,5 +118,12 @@ public class RecipeListFragment extends BaseFragment implements RecipesMvpView {
     @Override
     public void showServerError() {
         Snackbar.make(getActivity().findViewById(R.id.main_layout), "Something went wrong. Server not found", Snackbar.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRecipeClick(RecipeResponse recipeResponse) {
+        Intent i = new Intent(getActivity(), RecipeDetailActivity.class);
+        i.putExtra(RECIPES_EXTRA, recipeResponse);
+        startActivity(i);
     }
 }

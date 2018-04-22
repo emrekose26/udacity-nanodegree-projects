@@ -14,21 +14,21 @@ import com.emrekose.bakingapp.R;
 import com.emrekose.bakingapp.model.RecipeResponse;
 import com.emrekose.bakingapp.utils.RecipeImgUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import timber.log.Timber;
 
 public class RecipesRecyclerAdapter extends RecyclerView.Adapter<RecipesRecyclerAdapter.ViewHolder> {
 
-    private List<RecipeResponse> responseList = new ArrayList<>();
+    private List<RecipeResponse> responseList;
     private Context context;
+    private RecipeClickListener recipeClickListener;
 
-    public RecipesRecyclerAdapter(List<RecipeResponse> responseList, Context context) {
+    public RecipesRecyclerAdapter(List<RecipeResponse> responseList, Context context, RecipeClickListener listener) {
         this.responseList = responseList;
         this.context = context;
+        this.recipeClickListener = listener;
     }
 
     @NonNull
@@ -49,8 +49,8 @@ public class RecipesRecyclerAdapter extends RecyclerView.Adapter<RecipesRecycler
         holder.recipeImg.setImageResource(RecipeImgUtils.getRecipeImg(recipeResponse.getId()));
 
         holder.recipeCard.setOnClickListener(v -> {
-            // TODO: 21.04.2018 listener ekle
-            Timber.e(recipeResponse.getName());
+            if (recipeClickListener != null)
+                recipeClickListener.onRecipeClick(recipeResponse);
         });
     }
 
@@ -77,5 +77,9 @@ public class RecipesRecyclerAdapter extends RecyclerView.Adapter<RecipesRecycler
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
+    }
+
+    interface RecipeClickListener {
+        void onRecipeClick(RecipeResponse recipeResponse);
     }
 }
