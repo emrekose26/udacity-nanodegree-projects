@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.emrekose.bakingapp.R;
@@ -125,6 +126,11 @@ public class RecipeDetailFragment extends Fragment implements IStepperAdapter {
             if (verticalStepperView.canNext()) {
                 verticalStepperView.nextStep();
             }
+
+            // TODO: 23.04.2018 two pane check
+            Intent intent = new Intent(getActivity(), StepsActivity.class);
+            intent.putExtra(Constants.STEPS_EXTRA, response.getSteps().get(index));
+            startActivity(intent);
         });
 
         Button prevButton = inflateView.findViewById(R.id.button_prev);
@@ -136,12 +142,12 @@ public class RecipeDetailFragment extends Fragment implements IStepperAdapter {
             }
         });
 
-        inflateView.setOnClickListener(v -> {
-            // TODO: 23.04.2018 two pane check
-            Intent intent = new Intent(getActivity(), StepsActivity.class);
-            intent.putExtra(Constants.STEPS_EXTRA, response.getSteps().get(index));
-            startActivity(intent);
-        });
+        ImageView videoIcon = inflateView.findViewById(R.id.item_video_icon);
+        if (!response.getSteps().get(index).getVideoURL().equals("")) {
+            videoIcon.setVisibility(View.VISIBLE);
+        } else {
+            videoIcon.setVisibility(View.GONE);
+        }
 
         return inflateView;
     }
