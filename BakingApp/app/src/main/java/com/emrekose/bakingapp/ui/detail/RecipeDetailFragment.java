@@ -2,6 +2,7 @@ package com.emrekose.bakingapp.ui.detail;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 
 import com.emrekose.bakingapp.R;
 import com.emrekose.bakingapp.model.RecipeResponse;
+import com.emrekose.bakingapp.ui.steps.StepsActivity;
 import com.emrekose.bakingapp.utils.Constants;
 
 import butterknife.BindView;
@@ -81,7 +83,7 @@ public class RecipeDetailFragment extends Fragment implements IStepperAdapter {
             String ingredient = response.getIngredients().get(i).getIngredient();
             double quantity = response.getIngredients().get(i).getQuantity();
             String measure = response.getIngredients().get(i).getMeasure();
-            String formattedValue = (i + 1) + ". " + ingredient + "(" + quantity + " " + measure + ")" +"\n";
+            String formattedValue = (i + 1) + ". " + ingredient + "(" + quantity + " " + measure + ")" + "\n";
             recipeIngredients.append(formattedValue);
         }
     }
@@ -132,6 +134,13 @@ public class RecipeDetailFragment extends Fragment implements IStepperAdapter {
             } else {
                 verticalStepperView.setAnimationEnabled(!verticalStepperView.isAnimationEnabled());
             }
+        });
+
+        inflateView.setOnClickListener(v -> {
+            // TODO: 23.04.2018 two pane check
+            Intent intent = new Intent(getActivity(), StepsActivity.class);
+            intent.putExtra(Constants.STEPS_EXTRA, response.getSteps().get(index));
+            startActivity(intent);
         });
 
         return inflateView;
