@@ -8,4 +8,9 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="StepsNavigationButton">
+        <item name="android:background">@null</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
 </resources>

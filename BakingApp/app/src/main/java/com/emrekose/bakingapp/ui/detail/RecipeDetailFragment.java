@@ -1,6 +1,7 @@
 package com.emrekose.bakingapp.ui.detail;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,6 +20,8 @@ import com.emrekose.bakingapp.R;
 import com.emrekose.bakingapp.model.RecipeResponse;
 import com.emrekose.bakingapp.ui.steps.StepsActivity;
 import com.emrekose.bakingapp.utils.Constants;
+
+import java.io.Serializable;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -129,8 +132,9 @@ public class RecipeDetailFragment extends Fragment implements IStepperAdapter {
 
             // TODO: 23.04.2018 two pane check
             Intent intent = new Intent(getActivity(), StepsActivity.class);
-            intent.putExtra(Constants.STEPS_EXTRA, response.getSteps().get(index));
-            startActivity(intent);
+            intent.putExtra(Constants.STEPS_EXTRA, (Serializable) response.getSteps());
+            intent.putExtra(Constants.STEPS_INDEX_EXTRA, index);
+            startActivityForResult(intent, Constants.STEPS_REQUEST_CODE);
         });
 
         Button prevButton = inflateView.findViewById(R.id.button_prev);
@@ -161,4 +165,20 @@ public class RecipeDetailFragment extends Fragment implements IStepperAdapter {
     public void onHide(int i) {
 
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == Constants.STEPS_REQUEST_CODE) {
+            if (resultCode == Activity.RESULT_OK) {
+                int stepIndex = data.getIntExtra(Constants.STEP_INDEX_RESULT, 0);
+                verticalStepperView.setCurrentStep(stepIndex);
+                verticalStepperView.scrollTo(stepIndex, 0);
+            }
+        }
+    }
+
 }
+
+

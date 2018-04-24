@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,8 +10,37 @@
         android:id="@+id/step_desc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="20dp"
+        android:padding="16dp"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-        tools:text="Step description"/>
+        tools:text="Step description" />
 
-</LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimaryDark"
+        android:paddingEnd="8dp"
+        android:paddingStart="8dp">
+
+        <Button
+            android:id="@+id/next_step"
+            style="@style/StepsNavigationButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:drawableEnd="@drawable/ic_keyboard_arrow_right"
+            android:text="Next" />
+
+        <Button
+            android:id="@+id/prev_step"
+            style="@style/StepsNavigationButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_keyboard_arrow_left"
+            android:text="Prev" />
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
