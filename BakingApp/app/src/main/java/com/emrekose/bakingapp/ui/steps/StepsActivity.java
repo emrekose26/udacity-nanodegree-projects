@@ -15,7 +15,7 @@ public class StepsActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             // TODO: 23.04.2018 two pane check
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.steps_container, StepsFragment.newInstance())
+                    .replace(R.id.steps_container, StepsFragment.newInstance(null))
                     .commit();
         }
     }

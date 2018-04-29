@@ -38,14 +38,17 @@ public class StepsFragment extends Fragment {
 
     int stepIndex;
 
+    private static final String STEP_ARG = "step_arg";
+
 
     public StepsFragment() {
         // Required empty public constructor
     }
 
-    public static StepsFragment newInstance() {
+    public static StepsFragment newInstance(Step step) {
 
         Bundle args = new Bundle();
+        args.putSerializable(STEP_ARG, step);
 
         StepsFragment fragment = new StepsFragment();
         fragment.setArguments(args);
@@ -65,34 +68,39 @@ public class StepsFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        if (getActivity().getIntent() != null) {
-            List<Step> stepList = (List<Step>) getActivity().getIntent().getExtras().getSerializable(Constants.STEPS_EXTRA);
-            stepIndex = (getActivity().getIntent().getExtras().getInt(Constants.STEPS_INDEX_EXTRA));
-            stepDescription.setText(stepList.get(stepIndex).getDescription());
+        if (getArguments().getSerializable(STEP_ARG) != null) {
+            Step step = (Step) getArguments().getSerializable(STEP_ARG);
+            stepDescription.setText(step.getDescription());
+        } else {
+            if (getActivity().getIntent() != null) {
+                List<Step> stepList = (List<Step>) getActivity().getIntent().getExtras().getSerializable(Constants.STEPS_EXTRA);
+                stepIndex = (getActivity().getIntent().getExtras().getInt(Constants.STEPS_INDEX_EXTRA));
+                stepDescription.setText(stepList.get(stepIndex).getDescription());
 
-            Intent resultIntent = new Intent();
+                Intent resultIntent = new Intent();
 
-            nextStepBtn.setOnClickListener(v -> {
-                if (stepIndex != stepList.size() - 1) {
-                    stepIndex++;
-                    stepDescription.setText(stepList.get(stepIndex).getDescription());
-                } else {
-                    Toast.makeText(getActivity(), "Last Step", Toast.LENGTH_SHORT).show();
-                }
+                nextStepBtn.setOnClickListener(v -> {
+                    if (stepIndex != stepList.size() - 1) {
+                        stepIndex++;
+                        stepDescription.setText(stepList.get(stepIndex).getDescription());
+                    } else {
+                        Toast.makeText(getActivity(), "Last Step", Toast.LENGTH_SHORT).show();
+                    }
 
-                setResult(stepIndex, resultIntent);
-            });
+                    setResult(stepIndex, resultIntent);
+                });
 
-            prevStepBtn.setOnClickListener(v -> {
-                if (stepIndex != 0) {
-                    stepIndex--;
-                    stepDescription.setText(stepList.get(stepIndex).getDescription());
-                } else {
-                    Toast.makeText(getActivity(), "First Step", Toast.LENGTH_SHORT).show();
-                }
+                prevStepBtn.setOnClickListener(v -> {
+                    if (stepIndex != 0) {
+                        stepIndex--;
+                        stepDescription.setText(stepList.get(stepIndex).getDescription());
+                    } else {
+                        Toast.makeText(getActivity(), "First Step", Toast.LENGTH_SHORT).show();
+                    }
 
-                setResult(stepIndex, resultIntent);
-            });
+                    setResult(stepIndex, resultIntent);
+                });
+            }
         }
     }
 

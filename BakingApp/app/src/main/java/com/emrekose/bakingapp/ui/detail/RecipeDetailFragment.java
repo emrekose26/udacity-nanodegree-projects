@@ -19,6 +19,8 @@ import android.widget.TextView;
 import com.emrekose.bakingapp.R;
 import com.emrekose.bakingapp.model.RecipeResponse;
 import com.emrekose.bakingapp.ui.steps.StepsActivity;
+import com.emrekose.bakingapp.ui.steps.StepsFragment;
+import com.emrekose.bakingapp.utils.ConfigLayoutSizeUtil;
 import com.emrekose.bakingapp.utils.Constants;
 
 import java.io.Serializable;
@@ -42,13 +44,16 @@ public class RecipeDetailFragment extends Fragment implements IStepperAdapter {
 
     RecipeResponse response;
 
+    private static final String RECIPE_ARGUMENT = "recipe_arg";
+
     public RecipeDetailFragment() {
         // Required empty public constructor
     }
 
-    public static RecipeDetailFragment newInstance() {
+    public static RecipeDetailFragment newInstance(RecipeResponse response) {
 
         Bundle args = new Bundle();
+        args.putSerializable(RECIPE_ARGUMENT, response);
 
         RecipeDetailFragment fragment = new RecipeDetailFragment();
         fragment.setArguments(args);
@@ -73,8 +78,8 @@ public class RecipeDetailFragment extends Fragment implements IStepperAdapter {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        if (getActivity().getIntent() != null) {
-            response = (RecipeResponse) getActivity().getIntent().getExtras().getSerializable(Constants.RECIPES_EXTRA);
+        if (getArguments() != null) {
+            response = (RecipeResponse) getArguments().getSerializable(RECIPE_ARGUMENT);
             setIngredients(response);
             verticalStepperView.setStepperAdapter(this);
         }
@@ -130,11 +135,18 @@ public class RecipeDetailFragment extends Fragment implements IStepperAdapter {
                 verticalStepperView.nextStep();
             }
 
-            // TODO: 23.04.2018 two pane check
-            Intent intent = new Intent(getActivity(), StepsActivity.class);
-            intent.putExtra(Constants.STEPS_EXTRA, (Serializable) response.getSteps());
-            intent.putExtra(Constants.STEPS_INDEX_EXTRA, index);
-            startActivityForResult(intent, Constants.STEPS_REQUEST_CODE);
+            if (ConfigLayoutSizeUtil.isTabletMode(getActivity())){
+                if (inflateView.findViewById(R.id.steps_container) == null) {
+                    getActivity().getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.steps_container, StepsFragment.newInstance(response.getSteps().get(index)))
+                            .commit();
+                }
+            } else {
+                Intent intent = new Intent(getActivity(), StepsActivity.class);
+                intent.putExtra(Constants.STEPS_EXTRA, (Serializable) response.getSteps());
+                intent.putExtra(Constants.STEPS_INDEX_EXTRA, index);
+                startActivityForResult(intent, Constants.STEPS_REQUEST_CODE);
+            }
         });
 
         Button prevButton = inflateView.findViewById(R.id.button_prev);
