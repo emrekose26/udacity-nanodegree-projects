@@ -6,8 +6,17 @@
     android:orientation="vertical"
     tools:context=".ui.steps.StepsFragment">
 
+    <com.google.android.exoplayer2.ui.SimpleExoPlayerView
+        android:id="@+id/recipe_step_video"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp" />
+
     <TextView
         android:id="@+id/step_desc"
+        android:layout_below="@id/recipe_step_video"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"
