@@ -21,6 +21,13 @@
         </activity>
         <activity android:name=".ui.detail.RecipeDetailActivity" />
         <activity android:name=".ui.steps.StepsActivity"></activity>
+
+
+        <provider
+            android:name=".data.local.generated.BakingProvider"
+            android:authorities="com.emrekose.bakingapp.local.provider"
+            android:exported="true" />
+
     </application>
 
 </manifest>
