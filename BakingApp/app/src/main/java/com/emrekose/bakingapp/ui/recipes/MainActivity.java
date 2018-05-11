@@ -13,7 +13,6 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         
         if (savedInstanceState == null) {
-            // TODO: 10.04.2018 two pane check
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.main_container, RecipeListFragment.newInstance())
                     .commit();

@@ -35,6 +35,11 @@ public class RecipesPresenter implements BasePresenter<RecipesMvpView>, RecipesC
         interactor.loadRecipesFromApi(this);
     }
 
+    public void handleScreeRotation(List<RecipeResponse> recipeList) {
+        view.hideLoading();
+        view.renderRecipes(recipeList);
+    }
+
     @Override
     public void onResponse(List<RecipeResponse> recipeList) {
         view.hideLoading();
