@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v4.media.session.PlaybackStateCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -114,6 +115,7 @@ public class StepsFragment extends Fragment implements ExoPlayer.EventListener {
         if (getArguments().getSerializable(STEP_ARG) != null) {
             Step step = (Step) getArguments().getSerializable(STEP_ARG);
             stepDescription.setText(step.getDescription());
+            setToolbarName(getActivity().getString(R.string.step, step.getId() + 1));
             String videoUrl = step.getVideoURL();
 
             playVideo(videoUrl, true);
@@ -123,17 +125,21 @@ public class StepsFragment extends Fragment implements ExoPlayer.EventListener {
             if (getActivity().getIntent() != null) {
                 stepList = (List<Step>) getActivity().getIntent().getExtras().getSerializable(Constants.STEPS_EXTRA);
                 if (savedInstanceState == null) {
+                    setToolbarName(getActivity().getString(R.string.step, stepList.get(stepIndex).getId() + 1));
+
                     stepIndex = (getActivity().getIntent().getExtras().getInt(Constants.STEPS_INDEX_EXTRA));
                     stepDescription.setText(stepList.get(stepIndex).getDescription());
                     videoUrl = stepList.get(stepIndex).getVideoURL();
                 }
 
+                // landscape mode
                 if (ConfigLayoutSizeUtil.isLandScape(getActivity())) {
                     videoLastPosition = savedInstanceState.getLong(VIDEO_LAST_POSITION, 0);
                     isVideoReady = savedInstanceState.getBoolean(VIDEO_IS_READY, true);
                     stepIndex = savedInstanceState.getInt(STEP_INDEX, 0);
                     videoUrl = stepList.get(stepIndex).getVideoURL();
-                    playVideo(videoUrl, true); // landscape mode
+                    setToolbarName(getActivity().getString(R.string.step, stepList.get(stepIndex).getId() + 1));
+                    playVideo(videoUrl, true);
                 } else {
                     videoUrl = stepList.get(stepIndex).getVideoURL();
                     stepDescription.setText(stepList.get(stepIndex).getDescription());
@@ -145,10 +151,7 @@ public class StepsFragment extends Fragment implements ExoPlayer.EventListener {
                 nextStepBtn.setOnClickListener(v -> {
                     if (stepIndex != stepList.size() - 1) {
                         stepIndex++;
-                        stepDescription.setText(stepList.get(stepIndex).getDescription());
-                        videoLastPosition = 0;
-                        isVideoReady = true;
-                        playVideo(stepList.get(stepIndex).getVideoURL(), false);
+                        nextPrevBtnClickConfig();
                     } else {
                         Toast.makeText(getActivity(), "Last Step", Toast.LENGTH_SHORT).show();
                     }
@@ -159,10 +162,7 @@ public class StepsFragment extends Fragment implements ExoPlayer.EventListener {
                 prevStepBtn.setOnClickListener(v -> {
                     if (stepIndex != 0) {
                         stepIndex--;
-                        stepDescription.setText(stepList.get(stepIndex).getDescription());
-                        videoLastPosition = 0;
-                        isVideoReady = true;
-                        playVideo(stepList.get(stepIndex).getVideoURL(), false);
+                        nextPrevBtnClickConfig();
                     } else {
                         Toast.makeText(getActivity(), "First Step", Toast.LENGTH_SHORT).show();
                     }
@@ -171,6 +171,14 @@ public class StepsFragment extends Fragment implements ExoPlayer.EventListener {
                 });
             }
         }
+    }
+
+    private void nextPrevBtnClickConfig() {
+        stepDescription.setText(stepList.get(stepIndex).getDescription());
+        setToolbarName(getActivity().getString(R.string.step, stepList.get(stepIndex).getId() + 1));
+        videoLastPosition = 0;
+        isVideoReady = true;
+        playVideo(stepList.get(stepIndex).getVideoURL(), false);
     }
 
     @Override
@@ -197,6 +205,10 @@ public class StepsFragment extends Fragment implements ExoPlayer.EventListener {
     public void onDestroy() {
         super.onDestroy();
         releasePlayer();
+    }
+
+    private void setToolbarName(String displayName) {
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(displayName);
     }
 
     private void setResult(int stepIndex, Intent intent) {

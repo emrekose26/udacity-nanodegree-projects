@@ -60,18 +60,12 @@ public class RecipeDetailFragment extends Fragment implements IStepperAdapter {
         return fragment;
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_recipe_detail, container, false);
         ButterKnife.bind(this, view);
         return view;
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
     }
 
     @Override
@@ -100,7 +94,7 @@ public class RecipeDetailFragment extends Fragment implements IStepperAdapter {
     @NonNull
     @Override
     public CharSequence getTitle(int i) {
-        return "Step " + (i + 1);
+        return "Step " + i;
     }
 
     @Nullable
