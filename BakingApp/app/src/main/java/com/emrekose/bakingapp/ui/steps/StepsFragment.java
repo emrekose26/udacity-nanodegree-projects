@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.media.session.MediaSessionCompat;
@@ -13,11 +14,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.emrekose.bakingapp.R;
 import com.emrekose.bakingapp.model.Step;
+import com.emrekose.bakingapp.utils.ConfigLayoutSizeUtil;
 import com.emrekose.bakingapp.utils.Constants;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayer;
@@ -36,6 +39,7 @@ import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -58,14 +62,25 @@ public class StepsFragment extends Fragment implements ExoPlayer.EventListener {
     @BindView(R.id.recipe_step_video)
     SimpleExoPlayerView exoPlayerView;
 
+    @BindView(R.id.steps_next_prev_area)
+    RelativeLayout nextPrevArea;
+
     SimpleExoPlayer exoPlayer;
     MediaSessionCompat mediaSession;
     PlaybackStateCompat.Builder stateBuilder;
 
-    int stepIndex;
+    private static int stepIndex;
+    private static long videoLastPosition;
+    private boolean isVideoReady = true;
+    private String videoUrl;
+    private List<Step> stepList = new ArrayList<>();
 
     private static final String STEP_ARG = "step_arg";
     private static final String MEDIA_SESSION_TAG = "steps_media_session";
+
+    private static final String VIDEO_LAST_POSITION = "video_last_position";
+    private static final String VIDEO_IS_READY = "video_is_ready";
+    private static final String STEP_INDEX = "step_index";
 
 
     public StepsFragment() {
@@ -95,21 +110,35 @@ public class StepsFragment extends Fragment implements ExoPlayer.EventListener {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        // tablet mode
         if (getArguments().getSerializable(STEP_ARG) != null) {
             Step step = (Step) getArguments().getSerializable(STEP_ARG);
             stepDescription.setText(step.getDescription());
             String videoUrl = step.getVideoURL();
 
             playVideo(videoUrl, true);
-
-        } else {
+        }
+        // portrait mode
+        else {
             if (getActivity().getIntent() != null) {
-                List<Step> stepList = (List<Step>) getActivity().getIntent().getExtras().getSerializable(Constants.STEPS_EXTRA);
-                stepIndex = (getActivity().getIntent().getExtras().getInt(Constants.STEPS_INDEX_EXTRA));
-                stepDescription.setText(stepList.get(stepIndex).getDescription());
-                String videoUrl = stepList.get(stepIndex).getVideoURL();
+                stepList = (List<Step>) getActivity().getIntent().getExtras().getSerializable(Constants.STEPS_EXTRA);
+                if (savedInstanceState == null) {
+                    stepIndex = (getActivity().getIntent().getExtras().getInt(Constants.STEPS_INDEX_EXTRA));
+                    stepDescription.setText(stepList.get(stepIndex).getDescription());
+                    videoUrl = stepList.get(stepIndex).getVideoURL();
+                }
 
-                playVideo(videoUrl, false);
+                if (ConfigLayoutSizeUtil.isLandScape(getActivity())) {
+                    videoLastPosition = savedInstanceState.getLong(VIDEO_LAST_POSITION, 0);
+                    isVideoReady = savedInstanceState.getBoolean(VIDEO_IS_READY, true);
+                    stepIndex = savedInstanceState.getInt(STEP_INDEX, 0);
+                    videoUrl = stepList.get(stepIndex).getVideoURL();
+                    playVideo(videoUrl, true); // landscape mode
+                } else {
+                    videoUrl = stepList.get(stepIndex).getVideoURL();
+                    stepDescription.setText(stepList.get(stepIndex).getDescription());
+                    playVideo(videoUrl, false);
+                }
 
                 Intent resultIntent = new Intent();
 
@@ -117,6 +146,8 @@ public class StepsFragment extends Fragment implements ExoPlayer.EventListener {
                     if (stepIndex != stepList.size() - 1) {
                         stepIndex++;
                         stepDescription.setText(stepList.get(stepIndex).getDescription());
+                        videoLastPosition = 0;
+                        isVideoReady = true;
                         playVideo(stepList.get(stepIndex).getVideoURL(), false);
                     } else {
                         Toast.makeText(getActivity(), "Last Step", Toast.LENGTH_SHORT).show();
@@ -129,6 +160,8 @@ public class StepsFragment extends Fragment implements ExoPlayer.EventListener {
                     if (stepIndex != 0) {
                         stepIndex--;
                         stepDescription.setText(stepList.get(stepIndex).getDescription());
+                        videoLastPosition = 0;
+                        isVideoReady = true;
                         playVideo(stepList.get(stepIndex).getVideoURL(), false);
                     } else {
                         Toast.makeText(getActivity(), "First Step", Toast.LENGTH_SHORT).show();
@@ -141,8 +174,28 @@ public class StepsFragment extends Fragment implements ExoPlayer.EventListener {
     }
 
     @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putLong(VIDEO_LAST_POSITION, videoLastPosition);
+        outState.putBoolean(VIDEO_IS_READY, isVideoReady);
+        outState.putInt(STEP_INDEX, stepIndex);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        resumePlayer();
+    }
+
+    @Override
     public void onPause() {
         super.onPause();
+        pausePlayer();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
         releasePlayer();
     }
 
@@ -159,8 +212,7 @@ public class StepsFragment extends Fragment implements ExoPlayer.EventListener {
             initializePlayer(Uri.parse(videoUrl));
 
             if (isTwoPane) {
-                expandVideoView(exoPlayerView);
-                hideSystemUI();
+                playVideoFullscreen();
             }
 
         } else {
@@ -206,10 +258,15 @@ public class StepsFragment extends Fragment implements ExoPlayer.EventListener {
                     new DefaultExtractorsFactory(), null, null);
 
             exoPlayer.prepare(mediaSource);
-            exoPlayer.setPlayWhenReady(true);
-
-
+            exoPlayer.setPlayWhenReady(isVideoReady);
+            exoPlayer.seekTo(videoLastPosition);
         }
+    }
+
+    private void playVideoFullscreen() {
+        expandVideoView(exoPlayerView);
+        nextPrevArea.setVisibility(View.GONE);
+        hideSystemUI();
     }
 
     private void hideSystemUI() {
@@ -224,6 +281,8 @@ public class StepsFragment extends Fragment implements ExoPlayer.EventListener {
 
     private void releasePlayer() {
         if (exoPlayer != null) {
+            videoLastPosition = exoPlayer.getCurrentPosition();
+            isVideoReady = exoPlayer.getPlayWhenReady();
             exoPlayer.stop();
             exoPlayer.release();
             exoPlayer = null;
@@ -231,6 +290,20 @@ public class StepsFragment extends Fragment implements ExoPlayer.EventListener {
 
         if (mediaSession != null) {
             mediaSession.setActive(false);
+        }
+    }
+
+    private void pausePlayer() {
+        if (exoPlayer != null) {
+            videoLastPosition = exoPlayer.getCurrentPosition();
+            isVideoReady = exoPlayer.getPlayWhenReady();
+            exoPlayer.setPlayWhenReady(false);
+        }
+    }
+
+    private void resumePlayer() {
+        if (exoPlayer != null) {
+            exoPlayer.setPlayWhenReady(isVideoReady);
         }
     }
 

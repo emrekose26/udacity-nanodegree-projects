@@ -8,4 +8,8 @@ public class ConfigLayoutSizeUtil {
         return (context.getResources().getConfiguration().screenLayout &
                 Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_XLARGE;
     }
+
+    public static boolean isLandScape(Context context) {
+        return Configuration.ORIENTATION_LANDSCAPE == context.getResources().getConfiguration().orientation;
+    }
 }
