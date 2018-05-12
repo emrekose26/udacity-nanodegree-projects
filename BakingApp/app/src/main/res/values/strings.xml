@@ -5,4 +5,6 @@
     <string name="back">Back</string>
 
     <string name="step">Step %1$d</string>
+    <string name="add_to_widget">Add to widget</string>
+    <string name="recipe_added">Recipe added to widget</string>
 </resources>

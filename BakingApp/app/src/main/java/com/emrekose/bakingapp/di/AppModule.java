@@ -1,7 +1,14 @@
 package com.emrekose.bakingapp.di;
 
+import android.app.Application;
+import android.content.Context;
+
 import com.emrekose.bakingapp.BuildConfig;
 import com.emrekose.bakingapp.data.remote.ApiSource;
+import com.emrekose.bakingapp.ui.detail.RecipeDetailFragment;
+import com.emrekose.bakingapp.ui.detail.RecipeDetailInteractor;
+import com.emrekose.bakingapp.ui.detail.RecipeDetailPresenter;
+import com.emrekose.bakingapp.ui.detail.RecipeDetailView;
 import com.emrekose.bakingapp.ui.recipes.RecipeListFragment;
 import com.emrekose.bakingapp.ui.recipes.RecipesInteractor;
 import com.emrekose.bakingapp.ui.recipes.RecipesMvpView;
@@ -55,6 +62,11 @@ public class AppModule {
     }
 
     @Provides
+    Context provideContext(Application application) {
+        return application.getApplicationContext();
+    }
+
+    @Provides
     RecipesMvpView provideRecipesMvpView() {
         return new RecipeListFragment();
     }
@@ -67,6 +79,21 @@ public class AppModule {
     @Provides
     RecipesPresenter provideRecipesPresenter(RecipesMvpView view, RecipesInteractor interactor) {
         return new RecipesPresenter(view, interactor);
+    }
+
+    @Provides
+    RecipeDetailView provideRecipeDetailView() {
+        return new RecipeDetailFragment();
+    }
+
+    @Provides
+    RecipeDetailInteractor provideRecipeDetailInteractor(Context context) {
+        return new RecipeDetailInteractor(context);
+    }
+
+    @Provides
+    RecipeDetailPresenter provideRecipeDetailPresenter(RecipeDetailView view, RecipeDetailInteractor interactor) {
+        return new RecipeDetailPresenter(view, interactor);
     }
 
 }

@@ -7,7 +7,7 @@ import net.simonvt.schematic.annotation.NotNull;
 import net.simonvt.schematic.annotation.PrimaryKey;
 import net.simonvt.schematic.annotation.UniqueConstraint;
 
-@UniqueConstraint(columns = {BakingContract.COLUMN_RECIPE_NAME}, onConflict = ConflictResolutionType.ABORT)
+@UniqueConstraint(columns = {BakingContract.COLUMN_RECIPE_NAME}, onConflict = ConflictResolutionType.REPLACE)
 public class BakingContract {
 
     @DataType(DataType.Type.INTEGER)

@@ -1,18 +1,18 @@
 package com.emrekose.bakingapp.ui.detail;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.emrekose.bakingapp.R;
+import com.emrekose.bakingapp.base.BaseActivity;
 import com.emrekose.bakingapp.model.RecipeResponse;
 import com.emrekose.bakingapp.utils.Constants;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class RecipeDetailActivity extends AppCompatActivity {
+public class RecipeDetailActivity extends BaseActivity {
 
     @BindView(R.id.recipe_detail_toolbar)
     Toolbar detailToolbar;
