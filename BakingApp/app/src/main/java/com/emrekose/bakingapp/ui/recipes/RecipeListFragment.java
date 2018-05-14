@@ -4,7 +4,9 @@ package com.emrekose.bakingapp.ui.recipes;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.VisibleForTesting;
 import android.support.design.widget.Snackbar;
+import android.support.test.espresso.IdlingResource;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,6 +18,7 @@ import android.widget.ProgressBar;
 
 import com.emrekose.bakingapp.R;
 import com.emrekose.bakingapp.base.BaseFragment;
+import com.emrekose.bakingapp.idlingresource.SimpleIdlingResource;
 import com.emrekose.bakingapp.model.RecipeResponse;
 import com.emrekose.bakingapp.ui.detail.RecipeDetailActivity;
 import com.emrekose.bakingapp.utils.ColumnUtils;
@@ -26,6 +29,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Nullable;
 import javax.inject.Inject;
 
 import butterknife.BindView;
@@ -50,6 +54,24 @@ public class RecipeListFragment extends BaseFragment implements RecipesMvpView, 
 
     private static final String RECIPE_STATE_KEY = "recipe_state_key";
 
+    @Nullable
+    private SimpleIdlingResource mIdlingResource;
+
+    @VisibleForTesting
+    @NonNull
+    public IdlingResource getIdlingResource() {
+        if (mIdlingResource == null) {
+            mIdlingResource = new SimpleIdlingResource();
+        }
+        return mIdlingResource;
+    }
+
+    private void setIdlingResource(boolean isIdleNow) {
+        if (mIdlingResource != null) {
+            mIdlingResource.setIdleState(isIdleNow);
+        }
+    }
+
     public RecipeListFragment() {
         // Required empty public constructor
     }
@@ -63,6 +85,14 @@ public class RecipeListFragment extends BaseFragment implements RecipesMvpView, 
         return fragment;
     }
 
+    @Override
+    public void onCreate(@android.support.annotation.Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        getIdlingResource();
+
+        setIdlingResource(false);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -111,6 +141,8 @@ public class RecipeListFragment extends BaseFragment implements RecipesMvpView, 
 
         recyclerView.setAdapter(adapter);
         this.recipeList = recipesList;
+
+        setIdlingResource(true);
     }
 
     @Override
@@ -128,16 +160,22 @@ public class RecipeListFragment extends BaseFragment implements RecipesMvpView, 
     @Override
     public void showErrorMessage() {
         Snackbar.make(getActivity().findViewById(R.id.main_layout), "Something went wrong.", Snackbar.LENGTH_SHORT).show();
+
+        setIdlingResource(false);
     }
 
     @Override
     public void showNetworkConnectionError() {
         Snackbar.make(getActivity().findViewById(R.id.main_layout), "Network connection error.", Snackbar.LENGTH_SHORT).show();
+
+        setIdlingResource(false);
     }
 
     @Override
     public void showServerError() {
         Snackbar.make(getActivity().findViewById(R.id.main_layout), "Something went wrong. Server not found", Snackbar.LENGTH_SHORT).show();
+
+        setIdlingResource(false);
     }
 
     @Override

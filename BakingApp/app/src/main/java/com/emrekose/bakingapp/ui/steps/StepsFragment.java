@@ -7,6 +7,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.VisibleForTesting;
+import android.support.test.espresso.IdlingResource;
 import android.support.v4.app.Fragment;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v4.media.session.PlaybackStateCompat;
@@ -20,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.emrekose.bakingapp.R;
+import com.emrekose.bakingapp.idlingresource.SimpleIdlingResource;
 import com.emrekose.bakingapp.model.Step;
 import com.emrekose.bakingapp.utils.ConfigLayoutSizeUtil;
 import com.emrekose.bakingapp.utils.Constants;
@@ -83,6 +86,24 @@ public class StepsFragment extends Fragment implements ExoPlayer.EventListener {
     private static final String VIDEO_IS_READY = "video_is_ready";
     private static final String STEP_INDEX = "step_index";
 
+    @javax.annotation.Nullable
+    private SimpleIdlingResource mIdlingResource;
+
+    @VisibleForTesting
+    @NonNull
+    public IdlingResource getIdlingResource() {
+        if (mIdlingResource == null) {
+            mIdlingResource = new SimpleIdlingResource();
+        }
+        return mIdlingResource;
+    }
+
+    private void setIdlingResource(boolean isIdleNow) {
+        if (mIdlingResource != null) {
+            mIdlingResource.setIdleState(isIdleNow);
+        }
+    }
+
 
     public StepsFragment() {
         // Required empty public constructor
@@ -96,6 +117,15 @@ public class StepsFragment extends Fragment implements ExoPlayer.EventListener {
         StepsFragment fragment = new StepsFragment();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onCreate(@android.support.annotation.Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        getIdlingResource();
+
+        setIdlingResource(false);
     }
 
 
@@ -171,6 +201,8 @@ public class StepsFragment extends Fragment implements ExoPlayer.EventListener {
                 });
             }
         }
+
+        setIdlingResource(true);
     }
 
     private void nextPrevBtnClickConfig() {
@@ -272,6 +304,8 @@ public class StepsFragment extends Fragment implements ExoPlayer.EventListener {
             exoPlayer.prepare(mediaSource);
             exoPlayer.setPlayWhenReady(isVideoReady);
             exoPlayer.seekTo(videoLastPosition);
+
+            setIdlingResource(false);
         }
     }
 
