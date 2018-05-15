@@ -72,6 +72,12 @@ public class RecipeListFragment extends BaseFragment implements RecipesMvpView, 
         }
     }
 
+    @VisibleForTesting
+    @NonNull
+    public static RecipeListFragment getInstance() {
+        return new RecipeListFragment();
+    }
+
     public RecipeListFragment() {
         // Required empty public constructor
     }
