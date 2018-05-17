@@ -242,25 +242,27 @@ public class RecipeDetailFragment extends BaseFragment implements RecipeDetailVi
         switch (item.getItemId()) {
             case R.id.action_add_to_widget:
                 presenter.addRecipeIngredients(response.getName(), getFormattedIngredients(response));
+
+                updateAppWidgetImmediately();
                 Toast.makeText(getActivity(), getActivity().getString(R.string.recipe_added), Toast.LENGTH_SHORT).show();
-
-
-                // TODO: 12.05.2018 use intent service for widget update if it possible
-                AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(getActivity());
-                RemoteViews remoteViews = new RemoteViews(getActivity().getPackageName(), R.layout.recipes_app_widget);
-                Intent intent = new Intent(getActivity(), RecipesWidgetService.class);
-                remoteViews.setRemoteAdapter(R.id.widget_ingredients_lv, intent);
-
-                remoteViews.setEmptyView(R.id.widget_ingredients_lv, R.id.widget_empty_view);
-                ComponentName componentName = new ComponentName(getActivity(), RecipesAppWidgetProvider.class);
-                int[] appWidgetIds = appWidgetManager.getAppWidgetIds(componentName);
-
-                appWidgetManager.updateAppWidget(appWidgetIds, remoteViews);
-                appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widget_ingredients_lv);
 
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void updateAppWidgetImmediately() {
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(getActivity());
+        RemoteViews remoteViews = new RemoteViews(getActivity().getPackageName(), R.layout.recipes_app_widget);
+        Intent intent = new Intent(getActivity(), RecipesWidgetService.class);
+        remoteViews.setRemoteAdapter(R.id.widget_ingredients_lv, intent);
+
+        remoteViews.setEmptyView(R.id.widget_ingredients_lv, R.id.widget_empty_view);
+        ComponentName componentName = new ComponentName(getActivity(), RecipesAppWidgetProvider.class);
+        int[] appWidgetIds = appWidgetManager.getAppWidgetIds(componentName);
+
+        appWidgetManager.updateAppWidget(appWidgetIds, remoteViews);
+        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widget_ingredients_lv);
     }
 
 

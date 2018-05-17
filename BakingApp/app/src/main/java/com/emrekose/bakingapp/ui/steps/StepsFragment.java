@@ -141,22 +141,24 @@ public class StepsFragment extends Fragment implements ExoPlayer.EventListener {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        setToolbarName(getActivity().getString(R.string.instructions));
+
         // tablet mode
         if (getArguments().getSerializable(STEP_ARG) != null) {
             Step step = (Step) getArguments().getSerializable(STEP_ARG);
             stepDescription.setText(step.getDescription());
-            setToolbarName(getActivity().getString(R.string.step, step.getId() + 1));
             String videoUrl = step.getVideoURL();
+            nextPrevArea.setVisibility(View.GONE);
 
-            playVideo(videoUrl, true);
+            videoLastPosition = 0;
+            isVideoReady = true;
+            playVideo(videoUrl, false);
         }
         // portrait mode
         else {
             if (getActivity().getIntent() != null) {
                 stepList = (List<Step>) getActivity().getIntent().getExtras().getSerializable(Constants.STEPS_EXTRA);
                 if (savedInstanceState == null) {
-                    setToolbarName(getActivity().getString(R.string.step, stepList.get(stepIndex).getId() + 1));
-
                     stepIndex = (getActivity().getIntent().getExtras().getInt(Constants.STEPS_INDEX_EXTRA));
                     stepDescription.setText(stepList.get(stepIndex).getDescription());
                     videoUrl = stepList.get(stepIndex).getVideoURL();
@@ -168,7 +170,6 @@ public class StepsFragment extends Fragment implements ExoPlayer.EventListener {
                     isVideoReady = savedInstanceState.getBoolean(VIDEO_IS_READY, true);
                     stepIndex = savedInstanceState.getInt(STEP_INDEX, 0);
                     videoUrl = stepList.get(stepIndex).getVideoURL();
-                    setToolbarName(getActivity().getString(R.string.step, stepList.get(stepIndex).getId() + 1));
                     playVideo(videoUrl, true);
                 } else {
                     videoUrl = stepList.get(stepIndex).getVideoURL();
@@ -181,6 +182,7 @@ public class StepsFragment extends Fragment implements ExoPlayer.EventListener {
                 nextStepBtn.setOnClickListener(v -> {
                     if (stepIndex != stepList.size() - 1) {
                         stepIndex++;
+                        releasePlayer();
                         nextPrevBtnClickConfig();
                     } else {
                         Toast.makeText(getActivity(), "Last Step", Toast.LENGTH_SHORT).show();
@@ -192,6 +194,7 @@ public class StepsFragment extends Fragment implements ExoPlayer.EventListener {
                 prevStepBtn.setOnClickListener(v -> {
                     if (stepIndex != 0) {
                         stepIndex--;
+                        releasePlayer();
                         nextPrevBtnClickConfig();
                     } else {
                         Toast.makeText(getActivity(), "First Step", Toast.LENGTH_SHORT).show();
@@ -207,7 +210,6 @@ public class StepsFragment extends Fragment implements ExoPlayer.EventListener {
 
     private void nextPrevBtnClickConfig() {
         stepDescription.setText(stepList.get(stepIndex).getDescription());
-        setToolbarName(getActivity().getString(R.string.step, stepList.get(stepIndex).getId() + 1));
         videoLastPosition = 0;
         isVideoReady = true;
         playVideo(stepList.get(stepIndex).getVideoURL(), false);
@@ -248,14 +250,14 @@ public class StepsFragment extends Fragment implements ExoPlayer.EventListener {
         getActivity().setResult(Activity.RESULT_OK, intent);
     }
 
-    private void playVideo(String videoUrl, boolean isTwoPane) {
+    private void playVideo(String videoUrl, boolean isFullScreen) {
         releasePlayer();
         if (!videoUrl.equals("") && !videoUrl.isEmpty()) {
             exoPlayerView.setVisibility(View.VISIBLE);
             initializeMediaSession();
             initializePlayer(Uri.parse(videoUrl));
 
-            if (isTwoPane) {
+            if (isFullScreen) {
                 playVideoFullscreen();
             }
 

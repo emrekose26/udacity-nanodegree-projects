@@ -53,30 +53,4 @@ public class RecipesAppWidgetProvider extends AppWidgetProvider {
     public void onDisabled(Context context) {
 
     }
-
-    /*
-    @Override
-    public void onReceive(Context context, Intent intent) {
-        super.onReceive(context, intent);
-        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-
-        ComponentName componentName = new ComponentName(context, RecipesAppWidgetProvider.class);
-        int[] appWidgetIds = appWidgetManager.getAppWidgetIds(componentName);
-
-        RemoteViews remoteViews = getRecipesFromListRemoteView(context);
-
-        appWidgetManager.updateAppWidget(appWidgetIds, remoteViews);
-        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widget_ingredients_lv);
-        onUpdate(context, appWidgetManager, appWidgetIds);
-
-        /**
-         *
-         * AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_2x1);
-         ComponentName thisWidget = new ComponentName(context, MyWidget.class);
-         remoteViews.setTextViewText(R.id.my_text_view, "myText" + System.currentTimeMillis());
-         appWidgetManager.updateAppWidget(thisWidget, remoteViews);
-         }
-        */
-
 }
