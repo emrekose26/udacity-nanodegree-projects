@@ -146,20 +146,12 @@ public class RecipeDetailFragment extends BaseFragment implements RecipeDetailVi
     @Nullable
     @Override
     public CharSequence getSummary(int i) {
-        if (i == 0) {
-            return Html.fromHtml(String.format("First step", response.getName()));
-        } else {
-            if (i != size() - 1) {
-                return Html.fromHtml(response.getSteps().get(i - 1).getDescription());
-            } else {
-                return Html.fromHtml(String.format("Last step", response.getName()));
-            }
-        }
+        return Html.fromHtml(response.getSteps().get(i).getShortDescription());
     }
 
     @Override
     public int size() {
-        return response.getIngredients().size();
+        return response.getSteps().size();
     }
 
     @Override
@@ -167,7 +159,8 @@ public class RecipeDetailFragment extends BaseFragment implements RecipeDetailVi
         View inflateView = LayoutInflater.from(context).inflate(R.layout.vertical_stepper_item, parent, false);
 
         TextView contentView = inflateView.findViewById(R.id.item_content);
-        contentView.setText(response.getSteps().get(index).getDescription());
+
+        contentView.setText(response.getSteps().get(index).getShortDescription());
 
         Button nextButton = inflateView.findViewById(R.id.button_next);
         nextButton.setOnClickListener(v -> {
@@ -204,6 +197,7 @@ public class RecipeDetailFragment extends BaseFragment implements RecipeDetailVi
         } else {
             videoIcon.setVisibility(View.GONE);
         }
+
 
         return inflateView;
     }
