@@ -43,7 +43,6 @@ Your task is to create a Android Baking App that will allow Udacity’s resident
 - [x] App should allow navigation between individual recipes and recipe steps.
 - [x] App uses RecyclerView and can handle recipe steps that include videos or images.
 - [x] App conforms to common standards found in the [Android Nanodegree General Project Guidelines](http://udacity.github.io/android-nanodegree-guidelines/core.html)
-- [x]
 
 ### Components and Libraries
 
