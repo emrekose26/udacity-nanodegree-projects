@@ -7,7 +7,14 @@
   - It allows users to read reviews of a selected movie.
   - It also allows users to mark a movie as a favorite in the details view by tapping a button(star).
 
-## Project 2: Baking App (Under development)
+## Project 2: [Baking App](https://github.com/emrekose26/udacity-nanodegree-projects/tree/master/BakingApp)
+
+  - App displays recipes from provided network resource
+  - App displays recipe ingredients and steps
+  - Exoplayer to display videos
+  - Widget displays ingredient list for desired recipe
+  - Master/Detail flow 
+  - UI Testing with Espresso
 
 ## Project 3: Built It Bigger
 
