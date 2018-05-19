@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.detail.RecipeDetailFragment"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:elevation="4dp"
+        app:cardBackgroundColor="@color/colorAccent"
+        tools:targetApi="lollipop">
+
+        <TextView
+            android:id="@+id/recipe_details_ingredients"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="8dp"
+            android:paddingEnd="8dp"
+            android:paddingStart="8dp"
+            android:paddingTop="8dp"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+            android:textColor="@android:color/white"
+            tools:text="Ingredients list:\nItem1\nItem2" />
+
+    </android.support.v7.widget.CardView>
+
+    <moe.feng.common.stepperview.VerticalStepperView
+        android:id="@+id/recipe_steps"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:step_done_icon="@drawable/ic_done_white_16dp"
+        app:step_animation_duration="@android:integer/config_mediumAnimTime"/>
+
+</LinearLayout>
