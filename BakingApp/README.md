@@ -25,7 +25,7 @@ In this project you will:
 * Leverage a third-party library in your app.
 * Use Fragments to create a responsive design that works on phones and tablets.
 
-## App Description
+## App Description
 Your task is to create a Android Baking App that will allow Udacity’s resident baker-in-chief, Miriam, to share her recipes with the world. You will create an app that will allow a user to select a recipe and see video-guided steps for how to complete it.
 
 
@@ -44,7 +44,8 @@ Your task is to create a Android Baking App that will allow Udacity’s resident
 - [x] App uses RecyclerView and can handle recipe steps that include videos or images.
 - [x] App conforms to common standards found in the [Android Nanodegree General Project Guidelines](http://udacity.github.io/android-nanodegree-guidelines/core.html)
 
-### Components and Libraries
+
+### Components and Libraries
 
 - [x] Application uses Master Detail Flow to display recipe steps and navigation between them.
 - [x] Application uses Exoplayer to display videos.
@@ -53,7 +54,7 @@ Your task is to create a Android Baking App that will allow Udacity’s resident
 - [x] Application makes use of Espresso to test aspects of the UI.
 - [x] Application sensibly utilizes a third-party library to enhance the app's features. That could be helper library to interface with ContentProviders if you choose to store the recipes, a UI binding library to avoid writing findViewById a bunch of times, or something similar.
 
-### Homescreen Widget
+### Homescreen Widget
 
 - [x] Application has a companion homescreen widget.
 - [x] Widget displays ingredient list for desired recipe.
