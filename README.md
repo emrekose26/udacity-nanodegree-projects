@@ -1,5 +1,7 @@
 # Udacity Android Developer Nanodegree
 
+<img src="https://raw.githubusercontent.com/emrekose26/udacity-nanodegree-projects/master/nanodegree.png" width="700"> 
+
 
 ## Project 1: [Popular Movies Stage 1 & 2](https://github.com/emrekose26/udacity-nanodegree-projects/tree/master/PopularMovies)
 
