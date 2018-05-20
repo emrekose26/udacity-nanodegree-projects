@@ -5,9 +5,10 @@ This is Project 3 of Udacity's Android Developer Nanodegree.
 
 ## Screenshots
 
-<img src="" width="350"> <img src="" width="350">
+<img src="https://raw.githubusercontent.com/emrekose26/udacity-nanodegree-projects/master/BakingApp/art/phone1.png" width="350"> <img src="https://raw.githubusercontent.com/emrekose26/udacity-nanodegree-projects/master/BakingApp/art/phone2.png" width="350"> 
+<img src="https://raw.githubusercontent.com/emrekose26/udacity-nanodegree-projects/master/BakingApp/art/phone3.png" width="350">
 
-<img src="" width="350"> <img src="" width="350">
+<img src="https://raw.githubusercontent.com/emrekose26/udacity-nanodegree-projects/master/BakingApp/art/tablet1.png" width="700"> <img src="https://raw.githubusercontent.com/emrekose26/udacity-nanodegree-projects/master/BakingApp/art/tablet2.png" width="700">
 
 
 ## Project Overview
