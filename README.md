@@ -18,7 +18,7 @@
   - Master/Detail flow 
   - UI Testing with Espresso
 
-## Project 3: Built It Bigger
+## Project 3: [Build It Bigger (UNDER DEVELOPMENT)](https://github.com/emrekose26/udacity-nanodegree-projects/tree/master/BuildItBigger)
 
 ## Project 4: Make Your App Material
 
