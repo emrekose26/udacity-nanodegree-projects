@@ -203,7 +203,5 @@
     <orderEntry type="library" name="Gradle: android.arch.core:common:1.1.0@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.guava:guava-jdk5:17.0@jar" level="project" />
     <orderEntry type="module" module-name="jokedisplayer" />
-    <orderEntry type="module" module-name="jokedisplayer" />
-    <orderEntry type="module" module-name="jokedisplayer" />
   </component>
 </module>
