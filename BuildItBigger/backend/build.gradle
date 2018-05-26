@@ -33,3 +33,18 @@ dependencies {
     implementation 'com.google.api-client:google-api-client:1.23.0'
     implementation 'com.google.http-client:google-http-client-android:1.23.0'
 }
+
+appengine {
+    tools.cloudSdkHome = "/Users/emrekose/google-cloud-sdk"
+
+    deploy {
+        // The following is used for acceptance tests and
+        // is not required for a migration.
+        project = findProperty("appengine.deploy.project")
+        version = findProperty("appengine.deploy.version")
+        def promoteProp = findProperty("appengine.deploy.promote")
+        if (promoteProp != null) {
+            promote = new Boolean(promoteProp)
+        }
+    }
+}
