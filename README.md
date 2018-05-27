@@ -27,7 +27,12 @@
   - Use the Gradle App Engine plugin to deploy a backend
   - Configure an integration test suite that runs against the local App Engine development server
 
-## Project 4: Make Your App Material
+## Project 4: [Make Your App Material (UNDER DEVELOPMENT)](https://github.com/emrekose26/udacity-nanodegree-projects/tree/master/xyz-reader)
+
+  - Understand the fundamentals of Android design.
+  - Apply Material Design guidelines to an mobile application.
+  - Separate an interface into surfaces.
+  - Effectively use transitions and motion.
 
 ## Project 5: Capstone, Stage 1, Design
   
