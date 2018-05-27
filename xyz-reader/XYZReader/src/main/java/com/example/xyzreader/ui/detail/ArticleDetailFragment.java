@@ -1,4 +1,4 @@
-package com.example.xyzreader.ui.list;
+package com.example.xyzreader.ui.detail;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -26,7 +26,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.example.xyzreader.R;
 import com.example.xyzreader.data.ArticleLoader;
-import com.example.xyzreader.ui.detail.ArticleDetailActivity;
+import com.example.xyzreader.ui.list.ArticleListActivity;
 import com.example.xyzreader.util.ImageLoaderHelper;
 import com.example.xyzreader.widget.DrawInsetsFrameLayout;
 import com.example.xyzreader.widget.ObservableScrollView;

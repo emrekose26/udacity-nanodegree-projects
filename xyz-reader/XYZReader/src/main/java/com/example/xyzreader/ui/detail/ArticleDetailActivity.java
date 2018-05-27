@@ -19,7 +19,6 @@ import android.view.ViewGroup;
 import com.example.xyzreader.R;
 import com.example.xyzreader.data.ArticleLoader;
 import com.example.xyzreader.data.ItemsContract;
-import com.example.xyzreader.ui.list.ArticleDetailFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
