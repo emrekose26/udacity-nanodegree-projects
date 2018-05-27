@@ -36,5 +36,8 @@ dependencies {
 
     implementation "com.jakewharton.timber:timber:$timberVersion"
 
+    implementation "com.jakewharton:butterknife:$butterKnifeVersion"
+    annotationProcessor "com.jakewharton:butterknife-compiler:$butterKnifeVersion"
+
     implementation files('libs/volley.jar')
 }

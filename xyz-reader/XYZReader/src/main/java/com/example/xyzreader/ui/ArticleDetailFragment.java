@@ -32,6 +32,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import timber.log.Timber;
 
 /**
@@ -42,6 +44,27 @@ import timber.log.Timber;
 public class ArticleDetailFragment extends Fragment implements
        LoaderManager.LoaderCallbacks<Cursor> {
 
+    @BindView(R.id.draw_insets_frame_layout)
+    DrawInsetsFrameLayout mDrawInsetsFrameLayout;
+
+    @BindView(R.id.scrollview)
+    ObservableScrollView mScrollView;
+
+    @BindView(R.id.photo)
+    ImageView mPhotoView;
+
+    @BindView(R.id.photo_container)
+    View mPhotoContainerView;
+
+    @BindView(R.id.article_title)
+    TextView titleView;
+
+    @BindView(R.id.article_byline)
+    TextView bylineView;
+
+    @BindView(R.id.article_body)
+    TextView bodyView;
+
     public static final String ARG_ITEM_ID = "item_id";
     private static final float PARALLAX_FACTOR = 1.25f;
 
@@ -49,13 +72,9 @@ public class ArticleDetailFragment extends Fragment implements
     private long mItemId;
     private View mRootView;
     private int mMutedColor = 0xFF333333;
-    private ObservableScrollView mScrollView;
-    private DrawInsetsFrameLayout mDrawInsetsFrameLayout;
     private ColorDrawable mStatusBarColorDrawable;
 
     private int mTopInset;
-    private View mPhotoContainerView;
-    private ImageView mPhotoView;
     private int mScrollY;
     private boolean mIsCard = false;
     private int mStatusBarFullOpacityBottom;
@@ -114,10 +133,10 @@ public class ArticleDetailFragment extends Fragment implements
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mRootView = inflater.inflate(R.layout.fragment_article_detail, container, false);
-        mDrawInsetsFrameLayout = mRootView.findViewById(R.id.draw_insets_frame_layout);
+        ButterKnife.bind(this, mRootView);
+
         mDrawInsetsFrameLayout.setOnInsetsCallback(insets -> mTopInset = insets.top);
 
-        mScrollView = mRootView.findViewById(R.id.scrollview);
         mScrollView.setCallbacks(() -> {
             mScrollY = mScrollView.getScrollY();
             getActivityCast().onUpButtonFloorChanged(mItemId, ArticleDetailFragment.this);
@@ -125,11 +144,9 @@ public class ArticleDetailFragment extends Fragment implements
             updateStatusBar();
         });
 
-        mPhotoView = mRootView.findViewById(R.id.photo);
-        mPhotoContainerView = mRootView.findViewById(R.id.photo_container);
-
         mStatusBarColorDrawable = new ColorDrawable(0);
 
+        // TODO: 27.05.2018 replace FLOAT ACTION BUTTON
         mRootView.findViewById(R.id.share_fab).setOnClickListener(view -> startActivity(Intent.createChooser(ShareCompat.IntentBuilder.from(getActivity())
                 .setType("text/plain")
                 .setText("Some sample text")
@@ -185,11 +202,7 @@ public class ArticleDetailFragment extends Fragment implements
             return;
         }
 
-        TextView titleView = mRootView.findViewById(R.id.article_title);
-        TextView bylineView = mRootView.findViewById(R.id.article_byline);
         bylineView.setMovementMethod(new LinkMovementMethod());
-        TextView bodyView = mRootView.findViewById(R.id.article_body);
-
 
         bodyView.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "Rosario-Regular.ttf"));
 
