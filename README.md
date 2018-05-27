@@ -18,7 +18,14 @@
   - Master/Detail flow 
   - UI Testing with Espresso
 
-## Project 3: [Build It Bigger (UNDER DEVELOPMENT)](https://github.com/emrekose26/udacity-nanodegree-projects/tree/master/BuildItBigger)
+## Project 3: [Build It Bigger](https://github.com/emrekose26/udacity-nanodegree-projects/tree/master/BuildItBigger)
+
+  - Add free and paid flavors to an app, and set up your build to share code between them
+  - Factor reusable functionality into a Java library
+  - Factor reusable Android functionality into an Android library
+  - Configure a multi-project build to compile your libraries and app
+  - Use the Gradle App Engine plugin to deploy a backend
+  - Configure an integration test suite that runs against the local App Engine development server
 
 ## Project 4: Make Your App Material
 
