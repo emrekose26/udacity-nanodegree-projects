@@ -7,6 +7,8 @@ of four modules. A Java library that provides jokes, a Google Cloud Endpoints
 activity for displaying jokes, and an Android app that fetches jokes from the
 GCE module and passes them to the Android Library for display.
 
+<img src="https://raw.githubusercontent.com/emrekose26/udacity-nanodegree-projects/master/BuildItBigger/build_it_bigger_project_overview.png" height="500">
+
 ## Why this Project
 
 As Android projects grow in complexity, it becomes necessary to customize the
@@ -91,7 +93,7 @@ the Setup Cloud SDK.
 Start or stop your local server by using the gradle tasks as shown in the following
 screenshot:
 
-<img src="/FinalProject/GCE-server-gradle-tasks.png" height="500">
+<img src="https://raw.githubusercontent.com/emrekose26/udacity-nanodegree-projects/master/BuildItBigger/GCE-server-gradle-tasks.png" height="500">
 
 Once your local GCE server is started you should see the following at 
 [localhost:8080](http://localhost:8080)
