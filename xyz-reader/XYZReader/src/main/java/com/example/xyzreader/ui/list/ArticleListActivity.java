@@ -67,8 +67,8 @@ public class ArticleListActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ButterKnife.bind(this);
         setContentView(R.layout.activity_article_list);
+        ButterKnife.bind(this);
 
         getSupportLoaderManager().initLoader(0, null, this);
 
