@@ -27,6 +27,7 @@ allprojects {
         timberVersion = "4.7.0"
         butterKnifeVersion = "8.8.1"
         materialDimensVersion = "1.2"
+        glideVersion = "4.6.1"
     }
 }
 
