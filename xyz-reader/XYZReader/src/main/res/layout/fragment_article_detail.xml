@@ -8,7 +8,7 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/detail_app_bar_layout"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="@dimen/detail_app_bar_height"
         android:fitsSystemWindows="true"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
-            app:layout_scrollFlags="scroll">
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -29,8 +29,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fitsSystemWindows="true"
-                    tools:src="@drawable/empty_detail"
-                    android:scaleType="centerCrop" />
+                    android:scaleType="centerCrop"
+                    tools:src="@drawable/empty_detail" />
 
                 <View
                     android:layout_width="match_parent"
@@ -40,7 +40,7 @@
                 <LinearLayout
                     android:id="@+id/meta_bar"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/mata_bar_expanded_height"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
                     android:orientation="vertical"
                     android:paddingBottom="@dimen/meta_bar_padding"
@@ -50,13 +50,19 @@
 
                     <TextView
                         android:id="@+id/article_title"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:maxLines="1"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
                         android:textColor="@android:color/white"
-                        android:textStyle="bold"
-                        android:visibility="invisible" />
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/article_byline"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                        android:textColor="@color/material_light_white" />
 
                 </LinearLayout>
 
@@ -67,6 +73,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/actionBarSize"
                 app:layout_collapseMode="pin"
+                app:layout_scrollFlags="scroll|enterAlways"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
             </android.support.v7.widget.Toolbar>
@@ -95,8 +102,8 @@
                 android:layout_marginTop="@dimen/article_body_margin_top"
                 android:padding="@dimen/article_body_padding"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                tools:text="This is article body. Article details is here. This is article body. Article details is here. This is article body. Article details is here.This is article body. Article details is here.This is article body. Article details is here."
-                android:textColor="@android:color/black" />
+                android:textColor="@android:color/black"
+                tools:text="This is article body. Article details is here. This is article body. Article details is here. This is article body. Article details is here.This is article body. Article details is here.This is article body. Article details is here." />
 
         </LinearLayout>
 

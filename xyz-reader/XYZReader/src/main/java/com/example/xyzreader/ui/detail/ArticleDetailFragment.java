@@ -1,6 +1,7 @@
 package com.example.xyzreader.ui.detail;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -13,9 +14,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.app.ShareCompat;
 import android.support.v4.content.Loader;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.text.format.DateUtils;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,6 +65,9 @@ public class ArticleDetailFragment extends Fragment implements
 
     @BindView(R.id.article_title)
     TextView articleTitle;
+
+    @BindView(R.id.article_byline)
+    TextView byLineView;
 
     @BindView(R.id.article_body)
     TextView articleBody;
@@ -115,19 +122,58 @@ public class ArticleDetailFragment extends Fragment implements
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_article_detail, container, false);
         ButterKnife.bind(this, rootView);
+
+        initToolbar();
+
         return rootView;
     }
 
+    private void initToolbar() {
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
+    }
+
     private void bindViews() {
+        byLineView.setMovementMethod(new LinkMovementMethod());
+
+        final String title = mCursor.getString(ArticleLoader.Query.TITLE);
+        final String body = Html.fromHtml(mCursor.getString(ArticleLoader.Query.BODY)).toString();
+        final String photoUrl = mCursor.getString(ArticleLoader.Query.PHOTO_URL);
+        final String time = Html.fromHtml(
+                DateUtils.getRelativeTimeSpanString(
+                        mCursor.getLong(ArticleLoader.Query.PUBLISHED_DATE),
+                        System.currentTimeMillis(), DateUtils.HOUR_IN_MILLIS,
+                        DateUtils.FORMAT_ABBREV_ALL).toString()
+                        + " by "
+                        + mCursor.getString(ArticleLoader.Query.AUTHOR)).toString();
+
+        articleTitle.setText(title);
+        articleBody.setText(body);
+        byLineView.setText(time);
+
+        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            boolean isShow = true;
+            int scrollRange = -1;
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                if (scrollRange == -1) {
+                    scrollRange = appBarLayout.getTotalScrollRange();
+                }
+                if (scrollRange + verticalOffset == 0) {
+                    collapsingToolbarLayout.setTitle(title);
+                    isShow = true;
+                } else if(isShow) {
+                    collapsingToolbarLayout.setTitle(" ");//carefull there should a space between double quote otherwise it wont work
+                    isShow = false;
+                }
+            }
+        });
+
         shareFab.setOnClickListener(view -> startActivity(Intent.createChooser(ShareCompat.IntentBuilder.from(getActivity())
                 .setType("text/plain")
-                .setText("Some sample text")
+                .setText(title + "\n" + body)
                 .getIntent(), getString(R.string.action_share))));
-
-
-        articleTitle.setText(mCursor.getString(ArticleLoader.Query.TITLE));
-        articleBody.setText(Html.fromHtml(mCursor.getString(ArticleLoader.Query.BODY)).toString());
-        String photoUrl = mCursor.getString(ArticleLoader.Query.PHOTO_URL);
 
         prepareImage(photoUrl);
     }
@@ -149,6 +195,7 @@ public class ArticleDetailFragment extends Fragment implements
                                 metaBar.setBackgroundColor(palette.getDominantSwatch().getRgb());
                                 collapsingToolbarLayout.setContentScrimColor(palette.getDominantSwatch().getBodyTextColor());
                                 collapsingToolbarLayout.setStatusBarScrimColor(palette.getDominantSwatch().getBodyTextColor());
+                                shareFab.setBackgroundTintList(ColorStateList.valueOf(palette.getDarkMutedSwatch().getRgb()));
                             }
                         });
                         return false;

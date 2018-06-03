@@ -20,5 +20,6 @@
     <dimen name="article_body_padding">16dp</dimen>
     <dimen name="meta_bar_padding">16dp</dimen>
     <dimen name="mata_bar_expanded_height">70dp</dimen>
+    <dimen name="detail_app_bar_height">300dp</dimen>
 
 </resources>
