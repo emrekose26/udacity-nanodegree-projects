@@ -163,9 +163,11 @@ public class ArticleDetailFragment extends Fragment implements
                 if (scrollRange + verticalOffset == 0) {
                     collapsingToolbarLayout.setTitle(title);
                     isShow = true;
+                    metaBar.setVisibility(View.GONE);
                 } else if(isShow) {
                     collapsingToolbarLayout.setTitle(" ");//carefull there should a space between double quote otherwise it wont work
                     isShow = false;
+                    metaBar.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -194,7 +196,7 @@ public class ArticleDetailFragment extends Fragment implements
                             if (palette.getDominantSwatch() != null) {
                                 metaBar.setBackgroundColor(palette.getDominantSwatch().getRgb());
                                 collapsingToolbarLayout.setContentScrimColor(palette.getDominantSwatch().getBodyTextColor());
-                                collapsingToolbarLayout.setStatusBarScrimColor(palette.getDominantSwatch().getBodyTextColor());
+                                //collapsingToolbarLayout.setStatusBarScrimColor(palette.getDominantSwatch().getBodyTextColor());
                                 shareFab.setBackgroundTintList(ColorStateList.valueOf(palette.getDarkMutedSwatch().getRgb()));
                             }
                         });
