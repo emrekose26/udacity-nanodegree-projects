@@ -131,7 +131,10 @@ public class ArticleDetailFragment extends Fragment implements
     private void initToolbar() {
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back));
+        toolbar.setNavigationOnClickListener(v -> getActivity().onBackPressed());
     }
 
     private void bindViews() {
@@ -165,7 +168,7 @@ public class ArticleDetailFragment extends Fragment implements
                     isShow = true;
                     metaBar.setVisibility(View.GONE);
                 } else if(isShow) {
-                    collapsingToolbarLayout.setTitle(" ");//carefull there should a space between double quote otherwise it wont work
+                    collapsingToolbarLayout.setTitle(" ");
                     isShow = false;
                     metaBar.setVisibility(View.VISIBLE);
                 }
@@ -196,7 +199,7 @@ public class ArticleDetailFragment extends Fragment implements
                             if (palette.getDominantSwatch() != null) {
                                 metaBar.setBackgroundColor(palette.getDominantSwatch().getRgb());
                                 collapsingToolbarLayout.setContentScrimColor(palette.getDominantSwatch().getBodyTextColor());
-                                //collapsingToolbarLayout.setStatusBarScrimColor(palette.getDominantSwatch().getBodyTextColor());
+                                collapsingToolbarLayout.setStatusBarScrimColor(palette.getDominantSwatch().getRgb());
                                 shareFab.setBackgroundTintList(ColorStateList.valueOf(palette.getDarkMutedSwatch().getRgb()));
                             }
                         });
@@ -205,6 +208,9 @@ public class ArticleDetailFragment extends Fragment implements
                 })
                 .into(photoImageView);
     }
+
+
+
 
     @NonNull
     @Override

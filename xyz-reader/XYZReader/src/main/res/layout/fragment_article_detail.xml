@@ -28,7 +28,6 @@
                     android:id="@+id/photo"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:fitsSystemWindows="true"
                     android:scaleType="centerCrop"
                     tools:src="@drawable/empty_detail" />
 
@@ -74,9 +73,7 @@
                 android:layout_height="?android:attr/actionBarSize"
                 app:layout_collapseMode="pin"
                 app:layout_scrollFlags="scroll|enterAlways"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
-
-            </android.support.v7.widget.Toolbar>
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
 
         </android.support.design.widget.CollapsingToolbarLayout>
