@@ -1,7 +1,9 @@
-package com.emrekose.famula;
+package com.emrekose.famula.ui.main;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.emrekose.famula.R;
 
 public class MainActivity extends AppCompatActivity {
 
