@@ -17,6 +17,10 @@ android {
         }
     }
 
+    buildTypes.each{
+        it.buildConfigField 'String','ZOMATO_API_KEY', APIKEY
+    }
+
     dataBinding {
         enabled = true
     }
