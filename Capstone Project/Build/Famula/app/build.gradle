@@ -20,10 +20,14 @@ android {
     dataBinding {
         enabled = true
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
 
     // Support Lib
     implementation "com.android.support:appcompat-v7:$versions.support"
@@ -36,11 +40,9 @@ dependencies {
     implementation "android.arch.lifecycle:extensions:$versions.arch_core"
     implementation "android.arch.lifecycle:runtime:$versions.arch_core"
     annotationProcessor "android.arch.lifecycle:compiler:$versions.arch_core"
-
     implementation "android.arch.persistence.room:runtime:$versions.arch_core"
     implementation "android.arch.persistence.room:rxjava2:$versions.arch_core"
     annotationProcessor "android.arch.persistence.room:compiler:$versions.arch_core"
-
     implementation "android.arch.paging:runtime:$versions.paging"
 
     // Retrofit
@@ -76,8 +78,6 @@ dependencies {
 
     // Timber
     implementation "com.jakewharton.timber:timber:$versions.timber"
-
-
     testImplementation "junit:junit:$versions.junit"
     androidTestImplementation "com.android.support.test:runner:$versions.testRunner"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$versions.espresso"
