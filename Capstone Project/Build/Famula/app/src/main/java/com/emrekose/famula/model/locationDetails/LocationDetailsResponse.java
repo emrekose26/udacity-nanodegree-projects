@@ -13,10 +13,10 @@ public class LocationDetailsResponse {
     private String nightlifeIndex;
 
     @SerializedName("nearby_res")
-    private List<String> nearbyRes = null;
+    private List<String> nearbyRes;
 
     @SerializedName("top_cuisines")
-    private List<String> topCuisines = null;
+    private List<String> topCuisines;
 
     @SerializedName("popularity_res")
     private String popularityRes;

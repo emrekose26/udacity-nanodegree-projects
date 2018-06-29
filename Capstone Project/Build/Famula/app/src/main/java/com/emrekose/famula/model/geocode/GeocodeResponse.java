@@ -16,7 +16,7 @@ public class GeocodeResponse {
     private String link;
 
     @SerializedName("nearby_restaurants")
-    private List<NearbyRestaurant> nearbyRestaurants = null;
+    private List<NearbyRestaurant> nearbyRestaurants;
 
     public Location getLocation() {
         return location;

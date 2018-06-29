@@ -7,7 +7,7 @@ import java.util.List;
 public class LocationsResponse {
 
     @SerializedName("location_suggestions")
-    private List<LocationSuggestion> locationSuggestions = null;
+    private List<LocationSuggestion> locationSuggestions;
 
     @SerializedName("status")
     private String status;

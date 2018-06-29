@@ -8,7 +8,7 @@ public class CuisinesResponse {
 
     @SerializedName("cuisines")
 
-    private List<Cuisine> cuisines = null;
+    private List<Cuisine> cuisines;
 
     public List<Cuisine> getCuisines() {
         return cuisines;

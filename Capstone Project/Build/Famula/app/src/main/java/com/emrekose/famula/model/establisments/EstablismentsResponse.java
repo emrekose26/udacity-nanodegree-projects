@@ -7,7 +7,7 @@ import java.util.List;
 public class EstablismentsResponse {
 
     @SerializedName("establishments")
-    private List<Establishment> establishments = null;
+    private List<Establishment> establishments;
 
     public List<Establishment> getEstablishments() {
         return establishments;

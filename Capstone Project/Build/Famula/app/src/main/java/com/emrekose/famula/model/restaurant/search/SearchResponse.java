@@ -16,7 +16,7 @@ public class SearchResponse {
     private int resultsShown;
 
     @SerializedName("restaurants")
-    private List<Restaurant> restaurants = null;
+    private List<Restaurant> restaurants;
 
 
     public int getResultsFound() {

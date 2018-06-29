@@ -40,7 +40,7 @@ public class RestaurantDetailResponse {
     private String currency;
 
     @SerializedName("offers")
-    private List<Object> offers = null;
+    private List<Object> offers;
 
     @SerializedName("opentable_support")
     private int opentableSupport;

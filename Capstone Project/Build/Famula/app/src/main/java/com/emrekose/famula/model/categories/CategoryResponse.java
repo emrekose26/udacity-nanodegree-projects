@@ -7,7 +7,7 @@ import java.util.List;
 public class CategoryResponse {
 
     @SerializedName("categories")
-    private List<Category> categories = null;
+    private List<Category> categories;
 
     public List<Category> getCategories() {
         return categories;
