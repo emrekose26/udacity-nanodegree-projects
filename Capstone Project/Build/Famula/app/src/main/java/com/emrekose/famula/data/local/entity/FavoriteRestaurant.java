@@ -3,10 +3,12 @@ package com.emrekose.famula.data.local.entity;
 import android.arch.persistence.room.Embedded;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 @Entity(tableName = "favrestaurant")
 public class FavoriteRestaurant {
 
+    @NonNull
     @PrimaryKey
     public String id;
 

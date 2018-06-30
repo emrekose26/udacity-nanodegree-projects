@@ -9,7 +9,7 @@ import com.emrekose.famula.data.local.entity.FavUserRating;
 import com.emrekose.famula.data.local.entity.FavoriteRestaurant;
 
 @Database(entities = {FavoriteRestaurant.class, FavUserRating.class, FavLocationItem.class} , version = 1, exportSchema = false)
-abstract class FamulaDatabase extends RoomDatabase{
+public abstract class FamulaDatabase extends RoomDatabase{
 
     public abstract FavRestaurantDao favRestaurantDao();
 }
