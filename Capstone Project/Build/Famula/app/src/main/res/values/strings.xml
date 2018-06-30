@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Famula</string>
+    <string name="view_all">View all</string>
+    <string name="what_would_you_like_to_order">What would you like to order?</string>
+    <string name="restaurants_near_you">Restaurants near you</string>
 </resources>
