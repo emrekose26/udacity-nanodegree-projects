@@ -7,6 +7,7 @@ import com.emrekose.famula.BuildConfig;
 import com.emrekose.famula.data.local.FamulaDatabase;
 import com.emrekose.famula.data.local.dao.FavRestaurantDao;
 import com.emrekose.famula.data.remote.ApiService;
+import com.emrekose.famula.data.remote.RequestInterceptor;
 import com.emrekose.famula.util.Constants;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 
@@ -20,8 +21,8 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-@Module
-public class AppModule {
+@Module(includes = {ViewModelModule.class})
+class AppModule {
 
     @Provides
     @Singleton
@@ -39,6 +40,7 @@ public class AppModule {
             okHttpClient.addNetworkInterceptor(new StethoInterceptor());
             okHttpClient.addInterceptor(httpLoggingInterceptor);
         }
+        okHttpClient.addInterceptor(new RequestInterceptor());
         return okHttpClient.build();
     }
 

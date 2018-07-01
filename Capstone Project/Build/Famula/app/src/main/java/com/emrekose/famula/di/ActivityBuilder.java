@@ -1,9 +1,13 @@
 package com.emrekose.famula.di;
 
+import com.emrekose.famula.ui.main.MainActivity;
+
 import dagger.Module;
+import dagger.android.ContributesAndroidInjector;
 
 @Module
 abstract class ActivityBuilder {
 
-    // TODO: 30.06.2018 Activity injections are gonna be here
+    @ContributesAndroidInjector(modules = FragmentBuilder.class)
+    abstract MainActivity mainActivity();
 }

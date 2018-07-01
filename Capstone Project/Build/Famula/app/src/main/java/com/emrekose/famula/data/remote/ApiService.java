@@ -11,6 +11,7 @@ import com.emrekose.famula.model.restaurant.detail.RestaurantDetailResponse;
 import com.emrekose.famula.model.restaurant.reviews.ReviewsResponse;
 import com.emrekose.famula.model.restaurant.search.SearchResponse;
 
+import io.reactivex.Flowable;
 import io.reactivex.Single;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -24,25 +25,25 @@ public interface ApiService {
     // cities
     @GET("cities")
     Single<CitiesResponse> getCities(@Query("q") String cityName,
-                                     @Query("lat") double lat,
-                                     @Query("lon") double lon);
+                                     @Query("lat") Double lat,
+                                     @Query("lon") Double lon);
 
     // cuisines
     @GET("cuisines")
-    Single<CuisinesResponse> getCuisines(@Query("city_id") int cityId,
-                                         @Query("lat") double lat,
-                                         @Query("lon") double lon);
+    Flowable<CuisinesResponse> getCuisines(@Query("city_id") int cityId,
+                                           @Query("lat") Double lat,
+                                           @Query("lon") Double lon);
 
     // establisments
     @GET("establisments")
     Single<EstablismentsResponse> getEstablisments(@Query("city_id") int cityId,
-                                                   @Query("lat") double lat,
-                                                   @Query("lon") double lon);
+                                                   @Query("lat") Double lat,
+                                                   @Query("lon") Double lon);
 
     // geocode
     @GET("geocode")
-    Single<GeocodeResponse> getGeoCode(@Query("lat") double lat,
-                                       @Query("lon") double lon);
+    Single<GeocodeResponse> getGeoCode(@Query("lat") Double lat,
+                                       @Query("lon") Double lon);
 
     // location_details
     @GET("location_details")
@@ -52,8 +53,8 @@ public interface ApiService {
     // locations
     @GET("locations")
     Single<LocationsResponse> getLocations(@Query("query") String query,
-                                           @Query("lat") double lat,
-                                           @Query("lon") double lon);
+                                           @Query("lat") Double lat,
+                                           @Query("lon") Double lon);
     // restaurant details
     @GET("restaurant")
     Single<RestaurantDetailResponse> getRestaurantDetails(@Query("res_id") int restaurantId);
@@ -66,7 +67,7 @@ public interface ApiService {
     @GET("search")
     Single<SearchResponse> getSearchDatas(@Query("q") String query,
                                           @Query("entity_id") String entityId,
-                                          @Query("lat") double lat,
-                                          @Query("lon") double lon,
+                                          @Query("lat") Double lat,
+                                          @Query("lon") Double lon,
                                           @Query("start") int page);
 }
