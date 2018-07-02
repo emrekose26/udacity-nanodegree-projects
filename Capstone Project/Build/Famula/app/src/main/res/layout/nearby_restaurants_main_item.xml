@@ -26,10 +26,11 @@
                 android:layout_width="0dp"
                 android:layout_height="209dp"
                 android:scaleType="centerCrop"
+                android:src="@drawable/restaurantsampleimg"
+                app:imageUrl="@{restaurant.restaurant.featuredImage}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:src="@drawable/restaurantsampleimg" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/nearby_restaurants_main_name"
@@ -77,15 +78,16 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/rounded_shape"
-                android:text="@{restaurant.restaurant.userRating.aggregateRating}"
-                android:backgroundTint="@color/colorPrimaryDark"
                 android:gravity="center"
+                app:rateColor="@{restaurant.restaurant.userRating.ratingColor}"
+                android:text="@{restaurant.restaurant.userRating.aggregateRating}"
                 android:textColor="@android:color/white"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/nearby_restaurants_main_thumb"
+                tools:backgroundTint="@color/colorPrimaryDark"
                 tools:text="4.9" />
 
             <ImageView
@@ -97,11 +99,11 @@
                 android:layout_marginRight="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
+                android:src="@drawable/ic_near_me"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toEndOf="@+id/nearby_restaurants_main_name"
-                app:layout_constraintTop_toBottomOf="@+id/nearby_restaurants_main_thumb"
-                android:src="@drawable/ic_near_me" />
+                app:layout_constraintTop_toBottomOf="@+id/nearby_restaurants_main_thumb" />
         </android.support.constraint.ConstraintLayout>
 
     </android.support.v7.widget.CardView>
