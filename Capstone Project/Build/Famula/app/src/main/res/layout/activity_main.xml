@@ -143,7 +143,7 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/nearby_restaurants_recyclerview"
             android:layout_width="0dp"
-            android:layout_height="149dp"
+            android:layout_height="0dp"
             android:layout_marginTop="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

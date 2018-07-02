@@ -42,7 +42,7 @@ public interface ApiService {
 
     // geocode
     @GET("geocode")
-    Single<GeocodeResponse> getGeoCode(@Query("lat") Double lat,
+    Flowable<GeocodeResponse> getGeoCode(@Query("lat") Double lat,
                                        @Query("lon") Double lon);
 
     // location_details
