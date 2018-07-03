@@ -1,5 +1,6 @@
 package com.emrekose.famula.ui.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 
@@ -8,6 +9,7 @@ import com.emrekose.famula.common.BaseOnlyActivity;
 import com.emrekose.famula.databinding.ActivityMainBinding;
 import com.emrekose.famula.model.cuisines.Cuisine;
 import com.emrekose.famula.model.geocode.NearbyRestaurant;
+import com.emrekose.famula.ui.cuisineslist.CuisinesListActivity;
 
 public class MainActivity extends BaseOnlyActivity<ActivityMainBinding, MainViewModel> implements CuisinesCallback, NearbyRestaurantsCallback {
 
@@ -49,6 +51,10 @@ public class MainActivity extends BaseOnlyActivity<ActivityMainBinding, MainView
         // TODO: 2.07.2018 lat lon provides by LocationManager
         viewModel.getNearbyRestaurants(51.507, -0.1277, TAKEN_NEARBY_RESTAURANTS).observe(this, response -> {
             nearbyAdapter.submitList(response.getNearbyRestaurants());
+        });
+
+        dataBinding.viewAllCuisine.setOnClickListener(v -> {
+            startActivity(new Intent(MainActivity.this, CuisinesListActivity.class));
         });
     }
 
