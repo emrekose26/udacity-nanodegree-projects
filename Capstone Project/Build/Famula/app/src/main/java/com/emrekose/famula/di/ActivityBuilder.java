@@ -2,6 +2,7 @@ package com.emrekose.famula.di;
 
 import com.emrekose.famula.ui.cuisineslist.CuisinesListActivity;
 import com.emrekose.famula.ui.main.MainActivity;
+import com.emrekose.famula.ui.nearbyrestaurants.NearbyRestaurantsActivity;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -14,4 +15,7 @@ abstract class ActivityBuilder {
 
     @ContributesAndroidInjector
     abstract CuisinesListActivity cuisinesListActivity();
+
+    @ContributesAndroidInjector
+    abstract NearbyRestaurantsActivity nearbyRestaurantsActivity();
 }

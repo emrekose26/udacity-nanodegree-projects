@@ -182,7 +182,7 @@
             app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/nearby_restaurants_recyclerview"
+            android:id="@+id/nearby_restaurants_main_recyclerview"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="8dp"
