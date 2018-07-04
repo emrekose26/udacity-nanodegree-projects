@@ -12,6 +12,7 @@ import com.emrekose.famula.databinding.ActivityMainBinding;
 import com.emrekose.famula.model.cuisines.Cuisine;
 import com.emrekose.famula.model.geocode.NearbyRestaurant;
 import com.emrekose.famula.ui.cuisineslist.CuisinesListActivity;
+import com.emrekose.famula.ui.nearbyrestaurants.NearbyRestaurantsActivity;
 
 public class MainActivity extends BaseOnlyActivity<ActivityMainBinding, MainViewModel> implements CuisinesCallback, NearbyRestaurantsMainCallback {
 
@@ -50,8 +51,8 @@ public class MainActivity extends BaseOnlyActivity<ActivityMainBinding, MainView
         });
 
         nearbyAdapter = new NearbyRestaurantsMainAdapter(new NearbyRestaurantsMainAdapter.NearbyRestaurantsDiffCallback(), this);
-        dataBinding.nearbyRestaurantsRecyclerview.setLayoutManager(new LinearLayoutManager(this));
-        dataBinding.nearbyRestaurantsRecyclerview.setAdapter(nearbyAdapter);
+        dataBinding.nearbyRestaurantsMainRecyclerview.setLayoutManager(new LinearLayoutManager(this));
+        dataBinding.nearbyRestaurantsMainRecyclerview.setAdapter(nearbyAdapter);
 
         // TODO: 2.07.2018 lat lon provides by LocationManager
         viewModel.getNearbyRestaurants(51.507, -0.1277, TAKEN_NEARBY_RESTAURANTS).observe(this, response -> {
@@ -61,6 +62,10 @@ public class MainActivity extends BaseOnlyActivity<ActivityMainBinding, MainView
 
         dataBinding.viewAllCuisine.setOnClickListener(v -> {
             startActivity(new Intent(MainActivity.this, CuisinesListActivity.class));
+        });
+
+        dataBinding.viewAllNearbyRestaurants.setOnClickListener(v -> {
+            startActivity(new Intent(MainActivity.this, NearbyRestaurantsActivity.class));
         });
     }
 

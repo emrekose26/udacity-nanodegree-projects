@@ -21,8 +21,10 @@
         </activity>
         <activity
             android:name=".ui.cuisineslist.CuisinesListActivity"
-            android:parentActivityName=".ui.main.MainActivity"></activity>
-        <activity android:name=".ui.nearbyrestaurants.NearbyRestaurantsActivity"></activity>
+            android:parentActivityName=".ui.main.MainActivity" />
+        <activity
+            android:name=".ui.nearbyrestaurants.NearbyRestaurantsActivity"
+            android:parentActivityName=".ui.main.MainActivity" />
     </application>
 
 </manifest>

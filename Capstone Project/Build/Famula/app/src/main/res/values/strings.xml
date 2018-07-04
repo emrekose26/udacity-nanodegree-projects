@@ -6,4 +6,5 @@
     <string name="rate_color">#%1$s</string>
     <string name="my_location">My Location</string>
     <string name="cuisines">Cuisines</string>
+    <string name="nearby_restaurants">Nearby Restaurants</string>
 </resources>
