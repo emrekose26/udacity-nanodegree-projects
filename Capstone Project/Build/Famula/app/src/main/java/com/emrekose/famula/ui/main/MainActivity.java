@@ -13,13 +13,13 @@ import com.emrekose.famula.model.cuisines.Cuisine;
 import com.emrekose.famula.model.geocode.NearbyRestaurant;
 import com.emrekose.famula.ui.cuisineslist.CuisinesListActivity;
 
-public class MainActivity extends BaseOnlyActivity<ActivityMainBinding, MainViewModel> implements CuisinesCallback, NearbyRestaurantsCallback {
+public class MainActivity extends BaseOnlyActivity<ActivityMainBinding, MainViewModel> implements CuisinesCallback, NearbyRestaurantsMainCallback {
 
     private static final int TAKEN_CUISINES = 10;
     private static final int TAKEN_NEARBY_RESTAURANTS = 5;
 
     private CuisinesRecyclerAdapter cuisinesAdapter;
-    private NearbyRestaurantRecylerAdapter nearbyAdapter;
+    private NearbyRestaurantsMainAdapter nearbyAdapter;
 
     @Override
     public int getLayoutRes() {
@@ -49,7 +49,7 @@ public class MainActivity extends BaseOnlyActivity<ActivityMainBinding, MainView
             cuisinesAdapter.submitList(response);
         });
 
-        nearbyAdapter = new NearbyRestaurantRecylerAdapter(new NearbyRestaurantRecylerAdapter.NearbyRestaurantsDiffCallback(), this);
+        nearbyAdapter = new NearbyRestaurantsMainAdapter(new NearbyRestaurantsMainAdapter.NearbyRestaurantsDiffCallback(), this);
         dataBinding.nearbyRestaurantsRecyclerview.setLayoutManager(new LinearLayoutManager(this));
         dataBinding.nearbyRestaurantsRecyclerview.setAdapter(nearbyAdapter);
 

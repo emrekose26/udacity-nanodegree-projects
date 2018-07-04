@@ -10,11 +10,11 @@ import android.view.ViewGroup;
 import com.emrekose.famula.databinding.NearbyRestaurantsMainItemBinding;
 import com.emrekose.famula.model.geocode.NearbyRestaurant;
 
-public class NearbyRestaurantRecylerAdapter extends ListAdapter<NearbyRestaurant, NearbyRestaurantRecylerAdapter.ViewHolder>{
+public class NearbyRestaurantsMainAdapter extends ListAdapter<NearbyRestaurant, NearbyRestaurantsMainAdapter.ViewHolder>{
 
-    private final NearbyRestaurantsCallback callback;
+    private final NearbyRestaurantsMainCallback callback;
 
-    protected NearbyRestaurantRecylerAdapter(@NonNull DiffUtil.ItemCallback<NearbyRestaurant> diffCallback, NearbyRestaurantsCallback callback) {
+    protected NearbyRestaurantsMainAdapter(@NonNull DiffUtil.ItemCallback<NearbyRestaurant> diffCallback, NearbyRestaurantsMainCallback callback) {
         super(diffCallback);
         this.callback = callback;
     }
@@ -34,14 +34,14 @@ public class NearbyRestaurantRecylerAdapter extends ListAdapter<NearbyRestaurant
 
         NearbyRestaurantsMainItemBinding binding;
 
-        public ViewHolder(NearbyRestaurantsMainItemBinding binding, NearbyRestaurantsCallback callback) {
+        public ViewHolder(NearbyRestaurantsMainItemBinding binding, NearbyRestaurantsMainCallback callback) {
             super(binding.getRoot());
             this.binding = binding;
             binding.getRoot().setOnClickListener(v ->
                 callback.onMainNearbyRestaurantsClick(binding.getRestaurant()));
         }
 
-        public static ViewHolder create(LayoutInflater inflater, ViewGroup parent, NearbyRestaurantsCallback callback) {
+        public static ViewHolder create(LayoutInflater inflater, ViewGroup parent, NearbyRestaurantsMainCallback callback) {
             NearbyRestaurantsMainItemBinding nearbyRestaurantsMainItemBinding = NearbyRestaurantsMainItemBinding.inflate(inflater, parent, false);
             return new ViewHolder(nearbyRestaurantsMainItemBinding, callback);
         }
