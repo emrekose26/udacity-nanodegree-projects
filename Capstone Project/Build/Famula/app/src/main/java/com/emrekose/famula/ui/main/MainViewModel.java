@@ -7,6 +7,7 @@ import com.emrekose.famula.common.RxViewModel;
 import com.emrekose.famula.model.cuisines.Cuisine;
 import com.emrekose.famula.model.cuisines.CuisinesResponse;
 import com.emrekose.famula.model.geocode.GeocodeResponse;
+import com.emrekose.famula.model.geocode.NearbyRestaurant;
 import com.emrekose.famula.repository.MainActivityRepository;
 
 import java.util.List;
@@ -18,19 +19,19 @@ public class MainViewModel extends RxViewModel {
     private MainActivityRepository repository;
 
     private MutableLiveData<List<Cuisine>> cuisinesLiveData = new MutableLiveData<>();
-    private MutableLiveData<GeocodeResponse> nearbyRestaurantsLiveData = new MutableLiveData<>();
+    private MutableLiveData<List<NearbyRestaurant>> nearbyRestaurantsLiveData = new MutableLiveData<>();
 
     @Inject
     public MainViewModel(MainActivityRepository repository) {
         this.repository = repository;
     }
 
-    public LiveData<List<Cuisine>> getCuisines(int cityId, Double lat, Double lon, Integer take) {
-        if (take != null) {
+    public LiveData<List<Cuisine>> getCuisines(int cityId, Double lat, Double lon, Integer takeCount) {
+        if (takeCount != null) {
             disposable.add(repository.getCuisines(cityId, lat, lon)
                     .map(CuisinesResponse::getCuisines)
                     .flatMapIterable(response -> response)
-                    .take(take)
+                    .take(takeCount)
                     .toList()
                     .subscribe(response -> cuisinesLiveData.setValue(response)));
         } else {
@@ -43,13 +44,17 @@ public class MainViewModel extends RxViewModel {
         return cuisinesLiveData;
     }
 
-    public LiveData<GeocodeResponse> getNearbyRestaurants(Double lat, Double lon, Integer take) {
-        if (take != null) {
+    public LiveData<List<NearbyRestaurant>> getNearbyRestaurants(Double lat, Double lon, Integer takeCount) {
+        if (takeCount != null) {
             disposable.add(repository.getNearbyRestaurants(lat, lon)
-                    .take(take)
+                    .map(GeocodeResponse::getNearbyRestaurants)
+                    .flatMapIterable(response -> response)
+                    .take(takeCount)
+                    .toList()
                     .subscribe(response -> nearbyRestaurantsLiveData.setValue(response)));
         } else {
             disposable.add(repository.getNearbyRestaurants(lat, lon)
+                    .map(GeocodeResponse::getNearbyRestaurants)
                     .subscribe(response -> nearbyRestaurantsLiveData.setValue(response)));
         }
 

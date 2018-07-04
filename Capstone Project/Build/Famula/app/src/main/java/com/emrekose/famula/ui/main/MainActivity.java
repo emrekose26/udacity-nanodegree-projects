@@ -54,7 +54,7 @@ public class MainActivity extends BaseOnlyActivity<ActivityMainBinding, MainView
 
         // TODO: 2.07.2018 lat lon provides by LocationManager
         viewModel.getNearbyRestaurants(51.507, -0.1277, TAKEN_NEARBY_RESTAURANTS).observe(this, response -> {
-            nearbyAdapter.submitList(response.getNearbyRestaurants());
+            nearbyAdapter.submitList(response);
         });
 
         dataBinding.viewAllCuisine.setOnClickListener(v -> {
