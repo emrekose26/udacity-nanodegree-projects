@@ -4,9 +4,12 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 
 import com.emrekose.famula.common.RxViewModel;
+import com.emrekose.famula.model.cuisines.Cuisine;
 import com.emrekose.famula.model.cuisines.CuisinesResponse;
 import com.emrekose.famula.model.geocode.GeocodeResponse;
 import com.emrekose.famula.repository.MainActivityRepository;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -14,7 +17,7 @@ public class MainViewModel extends RxViewModel {
 
     private MainActivityRepository repository;
 
-    private MutableLiveData<CuisinesResponse> cuisinesLiveData = new MutableLiveData<>();
+    private MutableLiveData<List<Cuisine>> cuisinesLiveData = new MutableLiveData<>();
     private MutableLiveData<GeocodeResponse> nearbyRestaurantsLiveData = new MutableLiveData<>();
 
     @Inject
@@ -22,14 +25,18 @@ public class MainViewModel extends RxViewModel {
         this.repository = repository;
     }
 
-    public LiveData<CuisinesResponse> getCuisines(int cityId, Double lat, Double lon, Integer take) {
+    public LiveData<List<Cuisine>> getCuisines(int cityId, Double lat, Double lon, Integer take) {
         if (take != null) {
             disposable.add(repository.getCuisines(cityId, lat, lon)
+                    .map(CuisinesResponse::getCuisines)
+                    .flatMapIterable(response -> response)
                     .take(take)
+                    .toList()
                     .subscribe(response -> cuisinesLiveData.setValue(response)));
         } else {
             disposable.add(
                     repository.getCuisines(cityId, lat, lon)
+                            .map(CuisinesResponse::getCuisines)
                             .subscribe(response -> cuisinesLiveData.setValue(response)));
         }
 

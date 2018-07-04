@@ -19,7 +19,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.cuisineslist.CuisinesListActivity"></activity>
+        <activity
+            android:name=".ui.cuisineslist.CuisinesListActivity"
+            android:parentActivityName=".ui.main.MainActivity">
+        </activity>
     </application>
 
 </manifest>

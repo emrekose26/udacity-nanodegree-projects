@@ -4,4 +4,6 @@
     <string name="what_would_you_like_to_order">What would you like to order?</string>
     <string name="restaurants_near_you">Restaurants near you</string>
     <string name="rate_color">#%1$s</string>
+    <string name="my_location">My Location</string>
+    <string name="cuisines">Cuisines</string>
 </resources>
