@@ -3,7 +3,6 @@ package com.emrekose.famula.ui.cuisineslist;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.emrekose.famula.R;
 import com.emrekose.famula.common.BaseOnlyActivity;
@@ -30,20 +29,14 @@ public class CuisinesListActivity extends BaseOnlyActivity<ActivityCuisinesListB
         super.onCreate(savedInstanceState);
 
         setupToolbar();
-
+        
         adapter = new CuisinesListRecyclerAdapter(new CuisinesListRecyclerAdapter.CuisinesListDiffCallback(), this);
         dataBinding.cuisinesListRecyclerview.setLayoutManager(new LinearLayoutManager(this));
         dataBinding.cuisinesListRecyclerview.setAdapter(adapter);
 
         viewModel.getCuisines(59, null, null, null).observe(this, response -> {
-            if (response.size() > 0) {
-                adapter.submitList(response);
-                dataBinding.cuisinesListProgressbar.setVisibility(View.GONE);
-            } else {
-                dataBinding.cuisinesListProgressbar.setVisibility(View.VISIBLE);
-                dataBinding.cuisinesListRecyclerview.setVisibility(View.GONE);
-            }
-
+            dataBinding.setListSize(response.size());
+            adapter.submitList(response);
         });
     }
 

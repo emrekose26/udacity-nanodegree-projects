@@ -45,6 +45,7 @@ public class MainActivity extends BaseOnlyActivity<ActivityMainBinding, MainView
 
         // TODO: 1.07.2018 city_id provides shared preferences after get the user location
         viewModel.getCuisines(59, null, null, TAKEN_CUISINES).observe(this, response -> {
+            dataBinding.setCuisineSize(response.size());
             cuisinesAdapter.submitList(response);
         });
 
@@ -54,6 +55,7 @@ public class MainActivity extends BaseOnlyActivity<ActivityMainBinding, MainView
 
         // TODO: 2.07.2018 lat lon provides by LocationManager
         viewModel.getNearbyRestaurants(51.507, -0.1277, TAKEN_NEARBY_RESTAURANTS).observe(this, response -> {
+            dataBinding.setRestaurantSize(response.size());
             nearbyAdapter.submitList(response);
         });
 
