@@ -7,4 +7,7 @@
     <string name="my_location">My Location</string>
     <string name="cuisines">Cuisines</string>
     <string name="nearby_restaurants">Nearby Restaurants</string>
+    <string name="home">Home</string>
+    <string name="establisments">Establisments</string>
+    <string name="fav_restaurants">Favorite Restaurants</string>
 </resources>

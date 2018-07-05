@@ -2,6 +2,7 @@ package com.emrekose.famula.ui.main;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.GravityCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -37,6 +38,7 @@ public class MainActivity extends BaseOnlyActivity<ActivityMainBinding, MainView
         super.onCreate(savedInstanceState);
 
         setupToolbar();
+        navViewConfig();
 
         dataBinding.setLifecycleOwner(this);
 
@@ -88,6 +90,9 @@ public class MainActivity extends BaseOnlyActivity<ActivityMainBinding, MainView
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case android.R.id.home:
+                dataBinding.mainDrawer.openDrawer(GravityCompat.START);
+                return true;
             case R.id.menu_action_my_location:
                 // TODO: 4.07.2018 get the user location
                 break;
@@ -95,8 +100,29 @@ public class MainActivity extends BaseOnlyActivity<ActivityMainBinding, MainView
         return super.onOptionsItemSelected(item);
     }
 
+
+
+    @Override
+    public void onBackPressed() {
+        if (dataBinding.mainDrawer.isDrawerOpen(GravityCompat.START)) {
+            dataBinding.mainDrawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
     private void setupToolbar() {
         setSupportActionBar(dataBinding.toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu);
+    }
+
+    private void navViewConfig() {
+        dataBinding.mainNavView.setNavigationItemSelectedListener(menuItem -> {
+                    menuItem.setChecked(true);
+                    dataBinding.mainDrawer.closeDrawers();
+                    return true;
+                });
     }
 }
