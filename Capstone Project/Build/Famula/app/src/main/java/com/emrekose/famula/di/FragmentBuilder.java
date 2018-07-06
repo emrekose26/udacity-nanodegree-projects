@@ -1,8 +1,18 @@
 package com.emrekose.famula.di;
 
+import com.emrekose.famula.ui.establisments.EstablismentTypesListFragment;
+import com.emrekose.famula.ui.establisments.EstablistmentListFragment;
+
 import dagger.Module;
+import dagger.android.ContributesAndroidInjector;
 
 @Module
 abstract class FragmentBuilder {
-    // TODO: 30.06.2018 Fragment injections are gonna be here
+
+    @ContributesAndroidInjector
+    abstract EstablismentTypesListFragment establismentTypesListFragment();
+
+    @ContributesAndroidInjector
+    abstract EstablistmentListFragment establismentListFragment();
+
 }
