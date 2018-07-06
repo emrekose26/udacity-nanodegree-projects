@@ -36,7 +36,7 @@ public interface ApiService {
 
     // establisments
     @GET("establisments")
-    Single<EstablismentsResponse> getEstablisments(@Query("city_id") int cityId,
+    Flowable<EstablismentsResponse> getEstablisments(@Query("city_id") int cityId,
                                                    @Query("lat") Double lat,
                                                    @Query("lon") Double lon);
 
@@ -65,8 +65,9 @@ public interface ApiService {
 
     // search
     @GET("search")
-    Single<SearchResponse> getSearchDatas(@Query("q") String query,
+    Flowable<SearchResponse> getSearchDatas(@Query("q") String query,
                                           @Query("entity_id") String entityId,
+                                          @Query("entity_type") String entityType,
                                           @Query("lat") Double lat,
                                           @Query("lon") Double lon,
                                           @Query("start") int page);
