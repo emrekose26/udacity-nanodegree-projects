@@ -35,7 +35,7 @@ public interface ApiService {
                                            @Query("lon") Double lon);
 
     // establisments
-    @GET("establisments")
+    @GET("establishments")
     Flowable<EstablismentsResponse> getEstablisments(@Query("city_id") int cityId,
                                                    @Query("lat") Double lat,
                                                    @Query("lon") Double lon);

@@ -2,7 +2,10 @@ package com.emrekose.famula.ui.main;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,9 +16,11 @@ import com.emrekose.famula.databinding.ActivityMainBinding;
 import com.emrekose.famula.model.cuisines.Cuisine;
 import com.emrekose.famula.model.geocode.NearbyRestaurant;
 import com.emrekose.famula.ui.cuisineslist.CuisinesListActivity;
+import com.emrekose.famula.ui.establisments.EstablismentsActivity;
 import com.emrekose.famula.ui.nearbyrestaurants.NearbyRestaurantsActivity;
 
-public class MainActivity extends BaseOnlyActivity<ActivityMainBinding, MainViewModel> implements CuisinesCallback, NearbyRestaurantsMainCallback {
+public class MainActivity extends BaseOnlyActivity<ActivityMainBinding, MainViewModel>
+        implements NavigationView.OnNavigationItemSelectedListener,CuisinesCallback, NearbyRestaurantsMainCallback {
 
     private static final int TAKEN_CUISINES = 10;
     private static final int TAKEN_NEARBY_RESTAURANTS = 5;
@@ -100,7 +105,16 @@ public class MainActivity extends BaseOnlyActivity<ActivityMainBinding, MainView
         return super.onOptionsItemSelected(item);
     }
 
-
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.nav_establisments:
+                startActivity(new Intent(MainActivity.this, EstablismentsActivity.class));
+                break;
+        }
+        dataBinding.mainDrawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
 
     @Override
     public void onBackPressed() {
@@ -119,10 +133,10 @@ public class MainActivity extends BaseOnlyActivity<ActivityMainBinding, MainView
     }
 
     private void navViewConfig() {
-        dataBinding.mainNavView.setNavigationItemSelectedListener(menuItem -> {
-                    menuItem.setChecked(true);
-                    dataBinding.mainDrawer.closeDrawers();
-                    return true;
-                });
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, dataBinding.mainDrawer, dataBinding.toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        dataBinding.mainDrawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        dataBinding.mainNavView.setNavigationItemSelectedListener(this);
     }
 }

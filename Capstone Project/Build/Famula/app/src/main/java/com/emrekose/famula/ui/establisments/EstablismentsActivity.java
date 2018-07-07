@@ -17,6 +17,16 @@ public class EstablismentsActivity extends BaseActivity<ActivityEstablismentsBin
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        setupToolbar();
 
+        if (dataBinding.establismentsContainer != null) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.establisments_container, EstablismentTypesListFragment.newInstance())
+                    .commit();
+        }
+    }
+
+    private void setupToolbar() {
+        setSupportActionBar(dataBinding.establistmentsToolbar);
     }
 }
