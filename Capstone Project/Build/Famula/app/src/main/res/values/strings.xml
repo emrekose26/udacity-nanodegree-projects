@@ -13,4 +13,9 @@
 
     <string name="navigation_drawer_open">Open drawer</string>
     <string name="navigation_drawer_close">Close drawer</string>
+    <string name="or">or</string>
+    <string name="current_location">Current Location</string>
+    <string name="get_current_location">Get Current Location</string>
+    <string name="any_location">Any Location</string>
+    <string name="save_location">Save location</string>
 </resources>
