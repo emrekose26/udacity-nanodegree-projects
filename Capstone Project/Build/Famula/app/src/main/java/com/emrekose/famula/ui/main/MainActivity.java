@@ -3,12 +3,14 @@ package com.emrekose.famula.ui.main;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.emrekose.famula.R;
 import com.emrekose.famula.common.BaseOnlyActivity;
@@ -99,7 +101,7 @@ public class MainActivity extends BaseOnlyActivity<ActivityMainBinding, MainView
                 dataBinding.mainDrawer.openDrawer(GravityCompat.START);
                 return true;
             case R.id.menu_action_my_location:
-                // TODO: 4.07.2018 get the user location
+                showBottomSheet();
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -138,5 +140,12 @@ public class MainActivity extends BaseOnlyActivity<ActivityMainBinding, MainView
         toggle.syncState();
 
         dataBinding.mainNavView.setNavigationItemSelectedListener(this);
+    }
+
+    private void showBottomSheet() {
+        BottomSheetDialog bottomSheet = new BottomSheetDialog(this);
+        View view = View.inflate(this, R.layout.location_bottom_sheet, null);
+        bottomSheet.setContentView(view);
+        bottomSheet.show();
     }
 }

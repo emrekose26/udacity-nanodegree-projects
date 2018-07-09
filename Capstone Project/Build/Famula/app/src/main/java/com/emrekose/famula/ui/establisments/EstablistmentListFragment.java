@@ -13,18 +13,18 @@ import com.emrekose.famula.common.BaseFragment;
 import com.emrekose.famula.databinding.FragmentEstablistmentListBinding;
 import com.emrekose.famula.model.establisments.Establishment;
 
-import timber.log.Timber;
-
 /**
  * A simple {@link Fragment} subclass.
  */
 public class EstablistmentListFragment extends BaseFragment<EstablismentsViewModel, FragmentEstablistmentListBinding> {
 
+    private static final String ESTABLISHMENT_ID_KEY = "establishment_id";
+
     public static EstablistmentListFragment newInstance(Establishment establistment) {
 
         Bundle args = new Bundle();
 
-        args.putString("est_name", establistment.getEstablishment().getName());
+        args.putInt(ESTABLISHMENT_ID_KEY, establistment.getEstablishment().getId());
         EstablistmentListFragment fragment = new EstablistmentListFragment();
         fragment.setArguments(args);
         return fragment;
@@ -56,7 +56,7 @@ public class EstablistmentListFragment extends BaseFragment<EstablismentsViewMod
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        Timber.e(getArguments().getString("est_name"));
+        int establishmentId = getArguments().getInt(ESTABLISHMENT_ID_KEY);
     }
 
 }
