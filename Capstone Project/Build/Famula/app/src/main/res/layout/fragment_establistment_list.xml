@@ -1,13 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <FrameLayout
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="listSize"
+            type="Integer"/>
+    </data>
+
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.establisments.EstablistmentListFragment">
 
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/establishment_list_recyclerview"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="@{listSize > 0 ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    </FrameLayout>
+        <ProgressBar
+            android:id="@+id/establishment_list_progressbar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="gone"
+            android:visibility="@{listSize > 0 ? View.GONE : View.VISIBLE}"
+            app:layout_constraintVertical_bias="0.3" />
+
+    </android.support.constraint.ConstraintLayout>
 </layout>
