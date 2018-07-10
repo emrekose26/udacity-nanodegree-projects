@@ -18,4 +18,5 @@
     <string name="get_current_location">Get Current Location</string>
     <string name="any_location">Any Location</string>
     <string name="save_location">Save location</string>
+    <string name="retry">retry</string>
 </resources>

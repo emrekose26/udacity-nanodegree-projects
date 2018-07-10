@@ -2,12 +2,13 @@ package com.emrekose.famula.repository;
 
 import com.emrekose.famula.data.remote.ApiService;
 import com.emrekose.famula.model.establisments.EstablismentsResponse;
-import com.emrekose.famula.model.restaurant.search.SearchResponse;
+import com.emrekose.famula.data.remote.datasource.EstablishmentListDataSourceFactory;
 
 import javax.inject.Inject;
 
 import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class EstablismentsRepository {
@@ -25,15 +26,10 @@ public class EstablismentsRepository {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public Flowable<SearchResponse> getEstablistments(String query,
-                                                      String entityId,
-                                                      String entityType,
-                                                      Double lat,
-                                                      Double lon,
-                                                      int page) {
-
-        return apiService.getSearchDatas(query, entityId, entityType, lat, lon, page)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
+    public EstablishmentListDataSourceFactory getDataSoureFactory(CompositeDisposable compositeDisposable,
+                                                                  String establishmentId,
+                                                                  int entityId,
+                                                                  String entityType) {
+        return new EstablishmentListDataSourceFactory(apiService, compositeDisposable, establishmentId, entityId, entityType);
     }
 }

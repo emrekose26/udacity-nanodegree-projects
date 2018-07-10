@@ -37,13 +37,13 @@ public interface ApiService {
     // establisments
     @GET("establishments")
     Flowable<EstablismentsResponse> getEstablisments(@Query("city_id") int cityId,
-                                                   @Query("lat") Double lat,
-                                                   @Query("lon") Double lon);
+                                                     @Query("lat") Double lat,
+                                                     @Query("lon") Double lon);
 
     // geocode
     @GET("geocode")
     Flowable<GeocodeResponse> getGeoCode(@Query("lat") Double lat,
-                                       @Query("lon") Double lon);
+                                         @Query("lon") Double lon);
 
     // location_details
     @GET("location_details")
@@ -55,6 +55,7 @@ public interface ApiService {
     Single<LocationsResponse> getLocations(@Query("query") String query,
                                            @Query("lat") Double lat,
                                            @Query("lon") Double lon);
+
     // restaurant details
     @GET("restaurant")
     Single<RestaurantDetailResponse> getRestaurantDetails(@Query("res_id") int restaurantId);
@@ -66,9 +67,11 @@ public interface ApiService {
     // search
     @GET("search")
     Flowable<SearchResponse> getSearchDatas(@Query("q") String query,
-                                          @Query("entity_id") String entityId,
-                                          @Query("entity_type") String entityType,
-                                          @Query("lat") Double lat,
-                                          @Query("lon") Double lon,
-                                          @Query("start") int page);
+                                            @Query("establishment_type") String establishmentType,
+                                            @Query("entity_id") int entityId,
+                                            @Query("entity_type") String entityType,
+                                            @Query("lat") Double lat,
+                                            @Query("lon") Double lon,
+                                            @Query("start") int page,
+                                            @Query("count") int pageSize);
 }
