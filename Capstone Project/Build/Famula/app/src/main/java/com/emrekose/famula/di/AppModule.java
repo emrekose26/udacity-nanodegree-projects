@@ -2,6 +2,8 @@ package com.emrekose.famula.di;
 
 import android.app.Application;
 import android.arch.persistence.room.Room;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 import com.emrekose.famula.BuildConfig;
 import com.emrekose.famula.data.local.FamulaDatabase;
@@ -23,6 +25,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module(includes = {ViewModelModule.class})
 class AppModule {
+
+    @Provides
+    @Singleton
+    SharedPreferences provideSharedPreferences(Application application) {
+        return PreferenceManager.getDefaultSharedPreferences(application);
+    }
 
     @Provides
     @Singleton
