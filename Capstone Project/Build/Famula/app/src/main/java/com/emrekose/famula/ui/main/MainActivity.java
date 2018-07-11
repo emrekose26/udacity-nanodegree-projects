@@ -16,6 +16,7 @@ import com.emrekose.famula.databinding.ActivityMainBinding;
 import com.emrekose.famula.model.cuisines.Cuisine;
 import com.emrekose.famula.model.geocode.NearbyRestaurant;
 import com.emrekose.famula.ui.cuisineslist.CuisinesListActivity;
+import com.emrekose.famula.ui.detail.RestaurantDetailActivity;
 import com.emrekose.famula.ui.establisments.EstablismentsActivity;
 import com.emrekose.famula.ui.nearbyrestaurants.NearbyRestaurantsActivity;
 
@@ -83,7 +84,7 @@ public class MainActivity extends BaseOnlyActivity<ActivityMainBinding, MainView
 
     @Override
     public void onMainNearbyRestaurantsClick(NearbyRestaurant nearbyRestaurant) {
-
+        startActivity(new Intent(MainActivity.this, RestaurantDetailActivity.class));
     }
 
     @Override

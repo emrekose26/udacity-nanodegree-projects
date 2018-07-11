@@ -1,6 +1,7 @@
 package com.emrekose.famula.di;
 
 import com.emrekose.famula.ui.cuisineslist.CuisinesListActivity;
+import com.emrekose.famula.ui.detail.RestaurantDetailActivity;
 import com.emrekose.famula.ui.establisments.EstablismentsActivity;
 import com.emrekose.famula.ui.main.MainActivity;
 import com.emrekose.famula.ui.nearbyrestaurants.NearbyRestaurantsActivity;
@@ -22,4 +23,7 @@ abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = FragmentBuilder.class)
     abstract EstablismentsActivity establismentsActivity();
+
+    @ContributesAndroidInjector(modules = FragmentBuilder.class)
+    abstract RestaurantDetailActivity restaurantDetailActivity();
 }

@@ -25,7 +25,8 @@
         <activity
             android:name=".ui.nearbyrestaurants.NearbyRestaurantsActivity"
             android:parentActivityName=".ui.main.MainActivity" />
-        <activity android:name=".ui.establisments.EstablismentsActivity"></activity>
+        <activity android:name=".ui.establisments.EstablismentsActivity" />
+        <activity android:name=".ui.detail.RestaurantDetailActivity"></activity>
     </application>
 
 </manifest>
