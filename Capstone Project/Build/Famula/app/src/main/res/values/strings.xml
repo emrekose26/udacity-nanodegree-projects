@@ -20,9 +20,12 @@
     <string name="save_location">Save location</string>
     <string name="retry">retry</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="info">Info</string>
     <string name="reviews">Reviews</string>
     <string name="map">Map</string>
+    <string name="address">Address</string>
+    <string name="price_range">Price Range</string>
+    <string name="average_cost_for_two">Average Cost for Two</string>
+    <string name="online_delivery">Online Delivery</string>
+    <string name="table_booking">Table Booking</string>
 </resources>
