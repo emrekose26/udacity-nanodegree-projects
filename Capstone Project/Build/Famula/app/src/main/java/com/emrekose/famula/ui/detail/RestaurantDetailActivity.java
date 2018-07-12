@@ -2,6 +2,8 @@ package com.emrekose.famula.ui.detail;
 
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.emrekose.famula.R;
 import com.emrekose.famula.common.BaseActivity;
@@ -22,6 +24,25 @@ public class RestaurantDetailActivity extends BaseActivity<ActivityRestaurantDet
         setupToolbar();
         setupViewPager(dataBinding.detailViewpager);
         dataBinding.detailTabs.setupWithViewPager(dataBinding.detailViewpager);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_restaurant_detail, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_action_add_to_favorites:
+                // TODO: 12.07.2018 add to favorites
+                break;
+            case R.id.menu_action_share:
+                // TODO: 12.07.2018 share restaurant adress
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void setupToolbar() {

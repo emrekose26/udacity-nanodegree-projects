@@ -28,4 +28,6 @@
     <string name="average_cost_for_two">Average Cost for Two</string>
     <string name="online_delivery">Online Delivery</string>
     <string name="table_booking">Table Booking</string>
+    <string name="add_to_favorites">Add to Favorites</string>
+    <string name="share">Share</string>
 </resources>
