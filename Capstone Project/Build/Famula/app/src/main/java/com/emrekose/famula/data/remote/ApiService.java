@@ -62,7 +62,7 @@ public interface ApiService {
 
     // reviews
     @GET("reviews")
-    Single<ReviewsResponse> getReviews(@Query("res_id") int restaurantId);
+    Flowable<ReviewsResponse> getReviews(@Query("res_id") int restaurantId);
 
     // search
     @GET("search")
