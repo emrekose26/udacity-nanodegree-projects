@@ -33,7 +33,7 @@ public class RestaurantDetailActivity extends BaseActivity<ActivityRestaurantDet
             if (getIntent().getExtras().getSerializable(Constants.RESTAURANTS_BUNDLE_KEY) instanceof NearbyRestaurant) {
                 NearbyRestaurant nearbyRestaurant = (NearbyRestaurant) getIntent().getExtras().getSerializable(Constants.RESTAURANTS_BUNDLE_KEY);
 
-                setCommonRestaurant(nearbyRestaurant.getRestaurant().getName(), nearbyRestaurant.getRestaurant().getUrl(), nearbyRestaurant.getRestaurant().getLocation().getAddress(),
+                setCommonRestaurant(nearbyRestaurant.getRestaurant().getId(), nearbyRestaurant.getRestaurant().getName(), nearbyRestaurant.getRestaurant().getUrl(), nearbyRestaurant.getRestaurant().getLocation().getAddress(),
                         nearbyRestaurant.getRestaurant().getLocation().getLocality(), nearbyRestaurant.getRestaurant().getLocation().getLatitude(), nearbyRestaurant.getRestaurant().getLocation().getLongitude(),
                         nearbyRestaurant.getRestaurant().getCuisines(), nearbyRestaurant.getRestaurant().getAverageCostForTwo(), nearbyRestaurant.getRestaurant().getPriceRange(),
                         nearbyRestaurant.getRestaurant().getCurrency(), nearbyRestaurant.getRestaurant().getThumb(), nearbyRestaurant.getRestaurant().getUserRating().getAggregateRating(),
@@ -69,10 +69,11 @@ public class RestaurantDetailActivity extends BaseActivity<ActivityRestaurantDet
         return super.onOptionsItemSelected(item);
     }
 
-    private void setCommonRestaurant(String name, String url, String address, String locality, String lat, String lon, String cuisines, int averageCostForTwo,
+    private void setCommonRestaurant(String id, String name, String url, String address, String locality, String lat, String lon, String cuisines, int averageCostForTwo,
                                      int priceRange, String currency, String thumb, String aggregateRating, String ratingColor, String featuredImage, int hasOnlineDelivery, int hasTableBooking) {
 
         commonRestaurant = new CommonRestaurant();
+        commonRestaurant.setId(id);
         commonRestaurant.setName(name);
         commonRestaurant.setUrl(url);
         commonRestaurant.setAddress(address);
@@ -100,7 +101,7 @@ public class RestaurantDetailActivity extends BaseActivity<ActivityRestaurantDet
     private void setupViewPager(ViewPager viewPager, CommonRestaurant commonRestaurant) {
         ViewPagerAdapter pagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         pagerAdapter.addFragment(RestaurantInfoFragment.newInstance(commonRestaurant), getString(R.string.info));
-        pagerAdapter.addFragment(RestaurantReviewsFragment.newInstance(), getString(R.string.reviews));
+        pagerAdapter.addFragment(RestaurantReviewsFragment.newInstance(commonRestaurant), getString(R.string.reviews));
         pagerAdapter.addFragment(RestaurantMapFragment.newInstance(), getString(R.string.map));
         viewPager.setAdapter(pagerAdapter);
     }

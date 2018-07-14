@@ -2,8 +2,9 @@ package com.emrekose.famula.model.common;
 
 import java.io.Serializable;
 
-public class CommonRestaurant implements Serializable{
+public class CommonRestaurant implements Serializable {
 
+    private String id;
     private String name;
     private String url;
     private String address;
@@ -21,6 +22,14 @@ public class CommonRestaurant implements Serializable{
     private int hasOnlineDelivery;
     private int isDeliveringNow;
     private int hasTableBooking;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;

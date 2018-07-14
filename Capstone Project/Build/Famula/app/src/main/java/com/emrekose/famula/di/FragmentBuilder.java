@@ -1,5 +1,7 @@
 package com.emrekose.famula.di;
 
+import com.emrekose.famula.ui.detail.RestaurantInfoFragment;
+import com.emrekose.famula.ui.detail.RestaurantReviewsFragment;
 import com.emrekose.famula.ui.establisments.EstablismentTypesListFragment;
 import com.emrekose.famula.ui.establisments.EstablistmentListFragment;
 
@@ -14,5 +16,11 @@ abstract class FragmentBuilder {
 
     @ContributesAndroidInjector
     abstract EstablistmentListFragment establismentListFragment();
+
+    @ContributesAndroidInjector
+    abstract RestaurantInfoFragment restaurantInfoFragment();
+
+    @ContributesAndroidInjector
+    abstract RestaurantReviewsFragment restaurantReviewsFragment();
 
 }
