@@ -2,9 +2,10 @@ package com.emrekose.famula.model.geocode;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Restaurant {
+public class Restaurant implements Serializable {
 
     @SerializedName("R")
     private ResId resId;

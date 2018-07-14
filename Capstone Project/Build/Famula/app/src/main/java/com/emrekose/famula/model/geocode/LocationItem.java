@@ -2,7 +2,9 @@ package com.emrekose.famula.model.geocode;
 
 import com.google.gson.annotations.SerializedName;
 
-public class LocationItem {
+import java.io.Serializable;
+
+public class LocationItem implements Serializable {
 
     @SerializedName("address")
     private String address;

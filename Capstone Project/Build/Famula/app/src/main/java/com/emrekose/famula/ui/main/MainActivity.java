@@ -19,6 +19,7 @@ import com.emrekose.famula.ui.cuisineslist.CuisinesListActivity;
 import com.emrekose.famula.ui.detail.RestaurantDetailActivity;
 import com.emrekose.famula.ui.establisments.EstablismentsActivity;
 import com.emrekose.famula.ui.nearbyrestaurants.NearbyRestaurantsActivity;
+import com.emrekose.famula.util.Constants;
 
 public class MainActivity extends BaseOnlyActivity<ActivityMainBinding, MainViewModel>
         implements NavigationView.OnNavigationItemSelectedListener,CuisinesCallback, NearbyRestaurantsMainCallback {
@@ -28,6 +29,7 @@ public class MainActivity extends BaseOnlyActivity<ActivityMainBinding, MainView
 
     private CuisinesRecyclerAdapter cuisinesAdapter;
     private NearbyRestaurantsMainAdapter nearbyAdapter;
+
 
     @Override
     public int getLayoutRes() {
@@ -84,7 +86,9 @@ public class MainActivity extends BaseOnlyActivity<ActivityMainBinding, MainView
 
     @Override
     public void onMainNearbyRestaurantsClick(NearbyRestaurant nearbyRestaurant) {
-        startActivity(new Intent(MainActivity.this, RestaurantDetailActivity.class));
+        Intent intent = new Intent(MainActivity.this, RestaurantDetailActivity.class);
+        intent.putExtra(Constants.RESTAURANTS_BUNDLE_KEY, nearbyRestaurant);
+        startActivity(intent);
     }
 
     @Override

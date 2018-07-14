@@ -2,9 +2,10 @@ package com.emrekose.famula.model.geocode;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class GeocodeResponse {
+public class GeocodeResponse implements Serializable {
 
     @SerializedName("location")
     private Location location;

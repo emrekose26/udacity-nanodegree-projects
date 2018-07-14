@@ -8,20 +8,26 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.emrekose.famula.R;
+import com.emrekose.famula.common.BaseFragment;
+import com.emrekose.famula.databinding.FragmentRestaurantInfoBinding;
+import com.emrekose.famula.model.common.CommonRestaurant;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RestaurantInfoFragment extends Fragment {
+public class RestaurantInfoFragment extends BaseFragment<RestaurantDetailViewModel, FragmentRestaurantInfoBinding> {
+
+    private static final String RESTAURANT_KEY = "restaurant_key";
 
 
     public RestaurantInfoFragment() {
         // Required empty public constructor
     }
 
-    public static RestaurantInfoFragment newInstance() {
+    public static RestaurantInfoFragment newInstance(CommonRestaurant commonRestaurant) {
 
         Bundle args = new Bundle();
+        args.putSerializable(RESTAURANT_KEY, commonRestaurant);
 
         RestaurantInfoFragment fragment = new RestaurantInfoFragment();
         fragment.setArguments(args);
@@ -30,10 +36,19 @@ public class RestaurantInfoFragment extends Fragment {
 
 
     @Override
+    public Class<RestaurantDetailViewModel> getViewModel() {
+        return RestaurantDetailViewModel.class;
+    }
+
+    @Override
+    public int getLayoutRes() {
+        return R.layout.fragment_restaurant_info;
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_restaurant_info, container, false);
+        return dataBinding.getRoot();
     }
 
 }

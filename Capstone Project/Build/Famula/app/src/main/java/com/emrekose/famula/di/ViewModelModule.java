@@ -3,6 +3,7 @@ package com.emrekose.famula.di;
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 
+import com.emrekose.famula.ui.detail.RestaurantDetailViewModel;
 import com.emrekose.famula.ui.establisments.EstablismentsViewModel;
 import com.emrekose.famula.ui.main.MainViewModel;
 import com.emrekose.famula.viewmodel.VMFactory;
@@ -23,6 +24,11 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(EstablismentsViewModel.class)
     abstract ViewModel bindsEstablismentsViewModel(EstablismentsViewModel establismentsViewModel);
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(RestaurantDetailViewModel.class)
+    abstract ViewModel bindsRestaurantDetailViewModel(RestaurantDetailViewModel restaurantDetailViewModel);
 
     @Binds
     abstract ViewModelProvider.Factory bindsViewModelFactory(VMFactory vmFactory);

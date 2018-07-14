@@ -2,7 +2,9 @@ package com.emrekose.famula.model.geocode;
 
 import com.google.gson.annotations.SerializedName;
 
-public class ResId {
+import java.io.Serializable;
+
+public class ResId implements Serializable {
 
     @SerializedName("res_id")
     private int resId;
