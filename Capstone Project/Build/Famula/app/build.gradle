@@ -74,6 +74,9 @@ dependencies {
     implementation "com.github.bumptech.glide:okhttp3-integration:$versions.glide"
     annotationProcessor "com.github.bumptech.glide:compiler:$versions.glide"
 
+    // Circle ImageView
+    implementation "de.hdodenhof:circleimageview:$versions.circleiv"
+
     // Stetho
     implementation "com.facebook.stetho:stetho:$versions.stetho"
     implementation "com.facebook.stetho:stetho-okhttp3:$versions.stetho"
