@@ -1,11 +1,17 @@
 package com.emrekose.famula.ui.main;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,11 +27,19 @@ import com.emrekose.famula.ui.establisments.EstablismentsActivity;
 import com.emrekose.famula.ui.nearbyrestaurants.NearbyRestaurantsActivity;
 import com.emrekose.famula.util.Constants;
 
+import java.util.List;
+
+import pub.devrel.easypermissions.AfterPermissionGranted;
+import pub.devrel.easypermissions.EasyPermissions;
+import timber.log.Timber;
+
 public class MainActivity extends BaseOnlyActivity<ActivityMainBinding, MainViewModel>
-        implements NavigationView.OnNavigationItemSelectedListener,CuisinesCallback, NearbyRestaurantsMainCallback {
+        implements NavigationView.OnNavigationItemSelectedListener, CuisinesCallback, NearbyRestaurantsMainCallback,
+        LocationCallback, EasyPermissions.PermissionCallbacks {
 
     private static final int TAKEN_CUISINES = 10;
     private static final int TAKEN_NEARBY_RESTAURANTS = 5;
+    private static final int LOCATION_PERM_CODE = 101;
 
     private CuisinesRecyclerAdapter cuisinesAdapter;
     private NearbyRestaurantsMainAdapter nearbyAdapter;
@@ -92,6 +106,52 @@ public class MainActivity extends BaseOnlyActivity<ActivityMainBinding, MainView
     }
 
     @Override
+    public void onCurrentLocationClick() {
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1) {
+            currentLocationConfig();
+        } else {
+            gpsSettings();
+        }
+    }
+
+    @AfterPermissionGranted(LOCATION_PERM_CODE)
+    private void currentLocationConfig() {
+        boolean hasLocationPermission = EasyPermissions.hasPermissions(this, Manifest.permission.ACCESS_COARSE_LOCATION);
+
+        if (hasLocationPermission) {
+            gpsSettings();
+        } else {
+            EasyPermissions.requestPermissions(this, getString(R.string.location_permission_warning),
+                    LOCATION_PERM_CODE, Manifest.permission.ACCESS_COARSE_LOCATION);
+        }
+    }
+
+    private void gpsSettings() {
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        boolean gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+
+        if (!gpsEnabled) {
+            new AlertDialog.Builder(this)
+                    .setTitle(getString(R.string.enable_gps))
+                    .setMessage(getString(R.string.require_gps_message))
+                    .setPositiveButton(getString(android.R.string.yes), (dialog, which) ->
+                            startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)))
+                    .setNegativeButton(android.R.string.no, (dialog, which) -> {  /* do nothing */ })
+                    .show();
+        }
+    }
+
+    @Override
+    public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {
+        Timber.e("onPermissionsGranted:" + requestCode + ":" + perms.size());
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
+        Timber.e("onPermissionsDenied:" + requestCode + ":" + perms.size());
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return super.onCreateOptionsMenu(menu);
@@ -146,7 +206,7 @@ public class MainActivity extends BaseOnlyActivity<ActivityMainBinding, MainView
     }
 
     private void showLocationBottomSheet() {
-        LocationBottomSheetFragment bottomSheetFragment = LocationBottomSheetFragment.newInstance();
+        LocationBottomSheetFragment bottomSheetFragment = new LocationBottomSheetFragment(this);
         bottomSheetFragment.show(getSupportFragmentManager(), bottomSheetFragment.getTag());
     }
 }

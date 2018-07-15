@@ -1,5 +1,6 @@
 package com.emrekose.famula.ui.main;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,15 +11,13 @@ import android.view.ViewGroup;
 
 import com.emrekose.famula.R;
 
-import timber.log.Timber;
-
+@SuppressLint("ValidFragment")
 public class LocationBottomSheetFragment extends BottomSheetDialogFragment {
 
-    public static LocationBottomSheetFragment newInstance() {
-        return new LocationBottomSheetFragment();
-    }
+    private LocationCallback callback;
 
-    public LocationBottomSheetFragment() {
+    public LocationBottomSheetFragment(LocationCallback callback) {
+        this.callback = callback;
     }
 
     @Override
@@ -32,7 +31,8 @@ public class LocationBottomSheetFragment extends BottomSheetDialogFragment {
         View view = inflater.inflate(R.layout.fragment_location_bottom_sheet, container, false);
 
         view.findViewById(R.id.get_current_location_btn).setOnClickListener(v -> {
-            Timber.e("get current location");
+            if (callback != null) callback.onCurrentLocationClick();
+
         });
 
         return view;
