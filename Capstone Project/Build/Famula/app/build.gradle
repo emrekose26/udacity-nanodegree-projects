@@ -9,6 +9,8 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        resValue "string", "google_maps_key", (project.findProperty("GOOGLE_MAPS_API_KEY") ?: "")
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -39,6 +41,10 @@ dependencies {
     implementation "com.android.support:recyclerview-v7:$versions.support"
     implementation "com.android.support:cardview-v7:$versions.support"
     implementation "com.android.support.constraint:constraint-layout:$versions.constraint_layout"
+    implementation 'com.android.support:multidex:1.0.3'
+
+    // Play services
+    implementation "com.google.android.gms:play-services:$versions.playVersion"
 
     // Architecture Components
     implementation "android.arch.lifecycle:extensions:$versions.arch_core"

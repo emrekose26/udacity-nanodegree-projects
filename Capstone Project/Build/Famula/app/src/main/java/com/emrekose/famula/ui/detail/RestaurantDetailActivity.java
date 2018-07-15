@@ -102,7 +102,7 @@ public class RestaurantDetailActivity extends BaseActivity<ActivityRestaurantDet
         ViewPagerAdapter pagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         pagerAdapter.addFragment(RestaurantInfoFragment.newInstance(commonRestaurant), getString(R.string.info));
         pagerAdapter.addFragment(RestaurantReviewsFragment.newInstance(commonRestaurant), getString(R.string.reviews));
-        pagerAdapter.addFragment(RestaurantMapFragment.newInstance(), getString(R.string.map));
+        pagerAdapter.addFragment(RestaurantMapFragment.newInstance(commonRestaurant), getString(R.string.map));
         viewPager.setAdapter(pagerAdapter);
     }
 }

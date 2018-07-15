@@ -58,7 +58,6 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:text="@{review.review.reviewTimeFriendly}"
-                app:layout_constraintEnd_toStartOf="@+id/reviews_timezone"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintHorizontal_chainStyle="spread_inside"
                 app:layout_constraintStart_toEndOf="@+id/reviews_user_img"
