@@ -1,8 +1,12 @@
 package com.emrekose.famula.ui.main;
 
 import android.Manifest;
-import android.content.Context;
+import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -26,8 +30,12 @@ import com.emrekose.famula.ui.detail.RestaurantDetailActivity;
 import com.emrekose.famula.ui.establisments.EstablismentsActivity;
 import com.emrekose.famula.ui.nearbyrestaurants.NearbyRestaurantsActivity;
 import com.emrekose.famula.util.Constants;
+import com.emrekose.famula.util.GPSUtils;
+import com.emrekose.famula.util.SPUtils;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
@@ -35,7 +43,7 @@ import timber.log.Timber;
 
 public class MainActivity extends BaseOnlyActivity<ActivityMainBinding, MainViewModel>
         implements NavigationView.OnNavigationItemSelectedListener, CuisinesCallback, NearbyRestaurantsMainCallback,
-        LocationCallback, EasyPermissions.PermissionCallbacks {
+        FamulaLocationCallback, EasyPermissions.PermissionCallbacks {
 
     private static final int TAKEN_CUISINES = 10;
     private static final int TAKEN_NEARBY_RESTAURANTS = 5;
@@ -44,6 +52,10 @@ public class MainActivity extends BaseOnlyActivity<ActivityMainBinding, MainView
     private CuisinesRecyclerAdapter cuisinesAdapter;
     private NearbyRestaurantsMainAdapter nearbyAdapter;
 
+    private ProgressDialog progressDialog;
+
+    @Inject
+    SharedPreferences preferences;
 
     @Override
     public int getLayoutRes() {
@@ -78,7 +90,11 @@ public class MainActivity extends BaseOnlyActivity<ActivityMainBinding, MainView
         dataBinding.nearbyRestaurantsMainRecyclerview.setLayoutManager(new LinearLayoutManager(this));
         dataBinding.nearbyRestaurantsMainRecyclerview.setAdapter(nearbyAdapter);
 
-        // TODO: 2.07.2018 lat lon provides by LocationManager
+        // TODO: 17.07.2018 spref values null checking
+        double lat = SPUtils.getDoublePreference(preferences, Constants.LATITUDE, 0.0);
+        double lon = SPUtils.getDoublePreference(preferences, Constants.LONGITUDE, 0.0);
+
+        // TODO: 17.07.2018 get restaurants according to lat lon values
         viewModel.getNearbyRestaurants(51.507, -0.1277, TAKEN_NEARBY_RESTAURANTS).observe(this, response -> {
             dataBinding.setRestaurantSize(response.size());
             nearbyAdapter.submitList(response);
@@ -110,7 +126,11 @@ public class MainActivity extends BaseOnlyActivity<ActivityMainBinding, MainView
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1) {
             currentLocationConfig();
         } else {
-            gpsSettings();
+            if (!GPSUtils.isGpsEnabled(this)) {
+                gpsSettings();
+            } else {
+                getLastLocation();
+            }
         }
     }
 
@@ -119,7 +139,11 @@ public class MainActivity extends BaseOnlyActivity<ActivityMainBinding, MainView
         boolean hasLocationPermission = EasyPermissions.hasPermissions(this, Manifest.permission.ACCESS_COARSE_LOCATION);
 
         if (hasLocationPermission) {
-            gpsSettings();
+            if (!GPSUtils.isGpsEnabled(this)) {
+                gpsSettings();
+            } else {
+                getLastLocation();
+            }
         } else {
             EasyPermissions.requestPermissions(this, getString(R.string.location_permission_warning),
                     LOCATION_PERM_CODE, Manifest.permission.ACCESS_COARSE_LOCATION);
@@ -127,18 +151,58 @@ public class MainActivity extends BaseOnlyActivity<ActivityMainBinding, MainView
     }
 
     private void gpsSettings() {
-        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        boolean gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        new AlertDialog.Builder(this)
+                .setTitle(getString(R.string.enable_gps))
+                .setMessage(getString(R.string.require_gps_message))
+                .setPositiveButton(getString(android.R.string.yes), (dialog, which) ->
+                        startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)))
+                .setNegativeButton(android.R.string.no, (dialog, which) -> {  /* do nothing */ })
+                .show();
+    }
 
-        if (!gpsEnabled) {
-            new AlertDialog.Builder(this)
-                    .setTitle(getString(R.string.enable_gps))
-                    .setMessage(getString(R.string.require_gps_message))
-                    .setPositiveButton(getString(android.R.string.yes), (dialog, which) ->
-                            startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)))
-                    .setNegativeButton(android.R.string.no, (dialog, which) -> {  /* do nothing */ })
-                    .show();
+    @SuppressLint("MissingPermission")
+    private void getLastLocation() {
+        getprogressDialog().show();
+
+        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        if (locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER) != null) {
+            Location loc = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+
+            Timber.e("lat " + loc.getLatitude() + "lon " + loc.getLongitude());
+
+            SPUtils.setDoublePreferences(preferences, Constants.LATITUDE, loc.getLatitude());
+            SPUtils.setDoublePreferences(preferences, Constants.LONGITUDE, loc.getLongitude());
+
+            progressDialog.dismiss();
+        } else {
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 2000, 0, new LocationListener() {
+                @Override
+                public void onLocationChanged(Location location) {
+                    Timber.e("lat " + location.getLatitude() + "lon " + location.getLongitude());
+
+                    SPUtils.setDoublePreferences(preferences, Constants.LATITUDE, location.getLatitude());
+                    SPUtils.setDoublePreferences(preferences, Constants.LONGITUDE, location.getLongitude());
+
+                    progressDialog.dismiss();
+                }
+
+                @Override
+                public void onStatusChanged(String s, int i, Bundle bundle) {
+
+                }
+
+                @Override
+                public void onProviderEnabled(String s) {
+
+                }
+
+                @Override
+                public void onProviderDisabled(String s) {
+
+                }
+            });
         }
+
     }
 
     @Override
@@ -188,6 +252,14 @@ public class MainActivity extends BaseOnlyActivity<ActivityMainBinding, MainView
         } else {
             super.onBackPressed();
         }
+    }
+
+    private ProgressDialog getprogressDialog() {
+        progressDialog = new ProgressDialog(MainActivity.this);
+        progressDialog.setTitle(getString(R.string.please_wait));
+        progressDialog.setMessage(getString(R.string.finding_your_location));
+        progressDialog.setCancelable(false);
+        return progressDialog;
     }
 
     private void setupToolbar() {

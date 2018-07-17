@@ -14,9 +14,9 @@ import com.emrekose.famula.R;
 @SuppressLint("ValidFragment")
 public class LocationBottomSheetFragment extends BottomSheetDialogFragment {
 
-    private LocationCallback callback;
+    private FamulaLocationCallback callback;
 
-    public LocationBottomSheetFragment(LocationCallback callback) {
+    public LocationBottomSheetFragment(FamulaLocationCallback callback) {
         this.callback = callback;
     }
 

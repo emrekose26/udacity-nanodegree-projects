@@ -104,6 +104,39 @@ public class SPUtils {
     }
 
     /**
+     * Helper method to retrieve a double value from {@link SharedPreferences}.
+     *
+     * @param preferences Shared preferences reference
+     * @param key
+     * @param defaultValue A default to return if the value could not be read.
+     * @return The value from shared preferences, or the provided default.
+     */
+    public static double getDoublePreference(SharedPreferences preferences, String key, double defaultValue) {
+        double value = defaultValue;
+        if (preferences != null) {
+            value = Double.longBitsToDouble(getLongPreference(preferences, key, Double.doubleToLongBits(defaultValue)));
+        }
+        return value;
+    }
+
+    /**
+     * Helper method to write a double value to {@link SharedPreferences}.
+     *
+     * @param preferences Shared preferences reference
+     * @param key
+     * @param value
+     * @return true if the new value was successfully written to persistent storage.
+     */
+    public static boolean setDoublePreferences(SharedPreferences preferences, String key, double value) {
+        if (preferences != null) {
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putLong(key, Double.doubleToLongBits(value));
+            return editor.commit();
+        }
+        return false;
+    }
+
+    /**
      * Helper method to retrieve an integer value from {@link SharedPreferences}.
      *
      * @param preferences Shared preferences reference

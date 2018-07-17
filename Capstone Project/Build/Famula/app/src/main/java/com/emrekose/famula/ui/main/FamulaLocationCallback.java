@@ -1,5 +1,5 @@
 package com.emrekose.famula.ui.main;
 
-public interface LocationCallback {
+public interface FamulaLocationCallback {
     void onCurrentLocationClick();
 }

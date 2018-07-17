@@ -35,4 +35,6 @@
     <string name="location_permission_warning">This app needs access to your location for current location.</string>
     <string name="enable_gps">Enable GPS</string>
     <string name="require_gps_message">This Application requires the use of Mobile GPS. Do you wish to enable this feature</string>
+    <string name="please_wait">Please wait</string>
+    <string name="finding_your_location">Finding your location</string>
 </resources>

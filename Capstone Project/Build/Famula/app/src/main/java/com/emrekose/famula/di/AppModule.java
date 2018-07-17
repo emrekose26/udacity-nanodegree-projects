@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.emrekose.famula.BuildConfig;
+import com.emrekose.famula.FamulaApp;
 import com.emrekose.famula.data.local.FamulaDatabase;
 import com.emrekose.famula.data.local.dao.FavRestaurantDao;
 import com.emrekose.famula.data.remote.ApiService;
@@ -25,6 +26,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module(includes = {ViewModelModule.class})
 class AppModule {
+
+    @Provides
+    @Singleton
+    Application provideContext(FamulaApp application) {
+        return application;
+    }
 
     @Provides
     @Singleton
