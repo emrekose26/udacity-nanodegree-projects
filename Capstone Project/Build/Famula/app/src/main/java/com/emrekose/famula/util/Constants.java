@@ -9,4 +9,9 @@ public final class Constants {
     public static final String RESTAURANTS_BUNDLE_KEY = "restaurants_bundle_key";
     public static String LATITUDE = "latitude_sp_key";
     public static String LONGITUDE = "longitude_sp_key";
+    public static String ENTITY_TYPE = "entity_type_key";
+    public static String  ENTITY_ID = "entity_id_key";
+    public static String  CITY_ID = "city_id_key";
+    public static String  COUNTRY_ID = "country_id_key";
+
 }

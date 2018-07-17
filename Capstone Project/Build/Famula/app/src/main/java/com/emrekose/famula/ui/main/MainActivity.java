@@ -19,12 +19,14 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.emrekose.famula.R;
 import com.emrekose.famula.common.BaseOnlyActivity;
 import com.emrekose.famula.databinding.ActivityMainBinding;
 import com.emrekose.famula.model.cuisines.Cuisine;
 import com.emrekose.famula.model.geocode.NearbyRestaurant;
+import com.emrekose.famula.model.locations.LocationSuggestion;
 import com.emrekose.famula.ui.cuisineslist.CuisinesListActivity;
 import com.emrekose.famula.ui.detail.RestaurantDetailActivity;
 import com.emrekose.famula.ui.establisments.EstablismentsActivity;
@@ -80,7 +82,9 @@ public class MainActivity extends BaseOnlyActivity<ActivityMainBinding, MainView
         dataBinding.couisinesRecyclerview.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         dataBinding.couisinesRecyclerview.setAdapter(cuisinesAdapter);
 
-        // TODO: 1.07.2018 city_id provides shared preferences after get the user location
+
+        int cityId = SPUtils.getIntegerPreference(preferences, Constants.CITY_ID, 0);
+        // TODO: 17.07.2018 spref city id value null checking
         viewModel.getCuisines(59, null, null, TAKEN_CUISINES).observe(this, response -> {
             dataBinding.setCuisineSize(response.size());
             cuisinesAdapter.submitList(response);
@@ -134,6 +138,35 @@ public class MainActivity extends BaseOnlyActivity<ActivityMainBinding, MainView
         }
     }
 
+    @Override
+    public void onSaveLocationClick(String value) {
+        getprogressDialog(getString(R.string.validating));
+        viewModel.getLocationDatas(value).observe(this, locationSuggestions -> {
+
+            if (locationSuggestions.size() > 0) {
+                LocationSuggestion ls = locationSuggestions.get(0);
+                String entitType = ls.getEntityType();
+                int entityId = ls.getEntityId();
+                double latitude = ls.getLatitude();
+                double longitude = ls.getLongitude();
+                int cityId = ls.getCityId();
+                int countryId = ls.getCountryId();
+
+                SPUtils.setStringPreference(preferences, Constants.ENTITY_TYPE, entitType);
+                SPUtils.setIntegerPreference(preferences, Constants.ENTITY_ID, entityId);
+                SPUtils.setDoublePreferences(preferences, Constants.LATITUDE, latitude);
+                SPUtils.setDoublePreferences(preferences, Constants.LONGITUDE, longitude);
+                SPUtils.setIntegerPreference(preferences, Constants.CITY_ID, cityId);
+                SPUtils.setIntegerPreference(preferences, Constants.COUNTRY_ID, countryId);
+
+            } else {
+                Toast.makeText(this, getString(R.string.please_enter_valid_city_name), Toast.LENGTH_SHORT).show();
+                viewModel.getLocationDatas(value).removeObservers(this);
+            }
+            progressDialog.dismiss();
+        });
+    }
+
     @AfterPermissionGranted(LOCATION_PERM_CODE)
     private void currentLocationConfig() {
         boolean hasLocationPermission = EasyPermissions.hasPermissions(this, Manifest.permission.ACCESS_COARSE_LOCATION);
@@ -162,7 +195,7 @@ public class MainActivity extends BaseOnlyActivity<ActivityMainBinding, MainView
 
     @SuppressLint("MissingPermission")
     private void getLastLocation() {
-        getprogressDialog().show();
+        getprogressDialog(getString(R.string.finding_your_location)).show();
 
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         if (locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER) != null) {
@@ -254,10 +287,10 @@ public class MainActivity extends BaseOnlyActivity<ActivityMainBinding, MainView
         }
     }
 
-    private ProgressDialog getprogressDialog() {
+    private ProgressDialog getprogressDialog(String message) {
         progressDialog = new ProgressDialog(MainActivity.this);
         progressDialog.setTitle(getString(R.string.please_wait));
-        progressDialog.setMessage(getString(R.string.finding_your_location));
+        progressDialog.setMessage(message);
         progressDialog.setCancelable(false);
         return progressDialog;
     }

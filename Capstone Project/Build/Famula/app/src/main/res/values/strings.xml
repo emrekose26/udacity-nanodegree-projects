@@ -37,4 +37,6 @@
     <string name="require_gps_message">This Application requires the use of Mobile GPS. Do you wish to enable this feature</string>
     <string name="please_wait">Please wait</string>
     <string name="finding_your_location">Finding your location</string>
+    <string name="validating">Validating</string>
+    <string name="please_enter_valid_city_name">Please enter an appropriate city name</string>
 </resources>

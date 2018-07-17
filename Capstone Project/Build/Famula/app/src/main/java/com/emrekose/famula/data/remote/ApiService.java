@@ -52,9 +52,7 @@ public interface ApiService {
 
     // locations
     @GET("locations")
-    Single<LocationsResponse> getLocations(@Query("query") String query,
-                                           @Query("lat") Double lat,
-                                           @Query("lon") Double lon);
+    Flowable<LocationsResponse> getLocations(@Query("query") String query);
 
     // restaurant details
     @GET("restaurant")

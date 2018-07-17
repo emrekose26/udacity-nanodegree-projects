@@ -8,6 +8,7 @@ import android.support.design.widget.BottomSheetDialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import com.emrekose.famula.R;
 
@@ -32,7 +33,11 @@ public class LocationBottomSheetFragment extends BottomSheetDialogFragment {
 
         view.findViewById(R.id.get_current_location_btn).setOnClickListener(v -> {
             if (callback != null) callback.onCurrentLocationClick();
+        });
 
+        view.findViewById(R.id.any_location_button).setOnClickListener(v -> {
+            String editTextValue = ((EditText)(view.findViewById(R.id.any_location_edittext))).getText().toString();
+            if (callback != null) callback.onSaveLocationClick(editTextValue);
         });
 
         return view;

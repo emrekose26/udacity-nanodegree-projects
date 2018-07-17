@@ -3,6 +3,7 @@ package com.emrekose.famula.repository;
 import com.emrekose.famula.data.remote.ApiService;
 import com.emrekose.famula.model.cuisines.CuisinesResponse;
 import com.emrekose.famula.model.geocode.GeocodeResponse;
+import com.emrekose.famula.model.locations.LocationsResponse;
 
 import javax.inject.Inject;
 
@@ -27,6 +28,12 @@ public class MainActivityRepository {
 
     public Flowable<GeocodeResponse> getNearbyRestaurants(Double lat, Double lon) {
         return apiService.getGeoCode(lat, lon)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public Flowable<LocationsResponse> getLocationDatas(String query) {
+        return apiService.getLocations(query)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
