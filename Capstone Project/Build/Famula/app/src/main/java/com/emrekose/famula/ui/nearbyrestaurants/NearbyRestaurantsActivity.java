@@ -1,5 +1,6 @@
 package com.emrekose.famula.ui.nearbyrestaurants;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.MenuItem;
@@ -8,7 +9,9 @@ import com.emrekose.famula.R;
 import com.emrekose.famula.common.BaseOnlyActivity;
 import com.emrekose.famula.databinding.ActivityNearbyRestaurantsBinding;
 import com.emrekose.famula.model.geocode.NearbyRestaurant;
+import com.emrekose.famula.ui.detail.RestaurantDetailActivity;
 import com.emrekose.famula.ui.main.MainViewModel;
+import com.emrekose.famula.util.Constants;
 
 public class NearbyRestaurantsActivity extends BaseOnlyActivity<ActivityNearbyRestaurantsBinding, MainViewModel> implements NearbyRestaurantsCallback {
 
@@ -43,7 +46,9 @@ public class NearbyRestaurantsActivity extends BaseOnlyActivity<ActivityNearbyRe
 
     @Override
     public void onNearbyRestaurantClick(NearbyRestaurant restaurant) {
-        // TODO: 4.07.2018 start restaurant detail activity
+        Intent i = new Intent(NearbyRestaurantsActivity.this, RestaurantDetailActivity.class);
+        i.putExtra(Constants.RESTAURANTS_BUNDLE_KEY, restaurant);
+        startActivity(i);
     }
 
     @Override

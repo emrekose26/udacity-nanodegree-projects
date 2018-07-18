@@ -31,9 +31,11 @@
         </activity>
         <activity
             android:name=".ui.cuisineslist.CuisinesListActivity"
+            android:theme="@style/AppTheme.NoActionBar.StatusBar"
             android:parentActivityName=".ui.main.MainActivity" />
         <activity
             android:name=".ui.nearbyrestaurants.NearbyRestaurantsActivity"
+            android:theme="@style/AppTheme.NoActionBar.StatusBar"
             android:parentActivityName=".ui.main.MainActivity" />
         <activity android:name=".ui.establisments.EstablismentsActivity" />
         <activity android:name=".ui.detail.RestaurantDetailActivity"></activity>
