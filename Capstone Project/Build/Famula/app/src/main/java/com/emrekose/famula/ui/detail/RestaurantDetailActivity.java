@@ -38,7 +38,7 @@ public class RestaurantDetailActivity extends BaseActivity<ActivityRestaurantDet
                         nearbyRestaurant.getRestaurant().getCuisines(), nearbyRestaurant.getRestaurant().getAverageCostForTwo(), nearbyRestaurant.getRestaurant().getPriceRange(),
                         nearbyRestaurant.getRestaurant().getCurrency(), nearbyRestaurant.getRestaurant().getThumb(), nearbyRestaurant.getRestaurant().getUserRating().getAggregateRating(),
                         nearbyRestaurant.getRestaurant().getUserRating().getRatingColor(), nearbyRestaurant.getRestaurant().getFeaturedImage(), nearbyRestaurant.getRestaurant().getHasOnlineDelivery(), nearbyRestaurant.getRestaurant().getHasTableBooking());
-            } else if(getIntent().getExtras().getSerializable(Constants.RESTAURANTS_BUNDLE_KEY) instanceof Restaurant) {
+            } else if (getIntent().getExtras().getSerializable(Constants.RESTAURANTS_BUNDLE_KEY) instanceof Restaurant) {
 
             }
         }
@@ -90,6 +90,22 @@ public class RestaurantDetailActivity extends BaseActivity<ActivityRestaurantDet
         commonRestaurant.setFeaturedImage(featuredImage);
         commonRestaurant.setHasOnlineDelivery(hasOnlineDelivery);
         commonRestaurant.setHasTableBooking(hasTableBooking);
+
+        appBarBehaviour(commonRestaurant);
+    }
+
+    private void appBarBehaviour(CommonRestaurant restaurant) {
+        dataBinding.detailAppbar.addOnOffsetChangedListener((appBarLayout, verticalOffset) -> {
+            if (Math.abs(verticalOffset) - appBarLayout.getTotalScrollRange() == 0) {
+                getSupportActionBar().setDisplayShowTitleEnabled(true);
+                dataBinding.detailToolbar.setTitle(restaurant.getName());
+                //dataBinding.detailToolbar.setSubtitle(restaurant.getAddress());
+            } else {
+                getSupportActionBar().setDisplayShowTitleEnabled(false);
+                dataBinding.detailToolbar.setTitle(" ");
+            }
+        });
+        dataBinding.detailCollapsing.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
     }
 
     private void setupToolbar() {
