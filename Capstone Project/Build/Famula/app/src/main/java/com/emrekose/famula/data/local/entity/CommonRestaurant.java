@@ -1,27 +1,51 @@
-package com.emrekose.famula.model.common;
+package com.emrekose.famula.data.local.entity;
+
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 import java.io.Serializable;
 
+@Entity(tableName = "favrestaurant")
 public class CommonRestaurant implements Serializable {
 
-    private String id;
-    private String name;
-    private String url;
-    private String address;
-    private String locality;
-    private String latitude;
-    private String longitude;
-    private String cuisines;
-    private int averageCostForTwo;
-    private int priceRange;
-    private String currency;
-    private String thumb;
-    private String aggregateRating;
-    private String ratingColor;
-    private String featuredImage;
-    private int hasOnlineDelivery;
-    private int isDeliveringNow;
-    private int hasTableBooking;
+    @NonNull
+    @PrimaryKey
+    public String id;
+
+    public String name;
+
+    public String url;
+
+    public String address;
+
+    public String locality;
+
+    public String latitude;
+
+    public String longitude;
+
+    public String cuisines;
+
+    public int averageCostForTwo;
+
+    public int priceRange;
+
+    public String currency;
+
+    public String thumb;
+
+    public String aggregateRating;
+
+    public String ratingColor;
+
+    public String featuredImage;
+
+    public int hasOnlineDelivery;
+
+    public int isDeliveringNow;
+
+    public int hasTableBooking;
 
     public String getId() {
         return id;

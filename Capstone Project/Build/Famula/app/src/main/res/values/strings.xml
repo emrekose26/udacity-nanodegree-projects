@@ -39,4 +39,6 @@
     <string name="finding_your_location">Finding your location</string>
     <string name="validating">Validating</string>
     <string name="please_enter_valid_city_name">Please enter an appropriate city name</string>
+    <string name="added_to_favs">Added to favorites</string>
+    <string name="deleted_from_fav">Deleted from favorites</string>
 </resources>

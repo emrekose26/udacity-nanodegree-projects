@@ -6,7 +6,7 @@
     <data>
         <variable
             name="restaurant"
-            type="com.emrekose.famula.model.common.CommonRestaurant"/>
+            type="com.emrekose.famula.data.local.entity.CommonRestaurant"/>
     </data>
 
     <android.support.v7.widget.CardView

@@ -4,12 +4,10 @@ import android.arch.persistence.room.Database;
 import android.arch.persistence.room.RoomDatabase;
 
 import com.emrekose.famula.data.local.dao.FavRestaurantDao;
-import com.emrekose.famula.data.local.entity.FavLocationItem;
-import com.emrekose.famula.data.local.entity.FavUserRating;
-import com.emrekose.famula.data.local.entity.FavoriteRestaurant;
+import com.emrekose.famula.data.local.entity.CommonRestaurant;
 
-@Database(entities = {FavoriteRestaurant.class, FavUserRating.class, FavLocationItem.class} , version = 1, exportSchema = false)
-public abstract class FamulaDatabase extends RoomDatabase{
+@Database(entities = {CommonRestaurant.class}, version = 1, exportSchema = false)
+public abstract class FamulaDatabase extends RoomDatabase {
 
     public abstract FavRestaurantDao favRestaurantDao();
 }

@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.emrekose.famula.R;
-import com.emrekose.famula.model.common.CommonRestaurant;
+import com.emrekose.famula.data.local.entity.CommonRestaurant;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;

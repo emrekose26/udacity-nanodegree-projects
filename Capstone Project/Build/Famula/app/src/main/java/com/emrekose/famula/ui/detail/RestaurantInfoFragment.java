@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import com.emrekose.famula.R;
 import com.emrekose.famula.common.BaseFragment;
 import com.emrekose.famula.databinding.FragmentRestaurantInfoBinding;
-import com.emrekose.famula.model.common.CommonRestaurant;
+import com.emrekose.famula.data.local.entity.CommonRestaurant;
 
 /**
  * A simple {@link Fragment} subclass.

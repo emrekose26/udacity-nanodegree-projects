@@ -4,6 +4,7 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 
 import com.emrekose.famula.common.RxViewModel;
+import com.emrekose.famula.data.local.entity.CommonRestaurant;
 import com.emrekose.famula.model.restaurant.reviews.ReviewsResponse;
 import com.emrekose.famula.model.restaurant.reviews.UserReview;
 import com.emrekose.famula.repository.RestaurantDetailRepository;
@@ -12,11 +13,15 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import timber.log.Timber;
+
 public class RestaurantDetailViewModel extends RxViewModel {
 
     private RestaurantDetailRepository repository;
 
     private MutableLiveData<List<UserReview>> reviewsLiveData = new MutableLiveData<>();
+    private MutableLiveData<List<CommonRestaurant>> favRestaurantLiveData = new MutableLiveData<>();
+    private MutableLiveData<Boolean> isFavLiveData = new MutableLiveData<>();
 
     @Inject
     public RestaurantDetailViewModel(RestaurantDetailRepository repository) {
@@ -30,5 +35,34 @@ public class RestaurantDetailViewModel extends RxViewModel {
                 .toList()
                 .subscribe(response -> reviewsLiveData.postValue(response)));
         return reviewsLiveData;
+    }
+
+    public void addRestaurantToFavorite(CommonRestaurant restaurant) {
+        disposable.add(repository.insertFavRestaurant(restaurant)
+                .subscribe());
+    }
+
+    public void deleteRestaurantFromFavorites(CommonRestaurant restaurant) {
+        disposable.add(repository.deleteFavRestaurant(restaurant)
+                .subscribe());
+    }
+
+    public LiveData<Boolean> isFav(String id) {
+        disposable.add(repository.isFavorite(id)
+                .subscribe((restaurant, throwable) -> {
+                    if (restaurant != null) {
+                        if (restaurant.getId().equals(id)) isFavLiveData.postValue(true);
+                        else isFavLiveData.postValue(false);
+                    } else {
+                        isFavLiveData.postValue(false);
+                        Timber.e(throwable);
+                    }
+                }));
+        return isFavLiveData;
+    }
+
+    public LiveData<List<CommonRestaurant>> getAllFavRestaurants() {
+        favRestaurantLiveData.postValue(repository.getAllFavRestaurants().getValue());
+        return favRestaurantLiveData;
     }
 }

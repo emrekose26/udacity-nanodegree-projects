@@ -4,23 +4,31 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.emrekose.famula.R;
-import com.emrekose.famula.common.BaseActivity;
+import com.emrekose.famula.common.BaseOnlyFragmentActivity;
 import com.emrekose.famula.common.ViewPagerAdapter;
+import com.emrekose.famula.data.local.entity.CommonRestaurant;
 import com.emrekose.famula.databinding.ActivityRestaurantDetailBinding;
-import com.emrekose.famula.model.common.CommonRestaurant;
 import com.emrekose.famula.model.geocode.NearbyRestaurant;
 import com.emrekose.famula.model.restaurant.search.Restaurant;
 import com.emrekose.famula.util.Constants;
 
-public class RestaurantDetailActivity extends BaseActivity<ActivityRestaurantDetailBinding> {
+import timber.log.Timber;
+
+public class RestaurantDetailActivity extends BaseOnlyFragmentActivity<ActivityRestaurantDetailBinding, RestaurantDetailViewModel> {
 
     private CommonRestaurant commonRestaurant;
 
     @Override
     public int getLayoutRes() {
         return R.layout.activity_restaurant_detail;
+    }
+
+    @Override
+    public Class<RestaurantDetailViewModel> getViewModel() {
+        return RestaurantDetailViewModel.class;
     }
 
     @Override
@@ -53,6 +61,7 @@ public class RestaurantDetailActivity extends BaseActivity<ActivityRestaurantDet
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_restaurant_detail, menu);
+        isFav(menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -60,13 +69,42 @@ public class RestaurantDetailActivity extends BaseActivity<ActivityRestaurantDet
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_action_add_to_favorites:
-                // TODO: 12.07.2018 add to favorites
+                updateFavImage(item);
                 break;
             case R.id.menu_action_share:
                 // TODO: 12.07.2018 share restaurant adress
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void isFav(Menu menu) {
+        viewModel.isFav(commonRestaurant.getId()).observe(this, isFav -> {
+            if (!isFav) {
+                menu.getItem(1).setIcon(R.drawable.ic_star_empty);
+            } else {
+                menu.getItem(1).setIcon(R.drawable.ic_star_full);
+            }
+        });
+    }
+
+    private void updateFavImage(MenuItem item) {
+        final boolean[] isFav = {false};
+        viewModel.isFav(commonRestaurant.getId()).observe(this, aBoolean -> isFav[0] = aBoolean);
+
+        Timber.e(String.valueOf(isFav[0]));
+        if (!isFav[0]) {
+            viewModel.addRestaurantToFavorite(commonRestaurant);
+            Toast.makeText(this, getString(R.string.added_to_favs), Toast.LENGTH_SHORT).show();
+            item.setIcon(R.drawable.ic_star_full);
+            viewModel.isFav(commonRestaurant.getId()).removeObservers(this);
+        } else {
+            viewModel.deleteRestaurantFromFavorites(commonRestaurant);
+            Toast.makeText(this, getString(R.string.deleted_from_fav), Toast.LENGTH_SHORT).show();
+            item.setIcon(R.drawable.ic_star_empty);
+            viewModel.isFav(commonRestaurant.getId()).removeObservers(this);
+        }
+
     }
 
     private void setCommonRestaurant(String id, String name, String url, String address, String locality, String lat, String lon, String cuisines, int averageCostForTwo,
