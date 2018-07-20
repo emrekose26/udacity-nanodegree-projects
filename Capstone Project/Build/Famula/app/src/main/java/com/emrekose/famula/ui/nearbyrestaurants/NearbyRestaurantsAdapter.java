@@ -14,8 +14,8 @@ public class NearbyRestaurantsAdapter extends ListAdapter<NearbyRestaurant, Near
 
     private NearbyRestaurantsCallback callback;
 
-    protected NearbyRestaurantsAdapter(@NonNull DiffUtil.ItemCallback<NearbyRestaurant> diffCallback, NearbyRestaurantsCallback callback) {
-        super(diffCallback);
+    protected NearbyRestaurantsAdapter(NearbyRestaurantsCallback callback) {
+        super(NEARBY_DIFF_CALLBACK);
         this.callback = callback;
     }
 
@@ -38,7 +38,7 @@ public class NearbyRestaurantsAdapter extends ListAdapter<NearbyRestaurant, Near
             super(binding.getRoot());
             this.binding = binding;
             binding.getRoot().setOnClickListener(v ->
-                callback.onNearbyRestaurantClick(binding.getRestaurant()));
+                    callback.onNearbyRestaurantClick(binding.getRestaurant()));
         }
 
         public static ViewHolder create(LayoutInflater inflater, ViewGroup parent, NearbyRestaurantsCallback callback) {
@@ -52,8 +52,7 @@ public class NearbyRestaurantsAdapter extends ListAdapter<NearbyRestaurant, Near
         }
     }
 
-    static class NearbyRestaurantsDiffCallback extends DiffUtil.ItemCallback<NearbyRestaurant> {
-
+    private static DiffUtil.ItemCallback<NearbyRestaurant> NEARBY_DIFF_CALLBACK = new DiffUtil.ItemCallback<NearbyRestaurant>() {
         @Override
         public boolean areItemsTheSame(NearbyRestaurant oldItem, NearbyRestaurant newItem) {
             return oldItem.getRestaurant().getId().equals(newItem.getRestaurant().getId());
@@ -63,5 +62,5 @@ public class NearbyRestaurantsAdapter extends ListAdapter<NearbyRestaurant, Near
         public boolean areContentsTheSame(NearbyRestaurant oldItem, NearbyRestaurant newItem) {
             return oldItem.getRestaurant().getName().equals(newItem.getRestaurant().getName());
         }
-    }
+    };
 }

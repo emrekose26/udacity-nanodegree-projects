@@ -33,7 +33,7 @@ public class NearbyRestaurantsActivity extends BaseOnlyActivity<ActivityNearbyRe
 
         setupToolbar();
 
-        adapter = new NearbyRestaurantsAdapter(new NearbyRestaurantsAdapter.NearbyRestaurantsDiffCallback(), this);
+        adapter = new NearbyRestaurantsAdapter(this);
         dataBinding.nearbyRestaurantsRecyclerview.setLayoutManager(new LinearLayoutManager(this));
         dataBinding.nearbyRestaurantsRecyclerview.setAdapter(adapter);
 

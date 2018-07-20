@@ -30,7 +30,7 @@ public class CuisinesListActivity extends BaseOnlyActivity<ActivityCuisinesListB
 
         setupToolbar();
         
-        adapter = new CuisinesListRecyclerAdapter(new CuisinesListRecyclerAdapter.CuisinesListDiffCallback(), this);
+        adapter = new CuisinesListRecyclerAdapter(this);
         dataBinding.cuisinesListRecyclerview.setLayoutManager(new LinearLayoutManager(this));
         dataBinding.cuisinesListRecyclerview.setAdapter(adapter);
 

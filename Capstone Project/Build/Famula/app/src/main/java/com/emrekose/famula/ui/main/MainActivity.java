@@ -79,7 +79,7 @@ public class MainActivity extends BaseOnlyActivity<ActivityMainBinding, MainView
 
         dataBinding.setLifecycleOwner(this);
 
-        cuisinesAdapter = new CuisinesRecyclerAdapter(new CuisinesRecyclerAdapter.CuisineDiffCallback(), this);
+        cuisinesAdapter = new CuisinesRecyclerAdapter(this);
         dataBinding.couisinesRecyclerview.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         dataBinding.couisinesRecyclerview.setAdapter(cuisinesAdapter);
 
@@ -91,7 +91,7 @@ public class MainActivity extends BaseOnlyActivity<ActivityMainBinding, MainView
             cuisinesAdapter.submitList(response);
         });
 
-        nearbyAdapter = new NearbyRestaurantsMainAdapter(new NearbyRestaurantsMainAdapter.NearbyRestaurantsDiffCallback(), this);
+        nearbyAdapter = new NearbyRestaurantsMainAdapter(this);
         dataBinding.nearbyRestaurantsMainRecyclerview.setLayoutManager(new LinearLayoutManager(this));
         dataBinding.nearbyRestaurantsMainRecyclerview.setAdapter(nearbyAdapter);
 

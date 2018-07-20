@@ -14,8 +14,8 @@ public class CuisinesRecyclerAdapter extends ListAdapter<Cuisine, CuisinesRecycl
 
     private final CuisinesCallback callback;
 
-    public CuisinesRecyclerAdapter(@NonNull DiffUtil.ItemCallback<Cuisine> diffCallback, CuisinesCallback callback) {
-        super(diffCallback);
+    public CuisinesRecyclerAdapter(CuisinesCallback callback) {
+        super(CUISINES_DIFF_CALLBACK);
         this.callback = callback;
     }
 
@@ -53,8 +53,7 @@ public class CuisinesRecyclerAdapter extends ListAdapter<Cuisine, CuisinesRecycl
         }
     }
 
-    static class CuisineDiffCallback extends DiffUtil.ItemCallback<Cuisine> {
-
+    private static DiffUtil.ItemCallback<Cuisine> CUISINES_DIFF_CALLBACK = new DiffUtil.ItemCallback<Cuisine>() {
         @Override
         public boolean areItemsTheSame(Cuisine oldItem, Cuisine newItem) {
             return oldItem.getCuisine().getCuisineId() == newItem.getCuisine().getCuisineId();
@@ -64,5 +63,5 @@ public class CuisinesRecyclerAdapter extends ListAdapter<Cuisine, CuisinesRecycl
         public boolean areContentsTheSame(Cuisine oldItem, Cuisine newItem) {
             return oldItem.getCuisine().getCuisineName() == oldItem.getCuisine().getCuisineName();
         }
-    }
+    };
 }
