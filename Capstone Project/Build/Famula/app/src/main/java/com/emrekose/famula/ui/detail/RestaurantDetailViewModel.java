@@ -62,7 +62,6 @@ public class RestaurantDetailViewModel extends RxViewModel {
     }
 
     public LiveData<List<CommonRestaurant>> getAllFavRestaurants() {
-        favRestaurantLiveData.postValue(repository.getAllFavRestaurants().getValue());
-        return favRestaurantLiveData;
+        return repository.getAllFavRestaurants();
     }
 }

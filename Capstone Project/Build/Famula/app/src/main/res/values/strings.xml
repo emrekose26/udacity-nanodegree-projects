@@ -41,4 +41,5 @@
     <string name="please_enter_valid_city_name">Please enter an appropriate city name</string>
     <string name="added_to_favs">Added to favorites</string>
     <string name="deleted_from_fav">Deleted from favorites</string>
+    <string name="favorites">Favorites</string>
 </resources>

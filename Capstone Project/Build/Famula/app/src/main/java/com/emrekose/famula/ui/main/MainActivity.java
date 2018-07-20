@@ -30,6 +30,7 @@ import com.emrekose.famula.model.locations.LocationSuggestion;
 import com.emrekose.famula.ui.cuisineslist.CuisinesListActivity;
 import com.emrekose.famula.ui.detail.RestaurantDetailActivity;
 import com.emrekose.famula.ui.establisments.EstablismentsActivity;
+import com.emrekose.famula.ui.favorites.FavoritesActivity;
 import com.emrekose.famula.ui.nearbyrestaurants.NearbyRestaurantsActivity;
 import com.emrekose.famula.util.Constants;
 import com.emrekose.famula.util.GPSUtils;
@@ -273,6 +274,8 @@ public class MainActivity extends BaseOnlyActivity<ActivityMainBinding, MainView
             case R.id.nav_establisments:
                 startActivity(new Intent(MainActivity.this, EstablismentsActivity.class));
                 break;
+            case R.id.nav_fav_restaurants:
+                startActivity(new Intent(MainActivity.this, FavoritesActivity.class));
         }
         dataBinding.mainDrawer.closeDrawer(GravityCompat.START);
         return true;

@@ -46,6 +46,9 @@ public class RestaurantDetailActivity extends BaseOnlyFragmentActivity<ActivityR
                         nearbyRestaurant.getRestaurant().getCuisines(), nearbyRestaurant.getRestaurant().getAverageCostForTwo(), nearbyRestaurant.getRestaurant().getPriceRange(),
                         nearbyRestaurant.getRestaurant().getCurrency(), nearbyRestaurant.getRestaurant().getThumb(), nearbyRestaurant.getRestaurant().getUserRating().getAggregateRating(),
                         nearbyRestaurant.getRestaurant().getUserRating().getRatingColor(), nearbyRestaurant.getRestaurant().getFeaturedImage(), nearbyRestaurant.getRestaurant().getHasOnlineDelivery(), nearbyRestaurant.getRestaurant().getHasTableBooking());
+            } else if (getIntent().getExtras().getSerializable(Constants.RESTAURANTS_BUNDLE_KEY) instanceof CommonRestaurant) {
+                commonRestaurant = (CommonRestaurant) getIntent().getExtras().getSerializable(Constants.RESTAURANTS_BUNDLE_KEY);
+                appBarBehaviour(commonRestaurant);
             } else if (getIntent().getExtras().getSerializable(Constants.RESTAURANTS_BUNDLE_KEY) instanceof Restaurant) {
 
             }
