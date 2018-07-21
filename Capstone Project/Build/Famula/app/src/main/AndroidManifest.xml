@@ -40,6 +40,20 @@
         <activity
             android:name=".ui.favorites.FavoritesActivity"
             android:theme="@style/AppTheme.NoActionBar.StatusBar" />
+
+
+        <receiver android:name=".widget.FamulaAppWidgetProvider" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider"
+                android:resource="@xml/app_widget_info" />
+        </receiver>
+
+        <service
+            android:name=".widget.FamulaWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+
     </application>
 
 </manifest>
