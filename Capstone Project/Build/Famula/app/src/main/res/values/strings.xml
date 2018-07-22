@@ -42,4 +42,5 @@
     <string name="added_to_favs">Added to favorites</string>
     <string name="deleted_from_fav">Deleted from favorites</string>
     <string name="favorites">Favorites</string>
+    <string name="widget_empty_tv_warning">There is no restaurant in favorites</string>
 </resources>

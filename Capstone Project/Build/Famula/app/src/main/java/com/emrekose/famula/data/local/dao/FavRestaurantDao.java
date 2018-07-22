@@ -25,6 +25,9 @@ public interface FavRestaurantDao {
     @Query("SELECT * FROM favrestaurant")
     abstract LiveData<List<CommonRestaurant>> getAllFavorites();
 
+    @Query("SELECT * FROM favrestaurant")
+    abstract List<CommonRestaurant> getAllFavsForWidget();
+
     @Query("SELECT * FROM favrestaurant WHERE id = :id")
     abstract Single<CommonRestaurant> getSingleRestaurant(String id);
 }

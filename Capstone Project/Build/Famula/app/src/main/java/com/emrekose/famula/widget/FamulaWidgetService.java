@@ -1,11 +1,22 @@
 package com.emrekose.famula.widget;
 
+import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
+import com.emrekose.famula.R;
+import com.emrekose.famula.data.local.FamulaDatabase;
+import com.emrekose.famula.data.local.dao.FavRestaurantDao;
+import com.emrekose.famula.data.local.entity.CommonRestaurant;
+import com.emrekose.famula.util.AppExecutors;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class FamulaWidgetService extends RemoteViewsService {
+
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent intent) {
         return new FamulaRemoteViewFactory(getApplicationContext());
@@ -13,37 +24,59 @@ public class FamulaWidgetService extends RemoteViewsService {
 
     public class FamulaRemoteViewFactory implements RemoteViewsService.RemoteViewsFactory {
 
-        // TODO: 21.07.2018 app widget service
+        FavRestaurantDao dao;
+        AppExecutors executors = new AppExecutors();
 
         private Context context;
+        private List<CommonRestaurant> favoritesList = new ArrayList();
 
         public FamulaRemoteViewFactory(Context context) {
             this.context = context;
+            dao = Room.databaseBuilder(context, FamulaDatabase.class, "famula.db").build().favRestaurantDao();
         }
 
         @Override
         public void onCreate() {
-
+            executors.diskIO().execute(() -> favoritesList = dao.getAllFavsForWidget());
         }
 
         @Override
         public void onDataSetChanged() {
-
+            executors.diskIO().execute(() -> favoritesList = dao.getAllFavsForWidget());
         }
 
         @Override
         public void onDestroy() {
-
+            dao = null;
         }
 
         @Override
         public int getCount() {
-            return 0;
+            return (favoritesList != null) ? favoritesList.size() : 0;
         }
 
         @Override
         public RemoteViews getViewAt(int i) {
-            return null;
+            String restaurantName = favoritesList.get(i).getName();
+            String address = favoritesList.get(i).getAddress();
+            String imgUrl = favoritesList.get(i).getFeaturedImage();
+
+            RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.famula_app_widget_item);
+
+            remoteViews.setTextViewText(R.id.widget_name, restaurantName);
+            remoteViews.setTextViewText(R.id.widget_short_adress, address);
+
+//            executors.diskIO().execute(() ->
+//                    Glide.with(context)
+//                            .asBitmap()
+//                            .load(imgUrl)
+//                            .into(new AppWidgetTarget(context, R.id.widget_thumb, remoteViews,
+//                                    new ComponentName(context, FamulaAppWidgetProvider.class))));
+
+            Intent fillIntent = new Intent();
+            remoteViews.setOnClickFillInIntent(R.id.widget_wrapper, fillIntent);
+
+            return remoteViews;
         }
 
         @Override
@@ -53,17 +86,17 @@ public class FamulaWidgetService extends RemoteViewsService {
 
         @Override
         public int getViewTypeCount() {
-            return 0;
+            return 1;
         }
 
         @Override
         public long getItemId(int i) {
-            return 0;
+            return i;
         }
 
         @Override
         public boolean hasStableIds() {
-            return false;
+            return true;
         }
     }
 }
