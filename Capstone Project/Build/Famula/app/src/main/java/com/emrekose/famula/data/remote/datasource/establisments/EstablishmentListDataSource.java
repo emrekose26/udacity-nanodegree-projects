@@ -1,4 +1,4 @@
-package com.emrekose.famula.data.remote.datasource;
+package com.emrekose.famula.data.remote.datasource.establisments;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.paging.PageKeyedDataSource;

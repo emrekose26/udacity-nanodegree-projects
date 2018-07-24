@@ -2,7 +2,7 @@ package com.emrekose.famula.repository;
 
 import com.emrekose.famula.data.remote.ApiService;
 import com.emrekose.famula.model.establisments.EstablismentsResponse;
-import com.emrekose.famula.data.remote.datasource.EstablishmentListDataSourceFactory;
+import com.emrekose.famula.data.remote.datasource.establisments.EstablishmentListDataSourceFactory;
 
 import javax.inject.Inject;
 

@@ -6,7 +6,7 @@ import android.arch.paging.LivePagedListBuilder;
 import android.arch.paging.PagedList;
 
 import com.emrekose.famula.common.RxViewModel;
-import com.emrekose.famula.data.remote.datasource.EstablishmentListDataSourceFactory;
+import com.emrekose.famula.data.remote.datasource.establisments.EstablishmentListDataSourceFactory;
 import com.emrekose.famula.model.establisments.Establishment;
 import com.emrekose.famula.model.establisments.EstablismentsResponse;
 import com.emrekose.famula.model.restaurant.search.Restaurant;
