@@ -1,5 +1,6 @@
 package com.emrekose.famula.ui.detail;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
@@ -75,7 +76,11 @@ public class RestaurantDetailActivity extends BaseOnlyFragmentActivity<ActivityR
                 updateFavImage(item);
                 break;
             case R.id.menu_action_share:
-                // TODO: 12.07.2018 share restaurant adress
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, commonRestaurant.getName() + " - " + commonRestaurant.getAddress());
+                sendIntent.setType("text/plain");
+                startActivity(sendIntent);
                 break;
         }
         return super.onOptionsItemSelected(item);
