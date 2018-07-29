@@ -70,6 +70,5 @@ public interface ApiService {
                                             @Query("entity_type") String entityType,
                                             @Query("lat") Double lat,
                                             @Query("lon") Double lon,
-                                            @Query("start") int page,
-                                            @Query("count") int pageSize);
+                                            @Query("cuisines") String cuisinesId);
 }

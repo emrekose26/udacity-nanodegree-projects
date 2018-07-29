@@ -40,7 +40,8 @@
         <activity
             android:name=".ui.favorites.FavoritesActivity"
             android:theme="@style/AppTheme.NoActionBar.StatusBar" />
-
+        <activity android:name=".ui.cuisineslist.restaurants.CuisinesRestauActivity"
+            android:theme="@style/AppTheme.NoActionBar.StatusBar"/>
 
         <receiver android:name=".widget.FamulaAppWidgetProvider" >
             <intent-filter>

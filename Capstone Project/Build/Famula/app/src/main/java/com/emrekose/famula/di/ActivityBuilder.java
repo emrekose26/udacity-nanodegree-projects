@@ -1,6 +1,7 @@
 package com.emrekose.famula.di;
 
 import com.emrekose.famula.ui.cuisineslist.CuisinesListActivity;
+import com.emrekose.famula.ui.cuisineslist.restaurants.CuisinesRestauActivity;
 import com.emrekose.famula.ui.detail.RestaurantDetailActivity;
 import com.emrekose.famula.ui.establisments.EstablismentsActivity;
 import com.emrekose.famula.ui.favorites.FavoritesActivity;
@@ -30,4 +31,7 @@ abstract class ActivityBuilder {
 
     @ContributesAndroidInjector
     abstract FavoritesActivity favoritesActivity();
+
+    @ContributesAndroidInjector
+    abstract CuisinesRestauActivity cuisinesRestauActivity();
 }
