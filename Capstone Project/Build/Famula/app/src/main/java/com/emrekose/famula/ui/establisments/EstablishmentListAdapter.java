@@ -1,128 +1,53 @@
 package com.emrekose.famula.ui.establisments;
 
-import android.arch.paging.PagedListAdapter;
 import android.support.annotation.NonNull;
+import android.support.v7.recyclerview.extensions.ListAdapter;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.emrekose.famula.R;
-import com.emrekose.famula.common.RetryCallback;
 import com.emrekose.famula.databinding.EstablishmentListItemBinding;
-import com.emrekose.famula.databinding.NetworkStateItemBinding;
 import com.emrekose.famula.model.restaurant.search.Restaurant;
-import com.emrekose.famula.util.NetworkState;
 
-public class EstablishmentListAdapter extends PagedListAdapter<Restaurant, RecyclerView.ViewHolder> {
+public class EstablishmentListAdapter extends ListAdapter<Restaurant, EstablishmentListAdapter.ViewHolder> {
 
-    private NetworkState networkState;
-    private RetryCallback retryCallback;
+    private EstablismentCallback.RestaurantCallback callback;
 
-    public EstablishmentListAdapter(RetryCallback retryCallback) {
+    protected EstablishmentListAdapter(EstablismentCallback.RestaurantCallback callback) {
         super(ESTABLISHMENT_LIST_DIFF_CALLBACK);
-        this.retryCallback = retryCallback;
+        this.callback = callback;
     }
 
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        switch (viewType) {
-            case R.layout.establishment_list_item:
-                return EstablishmentListViewHolder.create(LayoutInflater.from(parent.getContext()), parent);
-            case R.layout.network_state_item:
-                return NetworkStateViewHolder.create(LayoutInflater.from(parent.getContext()), parent, retryCallback);
-            default:
-                throw new IllegalArgumentException("unknown view type");
-        }
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return ViewHolder.create(LayoutInflater.from(parent.getContext()), parent, callback);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        switch (getItemViewType(position)) {
-            case R.layout.establishment_list_item:
-                ((EstablishmentListViewHolder)holder).bind(getItem(position));
-                break;
-            case R.layout.network_state_item:
-                ((NetworkStateViewHolder)holder).bind(networkState);
-        }
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        holder.bind(getItem(position));
     }
 
-    private boolean hasExtraRow() {
-        return networkState != null && networkState != NetworkState.LOADED;
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        if (hasExtraRow() && position == getItemCount() - 1) {
-            return R.layout.network_state_item;
-        } else {
-            return R.layout.establishment_list_item;
-        }
-    }
-
-    @Override
-    public int getItemCount() {
-        return super.getItemCount() + (hasExtraRow() ? 1 : 0);
-    }
-
-    public void setNetworkState(NetworkState newNetworkState) {
-        if (getCurrentList() != null) {
-            if (getCurrentList().size() != 0) {
-                NetworkState previousState = this.networkState;
-                boolean hadExtraRow = hasExtraRow();
-                this.networkState = newNetworkState;
-                boolean hasExtraRow = hasExtraRow();
-                if (hadExtraRow != hasExtraRow) {
-                    if (hadExtraRow) {
-                        notifyItemRemoved(super.getItemCount());
-                    } else {
-                        notifyItemInserted(super.getItemCount());
-                    }
-                } else if (hasExtraRow && previousState != newNetworkState) {
-                    notifyItemChanged(getItemCount() - 1);
-                }
-            }
-        }
-    }
-
-    static class EstablishmentListViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
 
         EstablishmentListItemBinding binding;
 
-        public EstablishmentListViewHolder(EstablishmentListItemBinding binding) {
+        public ViewHolder(EstablishmentListItemBinding binding, EstablismentCallback.RestaurantCallback callback) {
             super(binding.getRoot());
             this.binding = binding;
+            binding.getRoot().setOnClickListener(v ->
+                    callback.onEstablismentClick(binding.getRestaurant()));
         }
 
-        public static EstablishmentListViewHolder create(LayoutInflater inflater, ViewGroup parent) {
+        public static ViewHolder create(LayoutInflater inflater, ViewGroup parent, EstablismentCallback.RestaurantCallback callback) {
             EstablishmentListItemBinding establishmentListItemBinding = EstablishmentListItemBinding.inflate(inflater, parent, false);
-            return new EstablishmentListViewHolder(establishmentListItemBinding);
+            return new ViewHolder(establishmentListItemBinding, callback);
         }
 
         public void bind(Restaurant restaurant) {
             binding.setRestaurant(restaurant);
-            binding.executePendingBindings();
-        }
-    }
-
-    static class NetworkStateViewHolder extends RecyclerView.ViewHolder {
-
-        NetworkStateItemBinding binding;
-
-        public NetworkStateViewHolder(NetworkStateItemBinding binding, RetryCallback callback) {
-            super(binding.getRoot());
-            this.binding = binding;
-            binding.retryLoadingButton.setOnClickListener(v -> callback.retry());
-        }
-
-        public static NetworkStateViewHolder create(LayoutInflater inflater, ViewGroup parent, RetryCallback callback) {
-            NetworkStateItemBinding networkStateItemBinding = NetworkStateItemBinding.inflate(inflater, parent, false);
-            return new NetworkStateViewHolder(networkStateItemBinding, callback);
-        }
-
-        public void bind(NetworkState networkState) {
-            binding.setState(networkState);
             binding.executePendingBindings();
         }
     }

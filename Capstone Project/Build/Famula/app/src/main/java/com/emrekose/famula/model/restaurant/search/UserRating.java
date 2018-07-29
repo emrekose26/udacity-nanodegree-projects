@@ -2,7 +2,9 @@ package com.emrekose.famula.model.restaurant.search;
 
 import com.google.gson.annotations.SerializedName;
 
-public class UserRating {
+import java.io.Serializable;
+
+public class UserRating implements Serializable {
 
     @SerializedName("aggregate_rating")
     private String aggregateRating;

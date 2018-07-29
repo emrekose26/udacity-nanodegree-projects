@@ -2,7 +2,9 @@ package com.emrekose.famula.model.restaurant.search;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Location {
+import java.io.Serializable;
+
+public class Location implements Serializable{
 
     @SerializedName("address")
     private String address;

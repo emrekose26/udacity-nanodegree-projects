@@ -35,19 +35,23 @@
             android:name=".ui.nearbyrestaurants.NearbyRestaurantsActivity"
             android:parentActivityName=".ui.main.MainActivity"
             android:theme="@style/AppTheme.NoActionBar.StatusBar" />
-        <activity android:name=".ui.establisments.EstablismentsActivity" />
+        <activity
+            android:name=".ui.establisments.EstablismentsActivity"
+            android:theme="@style/AppTheme.NoActionBar.StatusBar" />
         <activity android:name=".ui.detail.RestaurantDetailActivity" />
         <activity
             android:name=".ui.favorites.FavoritesActivity"
             android:theme="@style/AppTheme.NoActionBar.StatusBar" />
-        <activity android:name=".ui.cuisineslist.restaurants.CuisinesRestauActivity"
-            android:theme="@style/AppTheme.NoActionBar.StatusBar"/>
+        <activity
+            android:name=".ui.cuisineslist.restaurants.CuisinesRestauActivity"
+            android:theme="@style/AppTheme.NoActionBar.StatusBar" />
 
-        <receiver android:name=".widget.FamulaAppWidgetProvider" >
+        <receiver android:name=".widget.FamulaAppWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
-            <meta-data android:name="android.appwidget.provider"
+            <meta-data
+                android:name="android.appwidget.provider"
                 android:resource="@xml/app_widget_info" />
         </receiver>
 

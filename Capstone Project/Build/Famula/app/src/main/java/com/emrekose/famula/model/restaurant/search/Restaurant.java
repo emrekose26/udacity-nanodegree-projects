@@ -2,7 +2,9 @@ package com.emrekose.famula.model.restaurant.search;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Restaurant {
+import java.io.Serializable;
+
+public class Restaurant implements Serializable{
 
     @SerializedName("restaurant")
     private RestaurantItem restaurant;

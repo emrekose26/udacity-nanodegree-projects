@@ -2,9 +2,10 @@ package com.emrekose.famula.model.restaurant.search;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class RestaurantItem {
+public class RestaurantItem implements Serializable {
 
     @SerializedName("R")
     private ResId r;
@@ -95,9 +96,6 @@ public class RestaurantItem {
 
     @SerializedName("events_url")
     private String eventsUrl;
-
-    @SerializedName("establishment_types")
-    private List<Object> establishmentTypes = null;
 
     public ResId getR() {
         return r;
@@ -337,13 +335,5 @@ public class RestaurantItem {
 
     public void setEventsUrl(String eventsUrl) {
         this.eventsUrl = eventsUrl;
-    }
-
-    public List<Object> getEstablishmentTypes() {
-        return establishmentTypes;
-    }
-
-    public void setEstablishmentTypes(List<Object> establishmentTypes) {
-        this.establishmentTypes = establishmentTypes;
     }
 }

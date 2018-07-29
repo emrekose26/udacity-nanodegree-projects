@@ -17,7 +17,7 @@ import com.emrekose.famula.model.establisments.Establishment;
  * A simple {@link Fragment} subclass.
  */
 public class EstablismentTypesListFragment extends BaseFragment<EstablismentsViewModel, FragmentEstablismentTypesListBinding>
-        implements EstablismentCallback {
+        implements EstablismentCallback.TypesCalback {
 
     private EstablismentTypesAdapter adapter;
 
@@ -69,7 +69,6 @@ public class EstablismentTypesListFragment extends BaseFragment<EstablismentsVie
 
     @Override
     public void onEstablismentTypesClick(Establishment establishment) {
-        // TODO: 7.07.2018 replace establisments list fragment
         ((EstablismentsActivity)getActivity()).getSupportFragmentManager().beginTransaction()
                 .replace(R.id.establisments_container, EstablistmentListFragment.newInstance(establishment))
                 .addToBackStack(null)

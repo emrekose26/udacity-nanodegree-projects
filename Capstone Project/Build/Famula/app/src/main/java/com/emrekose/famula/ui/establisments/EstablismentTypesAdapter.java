@@ -12,9 +12,9 @@ import com.emrekose.famula.model.establisments.Establishment;
 
 public class EstablismentTypesAdapter extends ListAdapter<Establishment, EstablismentTypesAdapter.ViewHolder> {
 
-    private final EstablismentCallback callback;
+    private final EstablismentCallback.TypesCalback callback;
 
-    protected EstablismentTypesAdapter(@NonNull DiffUtil.ItemCallback<Establishment> diffCallback, EstablismentCallback callback) {
+    protected EstablismentTypesAdapter(@NonNull DiffUtil.ItemCallback<Establishment> diffCallback, EstablismentCallback.TypesCalback callback) {
         super(diffCallback);
         this.callback = callback;
     }
@@ -34,14 +34,14 @@ public class EstablismentTypesAdapter extends ListAdapter<Establishment, Establi
 
         EstablismentTypesItemBinding binding;
 
-        public ViewHolder(EstablismentTypesItemBinding binding, EstablismentCallback callback) {
+        public ViewHolder(EstablismentTypesItemBinding binding, EstablismentCallback.TypesCalback callback) {
             super(binding.getRoot());
             this.binding = binding;
             binding.getRoot().setOnClickListener(v ->
                     callback.onEstablismentTypesClick(binding.getEstablisment()));
         }
 
-        public static ViewHolder create(LayoutInflater inflater, ViewGroup parent, EstablismentCallback callback) {
+        public static ViewHolder create(LayoutInflater inflater, ViewGroup parent, EstablismentCallback.TypesCalback callback) {
             EstablismentTypesItemBinding establismentTypesItemBinding = EstablismentTypesItemBinding.inflate(inflater, parent, false);
             return new ViewHolder(establismentTypesItemBinding, callback);
         }
