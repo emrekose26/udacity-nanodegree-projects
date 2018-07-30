@@ -12,10 +12,16 @@ import com.emrekose.famula.model.geocode.NearbyRestaurant;
 import com.emrekose.famula.ui.detail.RestaurantDetailActivity;
 import com.emrekose.famula.ui.main.MainViewModel;
 import com.emrekose.famula.util.Constants;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
+
+import timber.log.Timber;
 
 public class NearbyRestaurantsActivity extends BaseOnlyActivity<ActivityNearbyRestaurantsBinding, MainViewModel> implements NearbyRestaurantsCallback {
 
     private NearbyRestaurantsAdapter adapter;
+    private InterstitialAd mInterstitialAd;
 
     @Override
     public int getLayoutRes() {
@@ -31,6 +37,7 @@ public class NearbyRestaurantsActivity extends BaseOnlyActivity<ActivityNearbyRe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        loadAds();
         setupToolbar();
 
         adapter = new NearbyRestaurantsAdapter(this);
@@ -59,6 +66,23 @@ public class NearbyRestaurantsActivity extends BaseOnlyActivity<ActivityNearbyRe
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mInterstitialAd.isLoaded()) {
+            mInterstitialAd.show();
+        } else {
+            Timber.d("The interstitial wasn't loaded yet.");
+        }
+    }
+
+    private void loadAds() {
+        MobileAds.initialize(this, getString(R.string.admob_app_id));
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId(getString(R.string.admob_ad_unit_id));
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
     }
 
     private void setupToolbar() {

@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">Famula</string>
+    <string name="admob_app_id">ca-app-pub-3940256099942544~3347511713</string>
+    <string name="admob_ad_unit_id">ca-app-pub-3940256099942544/1033173712</string>
+
     <string name="view_all">View all</string>
     <string name="what_would_you_like_to_order">What would you like to order?</string>
     <string name="restaurants_near_you">Restaurants near you</string>
