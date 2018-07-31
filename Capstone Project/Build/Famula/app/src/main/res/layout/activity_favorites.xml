@@ -4,10 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="android.view.View"/>
+
+        <import type="android.view.View" />
+
         <variable
             name="listSize"
-            type="java.lang.Integer"/>
+            type="java.lang.Integer" />
     </data>
 
     <android.support.constraint.ConstraintLayout
@@ -31,30 +33,39 @@
             android:id="@+id/favorites_recyclerview"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             android:visibility="@{listSize > 0 ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/favorites_toolbar" />
 
-        <ProgressBar
-            android:id="@+id/favorites_progressbar"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:visibility="@{listSize > 0 ? View.GONE : View.VISIBLE}"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="@{listSize == 0 ? View.VISIBLE : View.GONE}"
+            tools:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/favorites_toolbar"
-            app:layout_constraintVertical_bias="0.18"
-            tools:visibility="gone" />
+            tools:layout_editor_absoluteX="0dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_warning" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textSize="18sp"
+                android:text="@string/no_favorite_restaurant"
+                android:textColor="#777"
+                android:layout_marginTop="8dp"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
+
+        </LinearLayout>
 
     </android.support.constraint.ConstraintLayout>
 </layout>

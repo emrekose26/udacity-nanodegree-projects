@@ -4,246 +4,262 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="restaurant"
-            type="com.emrekose.famula.data.local.entity.CommonRestaurant"/>
+            type="com.emrekose.famula.data.local.entity.CommonRestaurant" />
     </data>
 
-    <android.support.v7.widget.CardView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.detail.RestaurantInfoFragment">
+        android:layout_height="wrap_content">
 
-        <android.support.constraint.ConstraintLayout
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_margin="4dp"
+            app:cardCornerRadius="4dp"
+            tools:context=".ui.detail.RestaurantInfoFragment">
 
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:text="@string/address"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="16dp">
 
-            <View
-                android:id="@+id/view2"
-                android:layout_width="150dp"
-                android:layout_height="2dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="4dp"
-                android:background="@color/colorPrimaryDark"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView2" />
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/address"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/info_adress_texview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view2"
-                android:text="@{restaurant.address}"
-                tools:text="Chelsea Market, Chelsea, New York City" />
+                <View
+                    android:id="@+id/view2"
+                    android:layout_width="150dp"
+                    android:layout_height="2dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@color/colorPrimaryDark"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
-            <TextView
-                android:id="@+id/textView7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:text="@string/cuisines"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/info_adress_texview" />
+                <TextView
+                    android:id="@+id/info_adress_texview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:text="@{restaurant.address}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/view2"
+                    tools:text="Chelsea Market, Chelsea, New York City" />
 
-            <View
-                android:id="@+id/view3"
-                android:layout_width="150dp"
-                android:layout_height="2dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="4dp"
-                android:background="@color/colorPrimaryDark"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView7" />
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/cuisines"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/info_adress_texview" />
 
-            <TextView
-                android:id="@+id/info_cuisines_textview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:text="@{restaurant.cuisines}"
-                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view3"
-                tools:text="Burger, Coffee and Tea, Ice Cream" />
+                <View
+                    android:id="@+id/view3"
+                    android:layout_width="150dp"
+                    android:layout_height="2dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@color/colorPrimaryDark"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
-            <TextView
-                android:id="@+id/textView9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:text="@string/price_range"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                app:layout_constraintEnd_toStartOf="@+id/info_price_range_textview"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/info_cuisines_textview" />
+                <TextView
+                    android:id="@+id/info_cuisines_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:text="@{restaurant.cuisines}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/view3"
+                    tools:text="Burger, Coffee and Tea, Ice Cream" />
 
-            <TextView
-                android:id="@+id/info_price_range_textview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginStart="8dp"
-                android:text='@{restaurant.priceRange + " " + restaurant.currency}'
-                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                app:layout_constraintBottom_toBottomOf="@+id/textView9"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/textView9"
-                app:layout_constraintTop_toTopOf="@+id/textView9"
-                tools:text="2 $" />
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/price_range"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    app:layout_constraintEnd_toStartOf="@+id/info_price_range_textview"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/info_cuisines_textview" />
 
-            <TextView
-                android:id="@+id/textView11"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:text="@string/average_cost_for_two"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                app:layout_constraintEnd_toStartOf="@+id/info_average_cost_for_two"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView9" />
+                <TextView
+                    android:id="@+id/info_price_range_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginStart="8dp"
+                    android:text='@{restaurant.priceRange + " " + restaurant.currency}'
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                    android:textSize="15sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView9"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@+id/textView9"
+                    app:layout_constraintTop_toTopOf="@+id/textView9"
+                    tools:text="2 $" />
 
-            <TextView
-                android:id="@+id/info_average_cost_for_two"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginStart="8dp"
-                android:text='@{restaurant.averageCostForTwo + " " + restaurant.currency}'
-                app:layout_constraintBottom_toBottomOf="@+id/textView11"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textView11"
-                app:layout_constraintTop_toTopOf="@+id/textView11"
-                tools:text="60 $" />
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/average_cost_for_two"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    app:layout_constraintEnd_toStartOf="@+id/info_average_cost_for_two"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
-            <TextView
-                android:id="@+id/textView13"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:text="@string/online_delivery"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                app:layout_constraintEnd_toStartOf="@+id/info_online_delivery_imageview"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView11" />
+                <TextView
+                    android:id="@+id/info_average_cost_for_two"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginStart="8dp"
+                    android:text='@{restaurant.averageCostForTwo + " " + restaurant.currency}'
+                    android:textSize="15sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView11"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/textView11"
+                    app:layout_constraintTop_toTopOf="@+id/textView11"
+                    tools:text="60 $" />
 
-            <ImageView
-                android:id="@+id/info_online_delivery_imageview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginStart="8dp"
-                android:tint="@{restaurant.hasOnlineDelivery == 0 ? @color/colorAccent : @color/colorPrimaryDark}"
-                android:src="@drawable/ic_thumb_up"
-                app:layout_constraintBottom_toBottomOf="@+id/textView13"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textView13"
-                app:layout_constraintTop_toTopOf="@+id/textView13"
-                tools:tint="@color/colorPrimaryDark" />
+                <TextView
+                    android:id="@+id/textView13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/online_delivery"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    app:layout_constraintEnd_toStartOf="@+id/info_online_delivery_imageview"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
-            <TextView
-                android:id="@+id/textView14"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:text="@string/table_booking"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                app:layout_constraintEnd_toStartOf="@+id/info_table_booking_imageview"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView13" />
+                <ImageView
+                    android:id="@+id/info_online_delivery_imageview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginStart="8dp"
+                    android:src="@{restaurant.hasOnlineDelivery == 0 ? @drawable/ic_thumb_down : @drawable/ic_thumb_up}"
+                    android:tint="@{restaurant.hasOnlineDelivery == 0 ? @color/colorAccent : @color/colorPrimaryDark}"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView13"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/textView13"
+                    app:layout_constraintTop_toTopOf="@+id/textView13"
+                    tools:src="@drawable/ic_thumb_up"
+                    tools:tint="@color/colorPrimaryDark" />
 
-            <ImageView
-                android:id="@+id/info_table_booking_imageview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginStart="8dp"
-                android:src="@drawable/ic_thumb_down"
-                android:tint="@{restaurant.hasTableBooking == 0 ? @color/colorAccent : @color/colorPrimaryDark}"
-                app:layout_constraintBottom_toBottomOf="@+id/textView14"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textView14"
-                app:layout_constraintTop_toTopOf="@+id/textView14"
-                tools:tint="@color/colorAccent" />
+                <TextView
+                    android:id="@+id/textView14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/table_booking"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    app:layout_constraintEnd_toStartOf="@+id/info_table_booking_imageview"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
+                <ImageView
+                    android:id="@+id/info_table_booking_imageview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginStart="8dp"
+                    android:src="@{restaurant.hasTableBooking == 0 ? @drawable/ic_thumb_down : @drawable/ic_thumb_up}"
+                    android:tint="@{restaurant.hasTableBooking == 0 ? @color/colorAccent : @color/colorPrimaryDark}"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView14"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/textView14"
+                    app:layout_constraintTop_toTopOf="@+id/textView14"
+                    tools:src="@drawable/ic_thumb_down"
+                    tools:tint="@color/colorAccent" />
 
 
-        </android.support.constraint.ConstraintLayout>
+            </android.support.constraint.ConstraintLayout>
 
-    </android.support.v7.widget.CardView>
+        </android.support.v7.widget.CardView>
+    </android.support.v4.widget.NestedScrollView>
 </layout>

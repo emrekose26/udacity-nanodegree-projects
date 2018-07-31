@@ -13,8 +13,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import timber.log.Timber;
-
 public class RestaurantDetailViewModel extends RxViewModel {
 
     private RestaurantDetailRepository repository;
@@ -49,13 +47,12 @@ public class RestaurantDetailViewModel extends RxViewModel {
 
     public LiveData<Boolean> isFav(String id) {
         disposable.add(repository.isFavorite(id)
-                .subscribe((restaurant, throwable) -> {
+                .subscribe(restaurant -> {
                     if (restaurant != null) {
                         if (restaurant.getId().equals(id)) isFavLiveData.postValue(true);
                         else isFavLiveData.postValue(false);
                     } else {
                         isFavLiveData.postValue(false);
-                        Timber.e(throwable);
                     }
                 }));
         return isFavLiveData;

@@ -271,8 +271,14 @@ public class MainActivity extends BaseOnlyActivity<ActivityMainBinding, MainView
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.nav_cuisines:
+                startActivity(new Intent(MainActivity.this, CuisinesListActivity.class));
+                break;
             case R.id.nav_establisments:
                 startActivity(new Intent(MainActivity.this, EstablismentsActivity.class));
+                break;
+            case R.id.nav_nearby_restaurants:
+                startActivity(new Intent(MainActivity.this, NearbyRestaurantsActivity.class));
                 break;
             case R.id.nav_fav_restaurants:
                 startActivity(new Intent(MainActivity.this, FavoritesActivity.class));

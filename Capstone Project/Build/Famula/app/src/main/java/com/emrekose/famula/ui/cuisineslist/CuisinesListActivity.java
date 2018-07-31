@@ -11,6 +11,7 @@ import com.emrekose.famula.databinding.ActivityCuisinesListBinding;
 import com.emrekose.famula.model.cuisines.Cuisine;
 import com.emrekose.famula.ui.cuisineslist.restaurants.CuisinesRestauActivity;
 import com.emrekose.famula.ui.main.MainViewModel;
+import com.emrekose.famula.util.Constants;
 
 public class CuisinesListActivity extends BaseOnlyActivity<ActivityCuisinesListBinding, MainViewModel> implements CuisinesListCallback {
 
@@ -45,7 +46,7 @@ public class CuisinesListActivity extends BaseOnlyActivity<ActivityCuisinesListB
     @Override
     public void onCouisineClick(Cuisine cuisine) {
         Intent intent = new Intent(CuisinesListActivity.this, CuisinesRestauActivity.class);
-        // TODO: 24.07.2018 putExtra -> cuisine
+        intent.putExtra(Constants.CUISINES_BUNDLE_KEY, cuisine);
         startActivity(intent);
     }
 

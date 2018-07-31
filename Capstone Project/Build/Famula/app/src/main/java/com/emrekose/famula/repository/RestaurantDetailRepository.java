@@ -13,7 +13,6 @@ import javax.inject.Inject;
 
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
-import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -46,7 +45,7 @@ public class RestaurantDetailRepository {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public Single<CommonRestaurant> isFavorite(String id) {
+    public Flowable<CommonRestaurant> isFavorite(String id) {
         return favDao.getSingleRestaurant(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());

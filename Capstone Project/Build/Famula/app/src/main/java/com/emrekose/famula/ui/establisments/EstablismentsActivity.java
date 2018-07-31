@@ -28,5 +28,7 @@ public class EstablismentsActivity extends BaseActivity<ActivityEstablismentsBin
 
     private void setupToolbar() {
         setSupportActionBar(dataBinding.establistmentsToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setTitle(getString(R.string.establisments));
     }
 }

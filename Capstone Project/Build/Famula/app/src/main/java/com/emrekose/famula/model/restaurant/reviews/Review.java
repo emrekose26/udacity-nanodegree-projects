@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 public class Review {
 
     @SerializedName("rating")
-    private int rating;
+    private double rating;
 
     @SerializedName("review_text")
     private String reviewText;
@@ -35,11 +35,11 @@ public class Review {
     private int commentsCount;
 
 
-    public int getRating() {
+    public double getRating() {
         return rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(double rating) {
         this.rating = rating;
     }
 

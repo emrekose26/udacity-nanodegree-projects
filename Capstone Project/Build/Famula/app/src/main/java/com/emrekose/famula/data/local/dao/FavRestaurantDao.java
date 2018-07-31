@@ -11,7 +11,7 @@ import com.emrekose.famula.data.local.entity.CommonRestaurant;
 
 import java.util.List;
 
-import io.reactivex.Single;
+import io.reactivex.Flowable;
 
 @Dao
 public interface FavRestaurantDao {
@@ -29,5 +29,5 @@ public interface FavRestaurantDao {
     abstract List<CommonRestaurant> getAllFavsForWidget();
 
     @Query("SELECT * FROM favrestaurant WHERE id = :id")
-    abstract Single<CommonRestaurant> getSingleRestaurant(String id);
+    abstract Flowable<CommonRestaurant> getSingleRestaurant(String id);
 }

@@ -78,6 +78,9 @@ public class RestaurantDetailActivity extends BaseOnlyFragmentActivity<ActivityR
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                break;
             case R.id.menu_action_add_to_favorites:
                 updateFavImage(item);
                 break;

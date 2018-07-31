@@ -2,7 +2,9 @@ package com.emrekose.famula.model.cuisines;
 
 import com.google.gson.annotations.SerializedName;
 
-public class CuisineItem {
+import java.io.Serializable;
+
+public class CuisineItem implements Serializable{
 
     @SerializedName("cuisine_id")
     private int cuisineId;
