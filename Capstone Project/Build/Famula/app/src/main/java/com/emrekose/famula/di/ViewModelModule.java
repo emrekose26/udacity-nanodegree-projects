@@ -7,6 +7,7 @@ import com.emrekose.famula.ui.cuisineslist.restaurants.CuisinesRestauViewModel;
 import com.emrekose.famula.ui.detail.RestaurantDetailViewModel;
 import com.emrekose.famula.ui.establisments.EstablismentsViewModel;
 import com.emrekose.famula.ui.main.MainViewModel;
+import com.emrekose.famula.ui.search.SearchViewModel;
 import com.emrekose.famula.viewmodel.VMFactory;
 
 import dagger.Binds;
@@ -35,6 +36,11 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(CuisinesRestauViewModel.class)
     abstract ViewModel bindsCuisinesRestauViewModel(CuisinesRestauViewModel cuisinesRestauViewModel);
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(SearchViewModel.class)
+    abstract ViewModel bindsSearchViewModel(SearchViewModel searchViewModel);
 
     @Binds
     abstract ViewModelProvider.Factory bindsViewModelFactory(VMFactory vmFactory);

@@ -47,10 +47,16 @@
             android:parentActivityName=".ui.cuisineslist.CuisinesListActivity"
             android:theme="@style/AppTheme.NoActionBar.StatusBar" />
 
+        <activity
+            android:name=".ui.search.SearchActivity"
+            android:theme="@style/AppTheme.NoActionBar.StatusBar"
+            android:parentActivityName=".ui.main.MainActivity"/>
+
         <receiver android:name=".widget.FamulaAppWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
+
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/app_widget_info" />
@@ -59,6 +65,7 @@
         <service
             android:name=".widget.FamulaWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
+
 
     </application>
 

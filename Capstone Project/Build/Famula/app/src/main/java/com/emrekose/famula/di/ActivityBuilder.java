@@ -7,6 +7,7 @@ import com.emrekose.famula.ui.establisments.EstablismentsActivity;
 import com.emrekose.famula.ui.favorites.FavoritesActivity;
 import com.emrekose.famula.ui.main.MainActivity;
 import com.emrekose.famula.ui.nearbyrestaurants.NearbyRestaurantsActivity;
+import com.emrekose.famula.ui.search.SearchActivity;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -34,4 +35,7 @@ abstract class ActivityBuilder {
 
     @ContributesAndroidInjector
     abstract CuisinesRestauActivity cuisinesRestauActivity();
+
+    @ContributesAndroidInjector
+    abstract SearchActivity searchActivity();
 }

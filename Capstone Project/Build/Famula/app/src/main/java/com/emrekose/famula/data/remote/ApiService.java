@@ -66,7 +66,7 @@ public interface ApiService {
     @GET("search")
     Flowable<SearchResponse> getSearchDatas(@Query("q") String query,
                                             @Query("establishment_type") String establishmentType,
-                                            @Query("entity_id") int entityId,
+                                            @Query("entity_id") Integer entityId,
                                             @Query("entity_type") String entityType,
                                             @Query("lat") Double lat,
                                             @Query("lon") Double lon,

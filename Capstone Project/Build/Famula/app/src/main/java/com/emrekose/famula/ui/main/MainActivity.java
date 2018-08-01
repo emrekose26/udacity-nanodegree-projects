@@ -17,6 +17,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -32,6 +33,7 @@ import com.emrekose.famula.ui.detail.RestaurantDetailActivity;
 import com.emrekose.famula.ui.establisments.EstablismentsActivity;
 import com.emrekose.famula.ui.favorites.FavoritesActivity;
 import com.emrekose.famula.ui.nearbyrestaurants.NearbyRestaurantsActivity;
+import com.emrekose.famula.ui.search.SearchActivity;
 import com.emrekose.famula.util.Constants;
 import com.emrekose.famula.util.GPSUtils;
 import com.emrekose.famula.util.SPUtils;
@@ -111,6 +113,24 @@ public class MainActivity extends BaseOnlyActivity<ActivityMainBinding, MainView
 
         dataBinding.viewAllNearbyRestaurants.setOnClickListener(v -> {
             startActivity(new Intent(MainActivity.this, NearbyRestaurantsActivity.class));
+        });
+
+        dataBinding.searchView.setOnClickListener(v -> dataBinding.searchView.setIconified(false));
+
+        // TODO: 31.07.2018 search 
+        dataBinding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+                intent.putExtra(Constants.SEARCH_QUERY_KEY, query);
+                startActivity(intent);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
         });
     }
 
