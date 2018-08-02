@@ -36,6 +36,7 @@ import com.emrekose.famula.ui.nearbyrestaurants.NearbyRestaurantsActivity;
 import com.emrekose.famula.ui.search.SearchActivity;
 import com.emrekose.famula.util.Constants;
 import com.emrekose.famula.util.GPSUtils;
+import com.emrekose.famula.util.LocationUtils;
 import com.emrekose.famula.util.SPUtils;
 
 import java.util.List;
@@ -107,17 +108,12 @@ public class MainActivity extends BaseOnlyActivity<ActivityMainBinding, MainView
             nearbyAdapter.submitList(response);
         });
 
-        dataBinding.viewAllCuisine.setOnClickListener(v -> {
-            startActivity(new Intent(MainActivity.this, CuisinesListActivity.class));
-        });
+        dataBinding.viewAllCuisine.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, CuisinesListActivity.class)));
 
-        dataBinding.viewAllNearbyRestaurants.setOnClickListener(v -> {
-            startActivity(new Intent(MainActivity.this, NearbyRestaurantsActivity.class));
-        });
+        dataBinding.viewAllNearbyRestaurants.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, NearbyRestaurantsActivity.class)));
 
         dataBinding.searchView.setOnClickListener(v -> dataBinding.searchView.setIconified(false));
 
-        // TODO: 31.07.2018 search 
         dataBinding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -144,6 +140,11 @@ public class MainActivity extends BaseOnlyActivity<ActivityMainBinding, MainView
         Intent intent = new Intent(MainActivity.this, RestaurantDetailActivity.class);
         intent.putExtra(Constants.RESTAURANTS_BUNDLE_KEY, nearbyRestaurant);
         startActivity(intent);
+    }
+
+    @Override
+    public void onMainNearbyRestaurantMarkerClick(NearbyRestaurant nearbyRestaurant) {
+        LocationUtils.openGoogleMaps(this, Double.parseDouble(nearbyRestaurant.getRestaurant().getLocation().getLatitude()), Double.parseDouble(nearbyRestaurant.getRestaurant().getLocation().getLongitude()));
     }
 
     @Override

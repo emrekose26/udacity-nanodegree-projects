@@ -4,4 +4,6 @@ import com.emrekose.famula.model.restaurant.search.Restaurant;
 
 public interface CuisinesRestauCallback {
     void onRestaurantClick(Restaurant restaurant);
+
+    void onRestaurantMarkerClick(Restaurant restaurant);
 }

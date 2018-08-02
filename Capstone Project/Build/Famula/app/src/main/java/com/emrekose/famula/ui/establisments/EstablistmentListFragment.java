@@ -18,6 +18,7 @@ import com.emrekose.famula.model.restaurant.search.Restaurant;
 import com.emrekose.famula.ui.detail.RestaurantDetailActivity;
 import com.emrekose.famula.util.Constants;
 import com.emrekose.famula.util.EntityType;
+import com.emrekose.famula.util.LocationUtils;
 
 import timber.log.Timber;
 
@@ -88,5 +89,10 @@ public class EstablistmentListFragment extends BaseFragment<EstablismentsViewMod
         Intent intent = new Intent(getActivity(), RestaurantDetailActivity.class);
         intent.putExtra(Constants.RESTAURANTS_BUNDLE_KEY, restaurant);
         startActivity(intent);
+    }
+
+    @Override
+    public void onEstablismentMarkerClick(Restaurant restaurant) {
+        LocationUtils.openGoogleMaps(getActivity(), Double.parseDouble(restaurant.getRestaurant().getLocation().getLatitude()), Double.parseDouble(restaurant.getRestaurant().getLocation().getLongitude()));
     }
 }

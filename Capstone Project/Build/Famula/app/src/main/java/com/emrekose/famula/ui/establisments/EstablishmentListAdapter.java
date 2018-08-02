@@ -39,6 +39,8 @@ public class EstablishmentListAdapter extends ListAdapter<Restaurant, Establishm
             this.binding = binding;
             binding.getRoot().setOnClickListener(v ->
                     callback.onEstablismentClick(binding.getRestaurant()));
+            binding.establishmentListMainMarker.setOnClickListener(v ->
+                    callback.onEstablismentMarkerClick(binding.getRestaurant()));
         }
 
         public static ViewHolder create(LayoutInflater inflater, ViewGroup parent, EstablismentCallback.RestaurantCallback callback) {

@@ -13,6 +13,7 @@ import com.emrekose.famula.model.restaurant.search.Restaurant;
 import com.emrekose.famula.ui.detail.RestaurantDetailActivity;
 import com.emrekose.famula.util.Constants;
 import com.emrekose.famula.util.EntityType;
+import com.emrekose.famula.util.LocationUtils;
 
 public class SearchActivity extends BaseOnlyActivity<ActivitySearchBinding, SearchViewModel> implements SearchResultsCallback {
 
@@ -62,6 +63,11 @@ public class SearchActivity extends BaseOnlyActivity<ActivitySearchBinding, Sear
         Intent intent = new Intent(SearchActivity.this, RestaurantDetailActivity.class);
         intent.putExtra(Constants.RESTAURANTS_BUNDLE_KEY, restaurant);
         startActivity(intent);
+    }
+
+    @Override
+    public void onRestaurantMarkerClick(Restaurant restaurant) {
+        LocationUtils.openGoogleMaps(this, Double.parseDouble(restaurant.getRestaurant().getLocation().getLatitude()), Double.parseDouble(restaurant.getRestaurant().getLocation().getLongitude()));
     }
 
     @Override

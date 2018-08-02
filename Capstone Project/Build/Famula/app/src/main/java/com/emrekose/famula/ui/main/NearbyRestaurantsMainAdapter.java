@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import com.emrekose.famula.databinding.NearbyRestaurantsMainItemBinding;
 import com.emrekose.famula.model.geocode.NearbyRestaurant;
 
-public class NearbyRestaurantsMainAdapter extends ListAdapter<NearbyRestaurant, NearbyRestaurantsMainAdapter.ViewHolder>{
+public class NearbyRestaurantsMainAdapter extends ListAdapter<NearbyRestaurant, NearbyRestaurantsMainAdapter.ViewHolder> {
 
     private final NearbyRestaurantsMainCallback callback;
 
@@ -38,7 +38,9 @@ public class NearbyRestaurantsMainAdapter extends ListAdapter<NearbyRestaurant, 
             super(binding.getRoot());
             this.binding = binding;
             binding.getRoot().setOnClickListener(v ->
-                callback.onMainNearbyRestaurantsClick(binding.getRestaurant()));
+                    callback.onMainNearbyRestaurantsClick(binding.getRestaurant()));
+            binding.nearbyRestaurantsMainMarker.setOnClickListener(v ->
+                    callback.onMainNearbyRestaurantMarkerClick(binding.getRestaurant()));
         }
 
         public static ViewHolder create(LayoutInflater inflater, ViewGroup parent, NearbyRestaurantsMainCallback callback) {

@@ -11,5 +11,7 @@ public interface EstablismentCallback {
 
     interface RestaurantCallback {
         void onEstablismentClick(Restaurant restaurant);
+
+        void onEstablismentMarkerClick(Restaurant restaurant);
     }
 }

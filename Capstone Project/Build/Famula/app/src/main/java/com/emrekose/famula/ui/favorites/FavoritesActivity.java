@@ -11,8 +11,8 @@ import com.emrekose.famula.data.local.entity.CommonRestaurant;
 import com.emrekose.famula.databinding.ActivityFavoritesBinding;
 import com.emrekose.famula.ui.detail.RestaurantDetailActivity;
 import com.emrekose.famula.ui.detail.RestaurantDetailViewModel;
-import com.emrekose.famula.ui.nearbyrestaurants.NearbyRestaurantsActivity;
 import com.emrekose.famula.util.Constants;
+import com.emrekose.famula.util.LocationUtils;
 
 public class FavoritesActivity extends BaseOnlyActivity<ActivityFavoritesBinding, RestaurantDetailViewModel> implements FavoritesCallback {
 
@@ -49,6 +49,11 @@ public class FavoritesActivity extends BaseOnlyActivity<ActivityFavoritesBinding
         Intent i = new Intent(FavoritesActivity.this, RestaurantDetailActivity.class);
         i.putExtra(Constants.RESTAURANTS_BUNDLE_KEY, restaurant);
         startActivity(i);
+    }
+
+    @Override
+    public void onFavoriteRestaurantMarkerClick(CommonRestaurant restaurant) {
+        LocationUtils.openGoogleMaps(this, Double.parseDouble(restaurant.getLatitude()), Double.parseDouble(restaurant.getLongitude()));
     }
 
     private void setupToolbar() {

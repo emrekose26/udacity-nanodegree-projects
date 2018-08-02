@@ -12,6 +12,7 @@ import com.emrekose.famula.model.geocode.NearbyRestaurant;
 import com.emrekose.famula.ui.detail.RestaurantDetailActivity;
 import com.emrekose.famula.ui.main.MainViewModel;
 import com.emrekose.famula.util.Constants;
+import com.emrekose.famula.util.LocationUtils;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
@@ -56,6 +57,12 @@ public class NearbyRestaurantsActivity extends BaseOnlyActivity<ActivityNearbyRe
         Intent i = new Intent(NearbyRestaurantsActivity.this, RestaurantDetailActivity.class);
         i.putExtra(Constants.RESTAURANTS_BUNDLE_KEY, restaurant);
         startActivity(i);
+    }
+
+    @Override
+    public void onNearbyRestaurantMarkerClick(NearbyRestaurant restaurant) {
+        LocationUtils.openGoogleMaps(this, Double.parseDouble(restaurant.getRestaurant().getLocation().getLatitude()), Double.parseDouble(restaurant.getRestaurant().getLocation().getLongitude()));
+
     }
 
     @Override

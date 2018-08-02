@@ -12,6 +12,7 @@ import com.emrekose.famula.model.restaurant.search.Restaurant;
 import com.emrekose.famula.ui.detail.RestaurantDetailActivity;
 import com.emrekose.famula.util.Constants;
 import com.emrekose.famula.util.EntityType;
+import com.emrekose.famula.util.LocationUtils;
 
 import timber.log.Timber;
 
@@ -63,6 +64,11 @@ implements CuisinesRestauCallback {
         Intent i = new Intent(CuisinesRestauActivity.this, RestaurantDetailActivity.class);
         i.putExtra(Constants.RESTAURANTS_BUNDLE_KEY, restaurant);
         startActivity(i);
+    }
+
+    @Override
+    public void onRestaurantMarkerClick(Restaurant restaurant) {
+        LocationUtils.openGoogleMaps(this, Double.parseDouble(restaurant.getRestaurant().getLocation().getLatitude()), Double.parseDouble(restaurant.getRestaurant().getLocation().getLongitude()));
     }
 
     private void setupToolbar(Cuisine cuisine) {
