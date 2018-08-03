@@ -1,6 +1,7 @@
 package com.emrekose.famula.ui.nearbyrestaurants;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.MenuItem;
@@ -13,9 +14,12 @@ import com.emrekose.famula.ui.detail.RestaurantDetailActivity;
 import com.emrekose.famula.ui.main.MainViewModel;
 import com.emrekose.famula.util.Constants;
 import com.emrekose.famula.util.LocationUtils;
+import com.emrekose.famula.util.SPUtils;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
+
+import javax.inject.Inject;
 
 import timber.log.Timber;
 
@@ -23,6 +27,9 @@ public class NearbyRestaurantsActivity extends BaseOnlyActivity<ActivityNearbyRe
 
     private NearbyRestaurantsAdapter adapter;
     private InterstitialAd mInterstitialAd;
+
+    @Inject
+    SharedPreferences preferences;
 
     @Override
     public int getLayoutRes() {
@@ -45,8 +52,10 @@ public class NearbyRestaurantsActivity extends BaseOnlyActivity<ActivityNearbyRe
         dataBinding.nearbyRestaurantsRecyclerview.setLayoutManager(new LinearLayoutManager(this));
         dataBinding.nearbyRestaurantsRecyclerview.setAdapter(adapter);
 
-        // TODO: 4.07.2018 lat lon provides by LocationManager
-        viewModel.getNearbyRestaurants(51.507, -0.1277, null).observe(this, response -> {
+        double lat = SPUtils.getDoublePreference(preferences, Constants.LATITUDE, 0.0);
+        double lon = SPUtils.getDoublePreference(preferences, Constants.LONGITUDE, 0.0);
+
+        viewModel.getNearbyRestaurants(lat, lon, null).observe(this, response -> {
             dataBinding.setListSize(response.size());
             adapter.submitList(response);
         });
@@ -62,7 +71,6 @@ public class NearbyRestaurantsActivity extends BaseOnlyActivity<ActivityNearbyRe
     @Override
     public void onNearbyRestaurantMarkerClick(NearbyRestaurant restaurant) {
         LocationUtils.openGoogleMaps(this, Double.parseDouble(restaurant.getRestaurant().getLocation().getLatitude()), Double.parseDouble(restaurant.getRestaurant().getLocation().getLongitude()));
-
     }
 
     @Override

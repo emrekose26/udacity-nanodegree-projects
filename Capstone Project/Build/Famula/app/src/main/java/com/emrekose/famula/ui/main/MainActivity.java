@@ -37,6 +37,7 @@ import com.emrekose.famula.ui.favorites.FavoritesActivity;
 import com.emrekose.famula.ui.nearbyrestaurants.NearbyRestaurantsActivity;
 import com.emrekose.famula.ui.search.SearchActivity;
 import com.emrekose.famula.util.Constants;
+import com.emrekose.famula.util.EntityType;
 import com.emrekose.famula.util.GPSUtils;
 import com.emrekose.famula.util.LocationUtils;
 import com.emrekose.famula.util.SPUtils;
@@ -52,7 +53,7 @@ import timber.log.Timber;
 
 public class MainActivity extends BaseOnlyActivity<ActivityMainBinding, MainViewModel>
         implements NavigationView.OnNavigationItemSelectedListener, CuisinesCallback, NearbyRestaurantsMainCallback,
-        FamulaLocationCallback, EasyPermissions.PermissionCallbacks {
+        FamulaLocationCallback, EasyPermissions.PermissionCallbacks, SharedPreferences.OnSharedPreferenceChangeListener {
 
     private static final int TAKEN_CUISINES = 10;
     private static final int TAKEN_NEARBY_RESTAURANTS = 5;
@@ -85,39 +86,29 @@ public class MainActivity extends BaseOnlyActivity<ActivityMainBinding, MainView
 
         dataBinding.setLifecycleOwner(this);
         AppWidgetHelper.updateAppWidget(this);
+        preferences.registerOnSharedPreferenceChangeListener(this);
 
         cuisinesAdapter = new CuisinesRecyclerAdapter(this);
         dataBinding.couisinesRecyclerview.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         dataBinding.couisinesRecyclerview.setAdapter(cuisinesAdapter);
 
-
-        int cityId = SPUtils.getIntegerPreference(preferences, Constants.CITY_ID, 0);
-        // TODO: 17.07.2018 spref city id value null checking
-        viewModel.getCuisines(59, null, null, TAKEN_CUISINES).observe(this, response -> {
-            dataBinding.setCuisineSize(response.size());
-            cuisinesAdapter.submitList(response);
-        });
-
         nearbyAdapter = new NearbyRestaurantsMainAdapter(this);
-        dataBinding.nearbyRestaurantsMainRecyclerview.setLayoutManager(new LinearLayoutManager(this));
         dataBinding.nearbyRestaurantsMainRecyclerview.setAdapter(nearbyAdapter);
 
-        // TODO: 17.07.2018 spref values null checking
+        // initial loading
+        setPrefValuesForInitial();
+        int cityId = SPUtils.getIntegerPreference(preferences, Constants.CITY_ID, 0);
         double lat = SPUtils.getDoublePreference(preferences, Constants.LATITUDE, 0.0);
         double lon = SPUtils.getDoublePreference(preferences, Constants.LONGITUDE, 0.0);
 
-        // TODO: 17.07.2018 get restaurants according to lat lon values
-        viewModel.getNearbyRestaurants(51.507, -0.1277, TAKEN_NEARBY_RESTAURANTS).observe(this, response -> {
-            dataBinding.setRestaurantSize(response.size());
-            nearbyAdapter.submitList(response);
-        });
+        // first loading
+        getCuisines(cityId);
+        getNearbyRestaurants(lat, lon);
 
         dataBinding.viewAllCuisine.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, CuisinesListActivity.class)));
-
         dataBinding.viewAllNearbyRestaurants.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, NearbyRestaurantsActivity.class)));
 
         dataBinding.searchView.setOnClickListener(v -> dataBinding.searchView.setIconified(false));
-
         dataBinding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -132,6 +123,47 @@ public class MainActivity extends BaseOnlyActivity<ActivityMainBinding, MainView
                 return false;
             }
         });
+    }
+
+    private void getNearbyRestaurants(double lat, double lon) {
+        viewModel.getNearbyRestaurants(lat, lon, TAKEN_NEARBY_RESTAURANTS).observe(this, response -> {
+            dataBinding.setRestaurantSize(response.size());
+            nearbyAdapter.submitList(response);
+        });
+    }
+
+    private void getCuisines(int cityId) {
+        viewModel.getCuisines(cityId, null, null, TAKEN_CUISINES).observe(this, response -> {
+            dataBinding.setCuisineSize(response.size());
+            cuisinesAdapter.submitList(response);
+        });
+    }
+
+    private void setPrefValuesForInitial() {
+        // this initial values for New York, USA
+        int cityId = SPUtils.getIntegerPreference(preferences, Constants.CITY_ID, 0);
+        if (cityId == 0) {
+            SPUtils.setStringPreference(preferences, Constants.ENTITY_TYPE, EntityType.CITY.getType());
+            SPUtils.setIntegerPreference(preferences, Constants.ENTITY_ID, 280);
+            SPUtils.setDoublePreferences(preferences, Constants.LATITUDE, 40.71463);
+            SPUtils.setDoublePreferences(preferences, Constants.LONGITUDE, -74.005806);
+            SPUtils.setIntegerPreference(preferences, Constants.CITY_ID, 280);
+            SPUtils.setIntegerPreference(preferences, Constants.COUNTRY_ID, 216);
+        }
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        // TODO: 3.08.2018 lat lon
+        if (key.equals(Constants.CITY_ID)) {
+            double lat = SPUtils.getDoublePreference(sharedPreferences, Constants.LATITUDE, 0.0);
+            double lon = SPUtils.getDoublePreference(sharedPreferences, Constants.LONGITUDE, 0.0);
+            int cityId = SPUtils.getIntegerPreference(preferences, Constants.CITY_ID, 0);
+
+            getNearbyRestaurants(lat, lon);
+
+            getCuisines(cityId);
+        }
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.emrekose.famula.ui.establisments;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -17,10 +18,10 @@ import com.emrekose.famula.model.establisments.Establishment;
 import com.emrekose.famula.model.restaurant.search.Restaurant;
 import com.emrekose.famula.ui.detail.RestaurantDetailActivity;
 import com.emrekose.famula.util.Constants;
-import com.emrekose.famula.util.EntityType;
 import com.emrekose.famula.util.LocationUtils;
+import com.emrekose.famula.util.SPUtils;
 
-import timber.log.Timber;
+import javax.inject.Inject;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,6 +32,9 @@ public class EstablistmentListFragment extends BaseFragment<EstablismentsViewMod
     private static final String ESTABLISHMENT_ID_KEY = "establishment_id";
 
     private EstablishmentListAdapter adapter;
+
+    @Inject
+    SharedPreferences preferences;
 
     public static EstablistmentListFragment newInstance(Establishment establistment) {
 
@@ -74,11 +78,10 @@ public class EstablistmentListFragment extends BaseFragment<EstablismentsViewMod
         super.onActivityCreated(savedInstanceState);
 
         int establishmentId = getArguments().getInt(ESTABLISHMENT_ID_KEY);
+        int entityId = SPUtils.getIntegerPreference(preferences, Constants.ENTITY_ID, 0);
+        String entityType = SPUtils.getStringPreference(preferences, Constants.ENTITY_TYPE);
 
-        Timber.e(String.valueOf(establishmentId));
-
-        // TODO: 29.07.2018 entity id, entity type comes from shared preferences
-        viewModel.getEstablishmentList(String.valueOf(establishmentId), 59, EntityType.CITY.getType()).observe(this, restaurants -> {
+        viewModel.getEstablishmentList(String.valueOf(establishmentId), entityId, entityType).observe(this, restaurants -> {
             dataBinding.setListSize(restaurants.size());
             adapter.submitList(restaurants);
         });

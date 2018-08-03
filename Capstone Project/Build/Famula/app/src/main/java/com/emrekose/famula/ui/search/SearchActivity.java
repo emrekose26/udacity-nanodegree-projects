@@ -1,6 +1,7 @@
 package com.emrekose.famula.ui.search;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.MenuItem;
@@ -12,13 +13,18 @@ import com.emrekose.famula.databinding.ActivitySearchBinding;
 import com.emrekose.famula.model.restaurant.search.Restaurant;
 import com.emrekose.famula.ui.detail.RestaurantDetailActivity;
 import com.emrekose.famula.util.Constants;
-import com.emrekose.famula.util.EntityType;
 import com.emrekose.famula.util.LocationUtils;
+import com.emrekose.famula.util.SPUtils;
+
+import javax.inject.Inject;
 
 public class SearchActivity extends BaseOnlyActivity<ActivitySearchBinding, SearchViewModel> implements SearchResultsCallback {
 
     private SearchResultsAdapter adapter;
     private String query;
+
+    @Inject
+    SharedPreferences preferences;
 
     @Override
     public int getLayoutRes() {
@@ -44,8 +50,10 @@ public class SearchActivity extends BaseOnlyActivity<ActivitySearchBinding, Sear
         dataBinding.searchRecyclerview.setLayoutManager(new LinearLayoutManager(this));
         dataBinding.searchRecyclerview.setAdapter(adapter);
 
-       // TODO: 1.08.2018 entityid and entitytype will take from sharedpref
-        viewModel.getRestaurants(query, 59, EntityType.CITY.getType()).observe(this, restaurants -> {
+        int entityId = SPUtils.getIntegerPreference(preferences, Constants.ENTITY_ID, 0);
+        String entityType = SPUtils.getStringPreference(preferences, Constants.ENTITY_TYPE);
+
+        viewModel.getRestaurants(query, entityId, entityType).observe(this, restaurants -> {
             dataBinding.setListSize(restaurants.size());
             if (restaurants.size() == 0) {
                 dataBinding.noResultsLl.setVisibility(View.VISIBLE);

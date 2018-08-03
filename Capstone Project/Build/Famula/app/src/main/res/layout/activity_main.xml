@@ -201,6 +201,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginTop="8dp"
                         android:nestedScrollingEnabled="false"
+                        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
                         android:visibility="@{restaurantSize > 0 ? View.VISIBLE : View.GONE}"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"

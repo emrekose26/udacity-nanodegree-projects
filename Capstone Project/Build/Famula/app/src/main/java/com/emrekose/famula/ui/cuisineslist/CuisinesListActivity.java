@@ -1,6 +1,7 @@
 package com.emrekose.famula.ui.cuisineslist;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.MenuItem;
@@ -12,10 +13,16 @@ import com.emrekose.famula.model.cuisines.Cuisine;
 import com.emrekose.famula.ui.cuisineslist.restaurants.CuisinesRestauActivity;
 import com.emrekose.famula.ui.main.MainViewModel;
 import com.emrekose.famula.util.Constants;
+import com.emrekose.famula.util.SPUtils;
+
+import javax.inject.Inject;
 
 public class CuisinesListActivity extends BaseOnlyActivity<ActivityCuisinesListBinding, MainViewModel> implements CuisinesListCallback {
 
     private CuisinesListRecyclerAdapter adapter;
+
+    @Inject
+    SharedPreferences preferences;
 
     @Override
     public int getLayoutRes() {
@@ -37,7 +44,8 @@ public class CuisinesListActivity extends BaseOnlyActivity<ActivityCuisinesListB
         dataBinding.cuisinesListRecyclerview.setLayoutManager(new LinearLayoutManager(this));
         dataBinding.cuisinesListRecyclerview.setAdapter(adapter);
 
-        viewModel.getCuisines(59, null, null, null).observe(this, response -> {
+        int cityId = SPUtils.getIntegerPreference(preferences, Constants.CITY_ID, 0);
+        viewModel.getCuisines(cityId, null, null, null).observe(this, response -> {
             dataBinding.setListSize(response.size());
             adapter.submitList(response);
         });

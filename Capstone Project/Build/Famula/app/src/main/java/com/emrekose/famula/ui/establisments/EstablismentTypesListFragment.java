@@ -1,6 +1,7 @@
 package com.emrekose.famula.ui.establisments;
 
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,10 @@ import com.emrekose.famula.R;
 import com.emrekose.famula.common.BaseFragment;
 import com.emrekose.famula.databinding.FragmentEstablismentTypesListBinding;
 import com.emrekose.famula.model.establisments.Establishment;
+import com.emrekose.famula.util.Constants;
+import com.emrekose.famula.util.SPUtils;
+
+import javax.inject.Inject;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,6 +25,9 @@ public class EstablismentTypesListFragment extends BaseFragment<EstablismentsVie
         implements EstablismentCallback.TypesCalback {
 
     private EstablismentTypesAdapter adapter;
+
+    @Inject
+    SharedPreferences preferences;
 
     public static EstablismentTypesListFragment newInstance() {
 
@@ -60,7 +68,8 @@ public class EstablismentTypesListFragment extends BaseFragment<EstablismentsVie
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        viewModel.getEstablismentTypes(59, null, null).observe(this, establishments -> {
+        int cityId = SPUtils.getIntegerPreference(preferences, Constants.CITY_ID, 0);
+        viewModel.getEstablismentTypes(cityId, null, null).observe(this, establishments -> {
             dataBinding.setListSize(establishments.size());
             adapter.submitList(establishments);
         });

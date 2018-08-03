@@ -1,6 +1,7 @@
 package com.emrekose.famula.ui.cuisineslist.restaurants;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 
@@ -11,8 +12,10 @@ import com.emrekose.famula.model.cuisines.Cuisine;
 import com.emrekose.famula.model.restaurant.search.Restaurant;
 import com.emrekose.famula.ui.detail.RestaurantDetailActivity;
 import com.emrekose.famula.util.Constants;
-import com.emrekose.famula.util.EntityType;
 import com.emrekose.famula.util.LocationUtils;
+import com.emrekose.famula.util.SPUtils;
+
+import javax.inject.Inject;
 
 import timber.log.Timber;
 
@@ -22,6 +25,9 @@ implements CuisinesRestauCallback {
     private CuisinesRestauAdapter adapter;
     private String cuisineId;
     private Cuisine cuisine;
+
+    @Inject
+    SharedPreferences preferences;
 
     @Override
     public int getLayoutRes() {
@@ -48,10 +54,10 @@ implements CuisinesRestauCallback {
         dataBinding.cuisinesRestaurantRecyclerview.setLayoutManager(new LinearLayoutManager(this));
         dataBinding.cuisinesRestaurantRecyclerview.setAdapter(adapter);
 
-        // TODO: 24.07.2018 entity id, entity type, cuisine id will take
-        Timber.e("cuisineId " + cuisineId);
+        int entityId = SPUtils.getIntegerPreference(preferences, Constants.ENTITY_ID, 0);
+        String entityType = SPUtils.getStringPreference(preferences, Constants.ENTITY_TYPE);
 
-        viewModel.getRestaurants(59, EntityType.CITY.getType(), "82").observe(this, restaurants -> {
+        viewModel.getRestaurants(entityId, entityType, cuisineId).observe(this, restaurants -> {
             dataBinding.setListSize(restaurants.size());
             adapter.submitList(restaurants);
 
