@@ -12,17 +12,24 @@ android {
         resValue "string", "google_maps_key", (project.findProperty("GOOGLE_MAPS_API_KEY") ?: "")
         multiDexEnabled true
     }
+    signingConfigs {
+        config {
+            keyAlias 'famulakey'
+            keyPassword 'famulaapp'
+            storeFile file('famula.jks')
+            storePassword 'famulaapp'
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
     }
-
-    buildTypes.each{
-        it.buildConfigField 'String','ZOMATO_API_KEY', APIKEY
+    buildTypes.each {
+        it.buildConfigField 'String', 'ZOMATO_API_KEY', APIKEY
     }
-
     dataBinding {
         enabled = true
     }
