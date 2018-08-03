@@ -13,6 +13,7 @@ import com.emrekose.famula.ui.detail.RestaurantDetailActivity;
 import com.emrekose.famula.ui.detail.RestaurantDetailViewModel;
 import com.emrekose.famula.util.Constants;
 import com.emrekose.famula.util.LocationUtils;
+import com.emrekose.famula.widget.AppWidgetHelper;
 
 public class FavoritesActivity extends BaseOnlyActivity<ActivityFavoritesBinding, RestaurantDetailViewModel> implements FavoritesCallback {
 
@@ -33,6 +34,8 @@ public class FavoritesActivity extends BaseOnlyActivity<ActivityFavoritesBinding
         super.onCreate(savedInstanceState);
 
         setupToolbar();
+
+        AppWidgetHelper.updateAppWidget(this);
 
         adapter = new FavoritesAdapter(this);
         dataBinding.favoritesRecyclerview.setLayoutManager(new LinearLayoutManager(this));

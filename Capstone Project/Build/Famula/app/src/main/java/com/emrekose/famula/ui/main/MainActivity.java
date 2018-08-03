@@ -3,6 +3,7 @@ package com.emrekose.famula.ui.main;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Location;
@@ -29,6 +30,7 @@ import com.emrekose.famula.model.cuisines.Cuisine;
 import com.emrekose.famula.model.geocode.NearbyRestaurant;
 import com.emrekose.famula.model.locations.LocationSuggestion;
 import com.emrekose.famula.ui.cuisineslist.CuisinesListActivity;
+import com.emrekose.famula.ui.cuisineslist.restaurants.CuisinesRestauActivity;
 import com.emrekose.famula.ui.detail.RestaurantDetailActivity;
 import com.emrekose.famula.ui.establisments.EstablismentsActivity;
 import com.emrekose.famula.ui.favorites.FavoritesActivity;
@@ -38,6 +40,7 @@ import com.emrekose.famula.util.Constants;
 import com.emrekose.famula.util.GPSUtils;
 import com.emrekose.famula.util.LocationUtils;
 import com.emrekose.famula.util.SPUtils;
+import com.emrekose.famula.widget.AppWidgetHelper;
 
 import java.util.List;
 
@@ -81,6 +84,7 @@ public class MainActivity extends BaseOnlyActivity<ActivityMainBinding, MainView
         navViewConfig();
 
         dataBinding.setLifecycleOwner(this);
+        AppWidgetHelper.updateAppWidget(this);
 
         cuisinesAdapter = new CuisinesRecyclerAdapter(this);
         dataBinding.couisinesRecyclerview.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
@@ -132,7 +136,9 @@ public class MainActivity extends BaseOnlyActivity<ActivityMainBinding, MainView
 
     @Override
     public void onMainCuisineClick(Cuisine cuisine) {
-
+        Intent intent = new Intent(MainActivity.this, CuisinesRestauActivity.class);
+        intent.putExtra(Constants.CUISINES_BUNDLE_KEY, cuisine);
+        startActivity(intent);
     }
 
     @Override
@@ -181,10 +187,11 @@ public class MainActivity extends BaseOnlyActivity<ActivityMainBinding, MainView
                 SPUtils.setIntegerPreference(preferences, Constants.CITY_ID, cityId);
                 SPUtils.setIntegerPreference(preferences, Constants.COUNTRY_ID, countryId);
 
+                Toast.makeText(this, getString(R.string.location_saved) + " - " + ls.getTitle(), Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(this, getString(R.string.please_enter_valid_city_name), Toast.LENGTH_SHORT).show();
-                viewModel.getLocationDatas(value).removeObservers(this);
             }
+            viewModel.getLocationDatas(value).removeObservers(this);
             progressDialog.dismiss();
         });
     }
@@ -219,45 +226,34 @@ public class MainActivity extends BaseOnlyActivity<ActivityMainBinding, MainView
     private void getLastLocation() {
         getprogressDialog(getString(R.string.finding_your_location)).show();
 
-        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        if (locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER) != null) {
-            Location loc = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
-            Timber.e("lat " + loc.getLatitude() + "lon " + loc.getLongitude());
+        locationManager.requestSingleUpdate(LocationManager.NETWORK_PROVIDER, new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+                Timber.e("lat " + location.getLatitude() + "lon " + location.getLongitude());
 
-            SPUtils.setDoublePreferences(preferences, Constants.LATITUDE, loc.getLatitude());
-            SPUtils.setDoublePreferences(preferences, Constants.LONGITUDE, loc.getLongitude());
+                SPUtils.setDoublePreferences(preferences, Constants.LATITUDE, location.getLatitude());
+                SPUtils.setDoublePreferences(preferences, Constants.LONGITUDE, location.getLongitude());
 
-            progressDialog.dismiss();
-        } else {
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 2000, 0, new LocationListener() {
-                @Override
-                public void onLocationChanged(Location location) {
-                    Timber.e("lat " + location.getLatitude() + "lon " + location.getLongitude());
+                progressDialog.dismiss();
+            }
 
-                    SPUtils.setDoublePreferences(preferences, Constants.LATITUDE, location.getLatitude());
-                    SPUtils.setDoublePreferences(preferences, Constants.LONGITUDE, location.getLongitude());
+            @Override
+            public void onStatusChanged(String s, int i, Bundle bundle) {
 
-                    progressDialog.dismiss();
-                }
+            }
 
-                @Override
-                public void onStatusChanged(String s, int i, Bundle bundle) {
+            @Override
+            public void onProviderEnabled(String s) {
 
-                }
+            }
 
-                @Override
-                public void onProviderEnabled(String s) {
+            @Override
+            public void onProviderDisabled(String s) {
 
-                }
-
-                @Override
-                public void onProviderDisabled(String s) {
-
-                }
-            });
-        }
-
+            }
+        }, null);
     }
 
     @Override

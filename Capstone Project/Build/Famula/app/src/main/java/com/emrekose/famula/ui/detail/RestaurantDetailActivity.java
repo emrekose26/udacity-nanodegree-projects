@@ -15,6 +15,7 @@ import com.emrekose.famula.databinding.ActivityRestaurantDetailBinding;
 import com.emrekose.famula.model.geocode.NearbyRestaurant;
 import com.emrekose.famula.model.restaurant.search.Restaurant;
 import com.emrekose.famula.util.Constants;
+import com.emrekose.famula.widget.AppWidgetHelper;
 
 import timber.log.Timber;
 
@@ -83,6 +84,7 @@ public class RestaurantDetailActivity extends BaseOnlyFragmentActivity<ActivityR
                 break;
             case R.id.menu_action_add_to_favorites:
                 updateFavImage(item);
+                AppWidgetHelper.updateAppWidget(this);
                 break;
             case R.id.menu_action_share:
                 Intent sendIntent = new Intent();
