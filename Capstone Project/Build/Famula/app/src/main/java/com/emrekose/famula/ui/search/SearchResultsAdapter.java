@@ -38,7 +38,7 @@ public class SearchResultsAdapter extends ListAdapter<Restaurant, SearchResultsA
             super(binding.getRoot());
             this.binding = binding;
             binding.getRoot().setOnClickListener(v ->
-                    callback.onRestaurantClick(binding.getRestaurant()));
+                    callback.onRestaurantClick(binding.getRestaurant(), binding.searchResultsThumb));
             binding.searchResultsMainMarker.setOnClickListener(v ->
                     callback.onRestaurantMarkerClick(binding.getRestaurant()));
         }

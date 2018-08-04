@@ -38,7 +38,7 @@ public class EstablishmentListAdapter extends ListAdapter<Restaurant, Establishm
             super(binding.getRoot());
             this.binding = binding;
             binding.getRoot().setOnClickListener(v ->
-                    callback.onEstablismentClick(binding.getRestaurant()));
+                    callback.onEstablismentClick(binding.getRestaurant(), binding.establishmentListThumb));
             binding.establishmentListMainMarker.setOnClickListener(v ->
                     callback.onEstablismentMarkerClick(binding.getRestaurant()));
         }

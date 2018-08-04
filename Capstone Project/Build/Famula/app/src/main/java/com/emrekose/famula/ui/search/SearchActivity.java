@@ -3,9 +3,11 @@ package com.emrekose.famula.ui.search;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.emrekose.famula.R;
 import com.emrekose.famula.common.BaseOnlyActivity;
@@ -67,10 +69,11 @@ public class SearchActivity extends BaseOnlyActivity<ActivitySearchBinding, Sear
     }
 
     @Override
-    public void onRestaurantClick(Restaurant restaurant) {
+    public void onRestaurantClick(Restaurant restaurant, ImageView sharedElement) {
         Intent intent = new Intent(SearchActivity.this, RestaurantDetailActivity.class);
         intent.putExtra(Constants.RESTAURANTS_BUNDLE_KEY, restaurant);
-        startActivity(intent);
+        Bundle options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, sharedElement, getString(R.string.shared_element_transition_name)).toBundle();
+        startActivity(intent, options);
     }
 
     @Override

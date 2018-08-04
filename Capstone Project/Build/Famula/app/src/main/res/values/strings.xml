@@ -49,4 +49,5 @@
     <string name="no_favorite_restaurant">There is no favorite Restaurant</string>
     <string name="no_results_found">No results found</string>
     <string name="location_saved">Location saved</string>
+    <string name="shared_element_transition_name">shared_image</string>
 </resources>

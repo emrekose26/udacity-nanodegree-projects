@@ -38,7 +38,7 @@ public class CuisinesRestauAdapter extends ListAdapter<Restaurant, CuisinesResta
             super(binding.getRoot());
             this.binding = binding;
             binding.getRoot().setOnClickListener(v ->
-                    callback.onRestaurantClick(binding.getRestaurant()));
+                    callback.onRestaurantClick(binding.getRestaurant(), binding.cuisinesRestauThumb));
             binding.cuisinesRestauMainMarker.setOnClickListener(v ->
                     callback.onRestaurantMarkerClick(binding.getRestaurant()));
         }

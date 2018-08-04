@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
@@ -21,6 +22,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.emrekose.famula.R;
@@ -174,10 +176,11 @@ public class MainActivity extends BaseOnlyActivity<ActivityMainBinding, MainView
     }
 
     @Override
-    public void onMainNearbyRestaurantsClick(NearbyRestaurant nearbyRestaurant) {
+    public void onMainNearbyRestaurantsClick(NearbyRestaurant nearbyRestaurant, ImageView sharedElement) {
         Intent intent = new Intent(MainActivity.this, RestaurantDetailActivity.class);
         intent.putExtra(Constants.RESTAURANTS_BUNDLE_KEY, nearbyRestaurant);
-        startActivity(intent);
+        Bundle options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, sharedElement, getString(R.string.shared_element_transition_name)).toBundle();
+        startActivity(intent, options);
     }
 
     @Override

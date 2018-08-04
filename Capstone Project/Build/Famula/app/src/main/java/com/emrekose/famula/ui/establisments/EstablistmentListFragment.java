@@ -5,11 +5,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.emrekose.famula.R;
 import com.emrekose.famula.common.BaseFragment;
@@ -88,10 +90,11 @@ public class EstablistmentListFragment extends BaseFragment<EstablismentsViewMod
     }
 
     @Override
-    public void onEstablismentClick(Restaurant restaurant) {
+    public void onEstablismentClick(Restaurant restaurant, ImageView sharedElement) {
         Intent intent = new Intent(getActivity(), RestaurantDetailActivity.class);
         intent.putExtra(Constants.RESTAURANTS_BUNDLE_KEY, restaurant);
-        startActivity(intent);
+        Bundle options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), sharedElement, getString(R.string.shared_element_transition_name)).toBundle();
+        startActivity(intent, options);
     }
 
     @Override

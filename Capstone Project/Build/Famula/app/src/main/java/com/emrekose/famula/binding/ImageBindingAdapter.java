@@ -3,6 +3,7 @@ package com.emrekose.famula.binding;
 import android.databinding.BindingAdapter;
 import android.widget.ImageView;
 
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.emrekose.famula.util.GlideApp;
 
 public class ImageBindingAdapter {
@@ -12,6 +13,7 @@ public class ImageBindingAdapter {
         if (url != null && !url.equals("")) {
             GlideApp.with(imageView.getContext())
                     .load(url)
+                    .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                     .into(imageView);
         }
     }

@@ -3,7 +3,9 @@ package com.emrekose.famula.ui.cuisineslist.restaurants;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.LinearLayoutManager;
+import android.widget.ImageView;
 
 import com.emrekose.famula.R;
 import com.emrekose.famula.common.BaseOnlyActivity;
@@ -66,10 +68,11 @@ implements CuisinesRestauCallback {
     }
 
     @Override
-    public void onRestaurantClick(Restaurant restaurant) {
+    public void onRestaurantClick(Restaurant restaurant, ImageView sharedElement) {
         Intent i = new Intent(CuisinesRestauActivity.this, RestaurantDetailActivity.class);
         i.putExtra(Constants.RESTAURANTS_BUNDLE_KEY, restaurant);
-        startActivity(i);
+        Bundle options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, sharedElement, getString(R.string.shared_element_transition_name)).toBundle();
+        startActivity(i, options);
     }
 
     @Override

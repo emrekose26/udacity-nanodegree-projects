@@ -2,8 +2,10 @@ package com.emrekose.famula.ui.favorites;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.MenuItem;
+import android.widget.ImageView;
 
 import com.emrekose.famula.R;
 import com.emrekose.famula.common.BaseOnlyActivity;
@@ -48,10 +50,11 @@ public class FavoritesActivity extends BaseOnlyActivity<ActivityFavoritesBinding
     }
 
     @Override
-    public void onFavoriteRestaurantClick(CommonRestaurant restaurant) {
+    public void onFavoriteRestaurantClick(CommonRestaurant restaurant, ImageView sharedElement) {
         Intent i = new Intent(FavoritesActivity.this, RestaurantDetailActivity.class);
         i.putExtra(Constants.RESTAURANTS_BUNDLE_KEY, restaurant);
-        startActivity(i);
+        Bundle options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, sharedElement, getString(R.string.shared_element_transition_name)).toBundle();
+        startActivity(i, options);
     }
 
     @Override

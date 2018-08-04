@@ -38,7 +38,7 @@ public class NearbyRestaurantsMainAdapter extends ListAdapter<NearbyRestaurant, 
             super(binding.getRoot());
             this.binding = binding;
             binding.getRoot().setOnClickListener(v ->
-                    callback.onMainNearbyRestaurantsClick(binding.getRestaurant()));
+                    callback.onMainNearbyRestaurantsClick(binding.getRestaurant(), binding.nearbyRestaurantsMainThumb));
             binding.nearbyRestaurantsMainMarker.setOnClickListener(v ->
                     callback.onMainNearbyRestaurantMarkerClick(binding.getRestaurant()));
         }

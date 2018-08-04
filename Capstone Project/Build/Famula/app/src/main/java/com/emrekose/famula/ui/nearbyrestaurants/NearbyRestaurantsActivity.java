@@ -3,8 +3,10 @@ package com.emrekose.famula.ui.nearbyrestaurants;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.MenuItem;
+import android.widget.ImageView;
 
 import com.emrekose.famula.R;
 import com.emrekose.famula.common.BaseOnlyActivity;
@@ -62,10 +64,11 @@ public class NearbyRestaurantsActivity extends BaseOnlyActivity<ActivityNearbyRe
     }
 
     @Override
-    public void onNearbyRestaurantClick(NearbyRestaurant restaurant) {
+    public void onNearbyRestaurantClick(NearbyRestaurant restaurant, ImageView sharedElement) {
         Intent i = new Intent(NearbyRestaurantsActivity.this, RestaurantDetailActivity.class);
         i.putExtra(Constants.RESTAURANTS_BUNDLE_KEY, restaurant);
-        startActivity(i);
+        Bundle options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, sharedElement, getString(R.string.shared_element_transition_name)).toBundle();
+        startActivity(i, options);
     }
 
     @Override

@@ -38,7 +38,7 @@ public class FavoritesAdapter extends ListAdapter<CommonRestaurant, FavoritesAda
             super(binding.getRoot());
             this.binding = binding;
             binding.getRoot().setOnClickListener(v ->
-                    callback.onFavoriteRestaurantClick(binding.getRestaurant()));
+                    callback.onFavoriteRestaurantClick(binding.getRestaurant(), binding.favoritesThumb));
             binding.favoritesMainMarker.setOnClickListener(v ->
                     callback.onFavoriteRestaurantMarkerClick(binding.getRestaurant()));
         }
