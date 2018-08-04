@@ -15,6 +15,7 @@ import io.reactivex.Completable;
 import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 public class RestaurantDetailRepository {
 
@@ -29,6 +30,7 @@ public class RestaurantDetailRepository {
 
     public Flowable<ReviewsResponse> getReviews(int restauntId) {
         return apiService.getReviews(restauntId)
+                .onErrorResumeNext(t -> { Timber.e(String.valueOf(t)); })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
