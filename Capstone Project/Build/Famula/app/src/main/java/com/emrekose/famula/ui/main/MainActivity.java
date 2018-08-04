@@ -233,7 +233,7 @@ public class MainActivity extends BaseOnlyActivity<ActivityMainBinding, MainView
 
     @AfterPermissionGranted(LOCATION_PERM_CODE)
     private void currentLocationConfig() {
-        boolean hasLocationPermission = EasyPermissions.hasPermissions(this, Manifest.permission.ACCESS_COARSE_LOCATION);
+        boolean hasLocationPermission = EasyPermissions.hasPermissions(this, Manifest.permission.ACCESS_FINE_LOCATION);
 
         if (hasLocationPermission) {
             if (!GPSUtils.isGpsEnabled(this)) {
@@ -243,7 +243,7 @@ public class MainActivity extends BaseOnlyActivity<ActivityMainBinding, MainView
             }
         } else {
             EasyPermissions.requestPermissions(this, getString(R.string.location_permission_warning),
-                    LOCATION_PERM_CODE, Manifest.permission.ACCESS_COARSE_LOCATION);
+                    LOCATION_PERM_CODE, Manifest.permission.ACCESS_FINE_LOCATION);
         }
     }
 
@@ -271,7 +271,14 @@ public class MainActivity extends BaseOnlyActivity<ActivityMainBinding, MainView
                 SPUtils.setDoublePreferences(preferences, Constants.LATITUDE, location.getLatitude());
                 SPUtils.setDoublePreferences(preferences, Constants.LONGITUDE, location.getLongitude());
 
-                progressDialog.dismiss();
+                viewModel.getLocationDatasByLatLon(location.getLatitude(), location.getLongitude()).observe(MainActivity.this, locationResponse -> {
+                    SPUtils.setStringPreference(preferences, Constants.ENTITY_TYPE, locationResponse.getEntityType());
+                    SPUtils.setIntegerPreference(preferences, Constants.ENTITY_ID, locationResponse.getEntityId());
+                    SPUtils.setIntegerPreference(preferences, Constants.CITY_ID, locationResponse.getCityId());
+                    SPUtils.setIntegerPreference(preferences, Constants.COUNTRY_ID, locationResponse.getCountryId());
+
+                    progressDialog.dismiss();
+                });
             }
 
             @Override

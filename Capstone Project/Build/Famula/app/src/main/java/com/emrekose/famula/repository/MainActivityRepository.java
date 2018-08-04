@@ -37,4 +37,10 @@ public class MainActivityRepository {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
+
+    public Flowable<GeocodeResponse> getLocationDatasByLatLon(Double lat, Double lon) {
+        return apiService.getGeoCode(lat, lon)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
 }

@@ -7,6 +7,7 @@ import com.emrekose.famula.common.RxViewModel;
 import com.emrekose.famula.model.cuisines.Cuisine;
 import com.emrekose.famula.model.cuisines.CuisinesResponse;
 import com.emrekose.famula.model.geocode.GeocodeResponse;
+import com.emrekose.famula.model.geocode.Location;
 import com.emrekose.famula.model.geocode.NearbyRestaurant;
 import com.emrekose.famula.model.locations.LocationSuggestion;
 import com.emrekose.famula.model.locations.LocationsResponse;
@@ -23,6 +24,7 @@ public class MainViewModel extends RxViewModel {
     private MutableLiveData<List<Cuisine>> cuisinesLiveData = new MutableLiveData<>();
     private MutableLiveData<List<NearbyRestaurant>> nearbyRestaurantsLiveData = new MutableLiveData<>();
     private MutableLiveData<List<LocationSuggestion>> locationsLiveData = new MutableLiveData<>();
+    private MutableLiveData<Location> locationByLatLonLive = new MutableLiveData<>();
 
     @Inject
     public MainViewModel(MainActivityRepository repository) {
@@ -71,5 +73,13 @@ public class MainViewModel extends RxViewModel {
                 .toList()
                 .subscribe(response -> locationsLiveData.setValue(response)));
         return locationsLiveData;
+    }
+
+    public LiveData<Location> getLocationDatasByLatLon(Double lat, Double lon) {
+        disposable.add(repository.getLocationDatasByLatLon(lat, lon)
+                .map(GeocodeResponse::getLocation)
+                .subscribe(location -> locationByLatLonLive.setValue(location)));
+
+        return locationByLatLonLive;
     }
 }
