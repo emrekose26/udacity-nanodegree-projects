@@ -3,7 +3,7 @@ package com.emrekose.famula.ui.cuisineslist.restaurants;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 
-import com.emrekose.famula.common.RxViewModel;
+import com.emrekose.famula.common.BaseViewModel;
 import com.emrekose.famula.model.restaurant.search.Restaurant;
 import com.emrekose.famula.model.restaurant.search.SearchResponse;
 import com.emrekose.famula.repository.CuisinesRepository;
@@ -12,7 +12,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class CuisinesRestauViewModel extends RxViewModel {
+public class CuisinesRestauViewModel extends BaseViewModel {
 
     private CuisinesRepository repository;
 

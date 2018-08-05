@@ -3,7 +3,7 @@ package com.emrekose.famula.ui.detail;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 
-import com.emrekose.famula.common.RxViewModel;
+import com.emrekose.famula.common.BaseViewModel;
 import com.emrekose.famula.data.local.entity.CommonRestaurant;
 import com.emrekose.famula.model.restaurant.reviews.ReviewsResponse;
 import com.emrekose.famula.model.restaurant.reviews.UserReview;
@@ -13,7 +13,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class RestaurantDetailViewModel extends RxViewModel {
+public class RestaurantDetailViewModel extends BaseViewModel {
 
     private RestaurantDetailRepository repository;
 

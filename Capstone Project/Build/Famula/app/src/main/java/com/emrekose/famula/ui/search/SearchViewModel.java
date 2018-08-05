@@ -3,7 +3,7 @@ package com.emrekose.famula.ui.search;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 
-import com.emrekose.famula.common.RxViewModel;
+import com.emrekose.famula.common.BaseViewModel;
 import com.emrekose.famula.model.restaurant.search.Restaurant;
 import com.emrekose.famula.model.restaurant.search.SearchResponse;
 import com.emrekose.famula.repository.SearchRepository;
@@ -12,7 +12,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class SearchViewModel extends RxViewModel {
+public class SearchViewModel extends BaseViewModel {
 
     private SearchRepository repository;
 

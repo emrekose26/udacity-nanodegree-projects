@@ -4,7 +4,7 @@ import android.arch.lifecycle.ViewModel;
 
 import io.reactivex.disposables.CompositeDisposable;
 
-public class RxViewModel extends ViewModel {
+public class BaseViewModel extends ViewModel {
 
     public CompositeDisposable disposable = new CompositeDisposable();
 

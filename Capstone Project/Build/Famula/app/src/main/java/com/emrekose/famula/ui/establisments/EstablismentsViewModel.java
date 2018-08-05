@@ -3,7 +3,7 @@ package com.emrekose.famula.ui.establisments;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 
-import com.emrekose.famula.common.RxViewModel;
+import com.emrekose.famula.common.BaseViewModel;
 import com.emrekose.famula.model.establisments.Establishment;
 import com.emrekose.famula.model.establisments.EstablismentsResponse;
 import com.emrekose.famula.model.restaurant.search.Restaurant;
@@ -14,7 +14,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class EstablismentsViewModel extends RxViewModel {
+public class EstablismentsViewModel extends BaseViewModel {
 
     private EstablismentsRepository repository;
 

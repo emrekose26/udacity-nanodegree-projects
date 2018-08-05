@@ -3,7 +3,7 @@ package com.emrekose.famula.ui.main;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 
-import com.emrekose.famula.common.RxViewModel;
+import com.emrekose.famula.common.BaseViewModel;
 import com.emrekose.famula.model.cuisines.Cuisine;
 import com.emrekose.famula.model.cuisines.CuisinesResponse;
 import com.emrekose.famula.model.geocode.GeocodeResponse;
@@ -17,7 +17,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class MainViewModel extends RxViewModel {
+public class MainViewModel extends BaseViewModel {
 
     private MainActivityRepository repository;
 
