@@ -29,7 +29,7 @@ task clean(type: Delete) {
 
 ext.versions = [:]
 versions.support = "27.1.1"
-versions.playVersion = "12.0.1"
+versions.playVersion = "15.0.1"
 versions.constraint_layout = "1.1.2"
 versions.arch_core = "1.1.1"
 versions.paging = "1.0.1"

@@ -51,7 +51,8 @@ dependencies {
     implementation 'com.android.support:multidex:1.0.3'
 
     // Play services
-    implementation "com.google.android.gms:play-services:$versions.playVersion"
+    implementation "com.google.android.gms:play-services-ads:$versions.playVersion"
+    implementation "com.google.android.gms:play-services-maps:$versions.playVersion"
 
     // Architecture Components
     implementation "android.arch.lifecycle:extensions:$versions.arch_core"
