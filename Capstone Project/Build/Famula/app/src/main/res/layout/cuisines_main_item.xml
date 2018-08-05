@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="cuisine"
-            type="com.emrekose.famula.model.cuisines.Cuisine"/>
+            type="com.emrekose.famula.model.cuisines.Cuisine" />
     </data>
 
     <android.support.constraint.ConstraintLayout
@@ -22,6 +23,7 @@
             android:layout_marginRight="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:contentDescription="@string/cuisine_main_img"
             app:layout_constraintBottom_toTopOf="@+id/cuisine_main_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

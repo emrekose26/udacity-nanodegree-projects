@@ -50,4 +50,20 @@
     <string name="no_results_found">No results found</string>
     <string name="location_saved">Location saved</string>
     <string name="shared_element_transition_name">shared_image</string>
+    <string name="city_zone_or_subzone">City, Zone or Subzone</string>
+    <string name="warning">Warning</string>
+    <string name="famula_logo">Famula Logo</string>
+    <string name="restaurant_featured_img">Restaurant Featured Image</string>
+    <string name="search_warning">Search Warning</string>
+    <string name="cuisine_img">Cuisine Image</string>
+    <string name="cuisine_main_img">Cuisine Main Image</string>
+    <string name="establishment_type_img">Establishment Type Image</string>
+    <string name="widget_featured_img">Widget Featured Image</string>
+    <string name="current_location_img">Current Location Image</string>
+    <string name="table_booking_img">Table booking image</string>
+    <string name="online_delivery_img">Online delivery image</string>
+    <string name="restaurant_marker">Restaurant marker</string>
+    <string name="user_profile_img">User profile image</string>
+    <string name="cuisines_list_right">Cuisine list right</string>
+    <string name="establishment_type_right">Establishment type right</string>
 </resources>

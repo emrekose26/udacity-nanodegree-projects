@@ -22,6 +22,7 @@
         android:layout_below="@id/textView4"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
+        android:contentDescription="@string/current_location_img"
         app:srcCompat="@drawable/currentlocation" />
 
     <Button
@@ -93,7 +94,7 @@
             android:id="@+id/any_location_edittext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="City, Zone or Subzone" />
+            android:hint="@string/city_zone_or_subzone" />
 
     </android.support.design.widget.TextInputLayout>
 

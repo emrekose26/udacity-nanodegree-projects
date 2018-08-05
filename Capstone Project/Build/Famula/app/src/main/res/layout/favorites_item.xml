@@ -4,17 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="restaurant"
-            type="com.emrekose.famula.data.local.entity.CommonRestaurant"/>
+            type="com.emrekose.famula.data.local.entity.CommonRestaurant" />
     </data>
 
     <android.support.v7.widget.CardView
         android:id="@+id/favorites_cardview"
-        app:cardCornerRadius="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp">
+        android:layout_margin="8dp"
+        app:cardCornerRadius="8dp">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -22,22 +23,18 @@
 
             <ImageView
                 android:id="@+id/favorites_thumb"
+                android:layout_width="0dp"
+                android:layout_height="209dp"
+                android:contentDescription="@string/restaurant_featured_img"
+                android:scaleType="centerCrop"
+                android:src="@drawable/restaurantsampleimg"
                 app:imageUrl="@{restaurant.featuredImage}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_width="0dp"
-                android:layout_height="209dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/restaurantsampleimg" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/favorites_name"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/favorites_thumb"
-                tools:text="Restaurant Name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
@@ -46,16 +43,15 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:text="@{restaurant.name}"
-                android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
-
-            <TextView
-                android:id="@+id/favorites_short_adress"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/favorites_name"
-                tools:text="Upper St Martin's Lane, Covent Garden"
+                app:layout_constraintTop_toBottomOf="@+id/favorites_thumb"
+                tools:text="Restaurant Name" />
+
+            <TextView
+                android:id="@+id/favorites_short_adress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -65,17 +61,16 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="4dp"
                 android:singleLine="true"
-                android:text="@{restaurant.locality}" />
+                android:text="@{restaurant.locality}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/favorites_name"
+                tools:text="Upper St Martin's Lane, Covent Garden" />
 
             <TextView
                 android:id="@+id/favorites_rate"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/favorites_thumb"
-                app:rateColor="@{restaurant.ratingColor}"
-                tools:backgroundTint="@color/colorPrimaryDark"
-                tools:text="4.9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
@@ -87,14 +82,17 @@
                 android:gravity="center"
                 android:text="@{restaurant.aggregateRating}"
                 android:textColor="@android:color/white"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/favorites_thumb"
+                app:rateColor="@{restaurant.ratingColor}"
+                tools:backgroundTint="@color/colorPrimaryDark"
+                tools:text="4.9" />
 
             <ImageView
                 android:id="@+id/favorites_main_marker"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/favorites_name"
-                app:layout_constraintTop_toBottomOf="@+id/favorites_thumb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
@@ -102,7 +100,12 @@
                 android:layout_marginRight="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
-                android:src="@drawable/ic_near_me" />
+                android:contentDescription="@string/restaurant_marker"
+                android:src="@drawable/ic_near_me"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/favorites_name"
+                app:layout_constraintTop_toBottomOf="@+id/favorites_thumb" />
         </android.support.constraint.ConstraintLayout>
 
     </android.support.v7.widget.CardView>
