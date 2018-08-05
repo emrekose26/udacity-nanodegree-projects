@@ -156,7 +156,6 @@ public class MainActivity extends BaseOnlyActivity<ActivityMainBinding, MainView
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        // TODO: 3.08.2018 lat lon
         if (key.equals(Constants.CITY_ID)) {
             double lat = SPUtils.getDoublePreference(sharedPreferences, Constants.LATITUDE, 0.0);
             double lon = SPUtils.getDoublePreference(sharedPreferences, Constants.LONGITUDE, 0.0);

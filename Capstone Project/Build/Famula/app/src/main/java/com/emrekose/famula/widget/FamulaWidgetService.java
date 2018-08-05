@@ -66,13 +66,6 @@ public class FamulaWidgetService extends RemoteViewsService {
             remoteViews.setTextViewText(R.id.widget_name, restaurantName);
             remoteViews.setTextViewText(R.id.widget_short_adress, address);
 
-//            executors.diskIO().execute(() ->
-//                    Glide.with(context)
-//                            .asBitmap()
-//                            .load(imgUrl)
-//                            .into(new AppWidgetTarget(context, R.id.widget_thumb, remoteViews,
-//                                    new ComponentName(context, FamulaAppWidgetProvider.class))));
-
             Intent fillIntent = new Intent();
             remoteViews.setOnClickFillInIntent(R.id.widget_wrapper, fillIntent);
 
