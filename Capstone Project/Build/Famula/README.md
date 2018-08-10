@@ -6,7 +6,10 @@ This is Capstone Project of Udacity's Android Developer Nanodegree.
 ## Screenshots
 
 <img src="https://raw.githubusercontent.com/emrekose26/udacity-nanodegree-projects/master/Capstone%20Project/Build/Famula/art/famula1.jpg" width="350"> <img src="https://raw.githubusercontent.com/emrekose26/udacity-nanodegree-projects/master/Capstone%20Project/Build/Famula/art/famula2.jpg" width="350"> 
-<img src="https://raw.githubusercontent.com/emrekose26/udacity-nanodegree-projects/master/Capstone%20Project/Build/Famula/art/famula3.jpg" width="350"><img src="https://raw.githubusercontent.com/emrekose26/udacity-nanodegree-projects/master/Capstone%20Project/Build/Famula/art/famula4.jpg" width="350"><img src="https://raw.githubusercontent.com/emrekose26/udacity-nanodegree-projects/master/Capstone%20Project/Build/Famula/art/famula5.jpg" width="350"><img src="https://raw.githubusercontent.com/emrekose26/udacity-nanodegree-projects/master/Capstone%20Project/Build/Famula/art/famula6.jpg" width="350"><img src="https://raw.githubusercontent.com/emrekose26/udacity-nanodegree-projects/master/Capstone%20Project/Build/Famula/art/famula7.jpg" width="350"><img src="https://raw.githubusercontent.com/emrekose26/udacity-nanodegree-projects/master/Capstone%20Project/Build/Famula/art/famula8.jpg" width="350"><img src="https://raw.githubusercontent.com/emrekose26/udacity-nanodegree-projects/master/Capstone%20Project/Build/Famula/art/famula9.jpg" width="350">
+<img src="https://raw.githubusercontent.com/emrekose26/udacity-nanodegree-projects/master/Capstone%20Project/Build/Famula/art/famula3.jpg" width="350"> <img src="https://raw.githubusercontent.com/emrekose26/udacity-nanodegree-projects/master/Capstone%20Project/Build/Famula/art/famula4.jpg" width="350">
+<img src="https://raw.githubusercontent.com/emrekose26/udacity-nanodegree-projects/master/Capstone%20Project/Build/Famula/art/famula5.jpg" width="350"> <img src="https://raw.githubusercontent.com/emrekose26/udacity-nanodegree-projects/master/Capstone%20Project/Build/Famula/art/famula6.jpg" width="350">
+<img src="https://raw.githubusercontent.com/emrekose26/udacity-nanodegree-projects/master/Capstone%20Project/Build/Famula/art/famula7.jpg" width="350"> <img src="https://raw.githubusercontent.com/emrekose26/udacity-nanodegree-projects/master/Capstone%20Project/Build/Famula/art/famula8.jpg" width="350">
+<img src="https://raw.githubusercontent.com/emrekose26/udacity-nanodegree-projects/master/Capstone%20Project/Build/Famula/art/famula9.jpg" width="350">
 
 
 ## App Description
@@ -65,17 +68,17 @@ It it performs short duration, on-demand requests(such as search), app uses an A
 ## Technologies used
 
 * MVVM Pattern
-* [Architecture Components](https://developer.android.com/topic/libraries/architecture/)
-* [Dagger2](https://github.com/google/dagger) 
-* [RxJava](https://github.com/ReactiveX/RxJava) & [RxAndroid](https://github.com/ReactiveX/RxAndroid) 
-* [Retrofit](https://github.com/square/retrofit) 
-* [OkHttp](https://github.com/square/okhttp) 
-* [GSON](https://github.com/google/gson)
-* [EasyPermissions](https://github.com/googlesamples/easypermissions)
-* [Stetho](https://github.com/facebook/stetho) 
-* [Glide](https://github.com/bumptech/glide) 
-* [Circle ImageView](https://github.com/hdodenhof/CircleImageView)
-* [Timber](https://github.com/JakeWharton/timber) 
+* [Architecture Components (LiveData, ViewModel, Room)](https://developer.android.com/topic/libraries/architecture/) for creating robust, testable, maintable app
+* [Dagger2](https://github.com/google/dagger) for dependency injection
+* [RxJava](https://github.com/ReactiveX/RxJava) & [RxAndroid](https://github.com/ReactiveX/RxAndroid) for composing asynchronus and event-based programming
+* [Retrofit](https://github.com/square/retrofit) for a type safe HTTP client
+* [OkHttp](https://github.com/square/okhttp) for HTTP and HTTP/2 client
+* [GSON](https://github.com/google/gson) for JSON serialization
+* [EasyPermissions](https://github.com/googlesamples/easypermissions) for easy way runtime permission
+* [Stetho](https://github.com/facebook/stetho) for network inspection
+* [Glide](https://github.com/bumptech/glide) for image loading and caching
+* [Circle ImageView](https://github.com/hdodenhof/CircleImageView) for circular ImageView
+* [Timber](https://github.com/JakeWharton/timber) ​for logging
 
 
 ## License
