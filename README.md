@@ -2,6 +2,7 @@
 
 <img src="https://raw.githubusercontent.com/emrekose26/udacity-nanodegree-projects/master/nanodegree.png" width="700"> 
 
+### My graduation certicifate is [here](https://confirm.udacity.com/ZPSNXSCC)
 
 ## Project 1: [Popular Movies Stage 1 & 2](https://github.com/emrekose26/udacity-nanodegree-projects/tree/master/PopularMovies)
 
@@ -36,4 +37,4 @@
 
 ## Project 5: [Capstone, Stage 1, Design](https://github.com/emrekose26/udacity-nanodegree-projects/blob/master/Capstone%20Project/Design/Capstone_Stage1.pdf)
   
-## Project 6: [Capstone, Stage 2, Build (WORK IN PROGRESS 🛠 🚧 💻)]()
+## Project 6: [Capstone, Stage 2, Build](https://github.com/emrekose26/udacity-nanodegree-projects/tree/master/Capstone%20Project/Build/Famula)
